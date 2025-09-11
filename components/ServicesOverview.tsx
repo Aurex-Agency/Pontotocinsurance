@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Shield, Car, Heart, Users, PiggyBank, ArrowRight } from 'lucide-react'
+import { Shield, Car, Heart, Users, PiggyBank, ArrowRight, Pill } from 'lucide-react'
 
 const ServicesOverview = () => {
   const services = [
@@ -31,9 +31,17 @@ const ServicesOverview = () => {
       icon: Users,
       title: 'Health Insurance',
       description: 'Navigate the complex world of health insurance with expert guidance and personalized solutions.',
-      features: ['Individual Plans', 'Family Coverage', 'Medicare Supplements', 'Health Savings Accounts'],
+      features: ['Individual Plans', 'Family Coverage', 'Health Savings Accounts', 'Short-term Coverage'],
       href: '/health',
       color: 'from-purple-500 to-purple-600'
+    },
+    {
+      icon: Pill,
+      title: 'Medicare',
+      description: 'Comprehensive Medicare coverage including Parts A, B, C, D, and Medigap plans for seniors.',
+      features: ['Original Medicare', 'Medicare Advantage', 'Medigap Plans', 'Prescription Drug Plans'],
+      href: '/medicare',
+      color: 'from-indigo-500 to-indigo-600'
     },
     {
       icon: PiggyBank,
