@@ -35,7 +35,7 @@ const ContactHero = () => {
               <Mail size={32} className="text-white" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Email Us</h3>
-            <p className="text-primary-100 mb-2">info@theagencynextdoor.com</p>
+            <p className="text-primary-100 mb-2">info@pontotocinsuranceagency.com</p>
             <p className="text-sm text-primary-200">We respond within 2 hours</p>
           </div>
 
@@ -44,7 +44,7 @@ const ContactHero = () => {
               <MapPin size={32} className="text-white" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Visit Us</h3>
-            <p className="text-primary-100 mb-2">158 MS-15</p>
+            <p className="text-primary-100 mb-2">158 MS-15, Suite D</p>
             <p className="text-sm text-primary-200">Pontotoc, MS 38863</p>
           </div>
 

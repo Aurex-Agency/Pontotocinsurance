@@ -130,6 +130,6 @@ This project is proprietary to The Agency Next Door. All rights reserved.
 ## Support
 
 For technical support or questions about this website, contact:
-- Email: info@theagencynextdoor.com
+- Email: info@pontotocinsuranceagency.com
 - Phone: (662) 200-2249
-- Address: 158 MS-15, Pontotoc, MS 38863
+- Address: 158 MS-15, Suite D, Pontotoc, MS 38863

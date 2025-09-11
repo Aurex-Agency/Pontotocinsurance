@@ -15,9 +15,9 @@ const MapSection = () => {
           <div className="bg-gray-200 rounded-2xl h-96 flex items-center justify-center">
             <div className="text-center text-gray-500">
               <div className="text-4xl mb-4">📍</div>
-              <h3 className="text-xl font-semibold mb-2">Interactive Map</h3>
+              <h3 className="text-xl font-semibold mb-2">Our Office</h3>
               <p className="text-sm">
-                158 MS-15, Pontotoc, MS 38863
+                158 MS-15, Suite D, Pontotoc, MS 38863
               </p>
               <button className="mt-4 bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors">
                 Get Directions
