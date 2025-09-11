@@ -12,19 +12,53 @@ const ContactForm = () => {
     service: '',
     message: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Contact form submitted:', formData)
-    // Reset form
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: ''
-    })
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/3433cf41-731f-4a93-9074-2c37e3c9c0a2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+          source: 'Contact Form',
+          timestamp: new Date().toISOString()
+        })
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        // Reset form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: ''
+        })
+      } else {
+        setSubmitStatus('error')
+        console.error('Webhook submission failed:', response.statusText)
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      console.error('Error submitting form:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -120,6 +154,7 @@ const ContactForm = () => {
             <option value="auto">Auto Insurance</option>
             <option value="life">Life Insurance</option>
             <option value="health">Health Insurance</option>
+            <option value="medicare">Medicare</option>
             <option value="retirement">Retirement Planning</option>
             <option value="all">All Services</option>
             <option value="other">Other</option>
@@ -144,15 +179,37 @@ const ContactForm = () => {
 
         <button
           type="submit"
-          className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+          disabled={isSubmitting}
+          className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
         >
-          <Send size={20} />
-          <span>Send Message</span>
+          {isSubmitting ? (
+            <>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              <span>Sending...</span>
+            </>
+          ) : (
+            <>
+              <Send size={20} />
+              <span>Send Message</span>
+            </>
+          )}
         </button>
 
-                <p className="text-sm text-gray-500 text-center">
-                  By submitting this form, you agree to receive communications from Pontotoc Insurance Agency.
-                </p>
+        {submitStatus === 'success' && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
+            <p className="text-sm font-medium">Thank you! Your message has been sent successfully. We'll get back to you within 2 hours.</p>
+          </div>
+        )}
+
+        {submitStatus === 'error' && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+            <p className="text-sm font-medium">Sorry, there was an error sending your message. Please try again or call us directly at (662) 200-2249.</p>
+          </div>
+        )}
+
+        <p className="text-sm text-gray-500 text-center">
+          By submitting this form, you agree to receive communications from Pontotoc Insurance Agency.
+        </p>
       </form>
     </div>
   )

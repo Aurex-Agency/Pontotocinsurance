@@ -1,6 +1,72 @@
+'use client'
+
+import { useState } from 'react'
 import { Phone, Mail, MapPin, Clock, MessageCircle, Calendar } from 'lucide-react'
 
 const ContactCTA = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    service: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/3433cf41-731f-4a93-9074-2c37e3c9c0a2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+          source: 'Contact CTA Form',
+          timestamp: new Date().toISOString()
+        })
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        // Reset form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: ''
+        })
+      } else {
+        setSubmitStatus('error')
+        console.error('Webhook submission failed:', response.statusText)
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      console.error('Error submitting form:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
   return (
     <section className="section-padding bg-secondary-900 text-white">
       <div className="container-custom">
@@ -76,17 +142,23 @@ const ContactCTA = () => {
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
             <h3 className="text-2xl font-bold mb-6 text-center">Get Your Free Quote</h3>
             
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
                   type="text"
+                  name="firstName"
                   placeholder="First Name"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-400"
                 />
                 <input
                   type="text"
+                  name="lastName"
                   placeholder="Last Name"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-400"
                 />
@@ -94,19 +166,28 @@ const ContactCTA = () => {
 
               <input
                 type="email"
+                name="email"
                 placeholder="Email Address"
+                value={formData.email}
+                onChange={handleChange}
                 required
                 className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-400"
               />
 
               <input
                 type="tel"
+                name="phone"
                 placeholder="Phone Number"
+                value={formData.phone}
+                onChange={handleChange}
                 required
                 className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-400"
               />
 
               <select
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
                 required
                 className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-400"
               >
@@ -115,22 +196,46 @@ const ContactCTA = () => {
                 <option value="auto">Auto Insurance</option>
                 <option value="life">Life Insurance</option>
                 <option value="health">Health Insurance</option>
+                <option value="medicare">Medicare</option>
                 <option value="retirement">Retirement Planning</option>
                 <option value="all">All Services</option>
               </select>
 
               <textarea
+                name="message"
                 placeholder="Tell us about your insurance needs..."
+                value={formData.message}
+                onChange={handleChange}
                 rows={4}
                 className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-400 resize-none"
               ></textarea>
 
               <button
                 type="submit"
-                className="w-full bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200"
+                disabled={isSubmitting}
+                className="w-full bg-secondary-900 hover:bg-secondary-800 disabled:bg-gray-400 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
               >
-                Get My Free Quote
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <span>Get My Free Quote</span>
+                )}
               </button>
+
+              {submitStatus === 'success' && (
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
+                  <p className="text-sm font-medium">Thank you! Your quote request has been sent successfully. We'll get back to you within 2 hours.</p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+                  <p className="text-sm font-medium">Sorry, there was an error sending your request. Please try again or call us directly at (662) 200-2249.</p>
+                </div>
+              )}
 
               <p className="text-xs text-gray-300 text-center">
                 By submitting this form, you agree to receive communications from Pontotoc Insurance Agency.

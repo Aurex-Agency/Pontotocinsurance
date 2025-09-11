@@ -10,6 +10,7 @@ const Footer = () => {
     { name: 'Auto Insurance', href: '/auto' },
     { name: 'Life Insurance', href: '/life' },
     { name: 'Health Insurance', href: '/health' },
+    { name: 'Medicare', href: '/medicare' },
     { name: 'Retirement Planning', href: '/retirement' },
   ]
 
