@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://pontotocinsuranceagency.com/sitemap.xml
+
+# Disallow admin or private areas (if any)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow all main pages
+Allow: /
+Allow: /home
+Allow: /auto
+Allow: /life
+Allow: /health
+Allow: /medicare
+Allow: /retirement
+Allow: /contact
+
+# Crawl delay (optional - helps prevent overloading server)
+Crawl-delay: 1

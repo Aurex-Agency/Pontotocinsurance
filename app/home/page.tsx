@@ -1,7 +1,32 @@
+import type { Metadata } from 'next'
 import HomeInsuranceHero from '@/components/services/HomeInsuranceHero'
 import CoverageOptions from '@/components/services/CoverageOptions'
 import WhyChooseUs from '@/components/services/WhyChooseUs'
 import QuoteForm from '@/components/services/QuoteForm'
+
+export const metadata: Metadata = {
+  title: 'Home Insurance Pontotoc MS - Comprehensive Coverage',
+  description: 'Expert home insurance in Pontotoc, Mississippi. Dwelling, personal property, liability coverage. Get quotes from multiple carriers. Licensed agents with local expertise.',
+  keywords: [
+    'home insurance Pontotoc MS',
+    'homeowners insurance Mississippi',
+    'dwelling insurance Pontotoc',
+    'property insurance Mississippi',
+    'home insurance quotes Pontotoc',
+    'home insurance agent Mississippi',
+    'home insurance coverage',
+    'home insurance rates Pontotoc',
+    'home insurance claims Mississippi'
+  ],
+  openGraph: {
+    title: 'Home Insurance Pontotoc MS - Comprehensive Coverage',
+    description: 'Expert home insurance in Pontotoc, Mississippi. Dwelling, personal property, liability coverage. Get quotes from multiple carriers.',
+    url: 'https://pontotocinsuranceagency.com/home',
+  },
+  alternates: {
+    canonical: '/home',
+  },
+}
 
 export default function HomeInsurance() {
   return (
