@@ -1,7 +1,7 @@
 import { Award, Clock, Users, Shield, CheckCircle, Phone, Mail } from 'lucide-react'
 
 interface WhyChooseUsProps {
-  service: 'home' | 'auto' | 'life' | 'health' | 'retirement'
+  service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
   title: string
   description: string
 }
@@ -57,11 +57,19 @@ const WhyChooseUs = ({ service, title, description }: WhyChooseUsProps) => {
     ],
     health: [
       'Individual and family health plans',
-      'Medicare supplement and advantage plans',
-      'Prescription drug coverage',
+      'Short-term health insurance',
+      'Health savings account options',
       'Preventive care benefits',
       'Mental health and substance abuse coverage',
-      'Health savings account options'
+      'Family coverage options'
+    ],
+    medicare: [
+      'Medicare eligibility and enrollment guidance',
+      'Original Medicare vs Medicare Advantage comparison',
+      'Medigap plan selection and pricing',
+      'Prescription drug plan optimization',
+      'Annual enrollment period support',
+      'Claims assistance and advocacy'
     ],
     retirement: [
       '401(k) optimization strategies',
@@ -85,7 +93,7 @@ const WhyChooseUs = ({ service, title, description }: WhyChooseUsProps) => {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           <div>
-            <h3 className="text-3xl font-bold text-gray-900 mb-8">Why Choose The Agency Next Door</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mb-8">Why Choose Pontotoc Insurance Agency</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {reasons.map((reason, index) => (
                 <div key={index} className="flex items-start space-x-4">

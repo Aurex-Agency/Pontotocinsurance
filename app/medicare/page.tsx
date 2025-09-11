@@ -29,57 +29,21 @@ export default function MedicarePage() {
       <MedicareEnrollment />
       
       <CoverageOptions 
+        service="medicare"
         title="Medicare Coverage Options"
-        options={[
-          {
-            title: "Original Medicare (Parts A & B)",
-            description: "Hospital insurance and medical insurance coverage",
-            features: ["Hospital stays", "Doctor visits", "Outpatient care", "Preventive services"]
-          },
-          {
-            title: "Medicare Advantage (Part C)",
-            description: "All-in-one alternative to Original Medicare",
-            features: ["All Original Medicare benefits", "Additional benefits", "Prescription drug coverage", "Vision and dental"]
-          },
-          {
-            title: "Medicare Supplement (Medigap)",
-            description: "Additional coverage for Original Medicare",
-            features: ["Out-of-pocket costs", "Deductibles and coinsurance", "Foreign travel emergency", "Excess charges"]
-          },
-          {
-            title: "Prescription Drug Plans (Part D)",
-            description: "Standalone prescription drug coverage",
-            features: ["Generic and brand-name drugs", "Mail-order pharmacy", "Preferred pharmacy networks", "Catastrophic coverage"]
-          }
-        ]}
+        description="Comprehensive Medicare coverage including Parts A, B, C, D, and Medigap plans for seniors."
       />
       
       <WhyChooseUs 
+        service="medicare"
         title="Why Choose Pontotoc Insurance Agency for Medicare?"
-        reasons={[
-          {
-            title: "Medicare Expertise",
-            description: "Our agents are certified and trained in all aspects of Medicare coverage and enrollment."
-          },
-          {
-            title: "Personalized Guidance",
-            description: "We help you understand your options and choose the plan that best fits your needs and budget."
-          },
-          {
-            title: "Annual Reviews",
-            description: "We review your coverage annually to ensure you're getting the best value and coverage."
-          },
-          {
-            title: "Claims Support",
-            description: "We assist with claims issues and help resolve any problems with your Medicare coverage."
-          }
-        ]}
+        description="Our Medicare experts help you navigate the complex world of Medicare coverage with personalized guidance and ongoing support."
       />
       
       <MedicareFAQ />
       
       <QuoteForm 
-        service="Medicare"
+        service="medicare"
         title="Get Your Medicare Quote Today"
         description="Let us help you find the right Medicare plan for your needs and budget."
       />

@@ -1,7 +1,7 @@
-import { Shield, Car, Heart, Users, PiggyBank, CheckCircle } from 'lucide-react'
+import { Shield, Car, Heart, Users, PiggyBank, CheckCircle, Pill } from 'lucide-react'
 
 interface CoverageOptionsProps {
-  service: 'home' | 'auto' | 'life' | 'health' | 'retirement'
+  service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
   title: string
   description: string
 }
@@ -96,11 +96,6 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
           features: ['Preventive care', 'Prescription coverage', 'Mental health services']
         },
         {
-          title: 'Medicare Supplements',
-          description: 'Additional coverage to fill gaps in Original Medicare.',
-          features: ['Medigap plans', 'Part D coverage', 'Advantage plans']
-        },
-        {
           title: 'Short-Term Health Insurance',
           description: 'Temporary coverage for life transitions.',
           features: ['Quick approval', 'Flexible terms', 'Affordable premiums']
@@ -109,6 +104,37 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
           title: 'Health Savings Accounts',
           description: 'Tax-advantaged savings accounts for healthcare expenses.',
           features: ['Tax deductions', 'Tax-free growth', 'Portable accounts']
+        },
+        {
+          title: 'Family Coverage',
+          description: 'Comprehensive coverage for families with children.',
+          features: ['Pediatric care', 'Maternity coverage', 'Family deductibles']
+        }
+      ]
+    },
+    medicare: {
+      icon: Pill,
+      color: 'from-indigo-500 to-indigo-600',
+      coverages: [
+        {
+          title: 'Original Medicare (Parts A & B)',
+          description: 'Hospital insurance and medical insurance coverage.',
+          features: ['Hospital stays', 'Doctor visits', 'Outpatient care', 'Preventive services']
+        },
+        {
+          title: 'Medicare Advantage (Part C)',
+          description: 'All-in-one alternative to Original Medicare.',
+          features: ['All Original Medicare benefits', 'Additional benefits', 'Prescription drug coverage', 'Vision and dental']
+        },
+        {
+          title: 'Medicare Supplement (Medigap)',
+          description: 'Additional coverage for Original Medicare.',
+          features: ['Out-of-pocket costs', 'Deductibles and coinsurance', 'Foreign travel emergency', 'Excess charges']
+        },
+        {
+          title: 'Prescription Drug Plans (Part D)',
+          description: 'Standalone prescription drug coverage.',
+          features: ['Generic and brand-name drugs', 'Mail-order pharmacy', 'Preferred pharmacy networks', 'Catastrophic coverage']
         }
       ]
     },

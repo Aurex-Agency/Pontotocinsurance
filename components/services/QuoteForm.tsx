@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Shield, Car, Heart, Users, PiggyBank, Send } from 'lucide-react'
+import { Shield, Car, Heart, Users, PiggyBank, Send, Pill } from 'lucide-react'
 
 interface QuoteFormProps {
-  service: 'home' | 'auto' | 'life' | 'health' | 'retirement'
+  service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
   title: string
   description: string
 }
@@ -46,6 +46,7 @@ const QuoteForm = ({ service, title, description }: QuoteFormProps) => {
     auto: Car,
     life: Heart,
     health: Users,
+    medicare: Pill,
     retirement: PiggyBank
   }
 
