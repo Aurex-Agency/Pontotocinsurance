@@ -30,7 +30,7 @@ const Footer = () => {
               {/* Logo Image */}
               <div className="relative h-16 w-auto mb-4">
                 <Image
-                  src="/Copy of Pontotoc Insurance-01.jpeg"
+                  src="/pia_logo.png"
                   alt="Pontotoc Insurance Agency"
                   fill
                   className="object-contain"
