@@ -163,7 +163,7 @@ const QuoteForm = ({ service, title, description }: QuoteFormProps) => {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+                  className="w-full bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
                 >
                   <Send size={20} />
                   <span>Get My Quote</span>

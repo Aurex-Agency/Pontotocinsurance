@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Shield, Car, Heart, Users, PiggyBank } from 'lucide-react'
+import BookingModal from './BookingModal'
 
 const HeroSection = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const HeroSection = () => {
     email: '',
     service: ''
   })
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -64,7 +66,10 @@ const HeroSection = () => {
               <button className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
                 Get Free Quote
               </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200">
+              <button 
+                onClick={() => setIsBookingModalOpen(true)}
+                className="border-2 border-secondary-900 text-white hover:bg-secondary-900 hover:text-white font-semibold py-4 px-8 rounded-lg transition-colors duration-200"
+              >
                 Schedule Consultation
               </button>
             </div>
@@ -152,7 +157,7 @@ const HeroSection = () => {
 
               <button
                 type="submit"
-                className="w-full bg-primary-500 hover:bg-primary-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+                className="w-full bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
               >
                 Get My Free Quote
               </button>
@@ -164,6 +169,12 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+      
+      {/* Booking Modal */}
+      <BookingModal 
+        isOpen={isBookingModalOpen} 
+        onClose={() => setIsBookingModalOpen(false)} 
+      />
     </section>
   )
 }

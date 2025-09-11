@@ -28,7 +28,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <div className="mb-4">
               {/* Logo Image */}
-              <div className="relative h-16 w-auto mb-4">
+              <div className="relative h-16 w-auto mb-4 bg-white rounded-lg p-2">
                 <Image
                   src="/pia_logo.png"
                   alt="Pontotoc Insurance Agency"
@@ -36,8 +36,6 @@ const Footer = () => {
                   className="object-contain"
                 />
               </div>
-              <h3 className="text-xl font-bold">Pontotoc Insurance Agency</h3>
-              <p className="text-sm text-gray-400">Your Trusted Insurance Partner</p>
             </div>
             <p className="text-gray-400 mb-6">
               Providing comprehensive insurance solutions with personalized service and local expertise. 
@@ -97,10 +95,15 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin size={18} className="text-primary-400 mt-1" />
                 <div>
-                  <p className="text-gray-400">
+                  <a 
+                    href="https://maps.google.com/?q=158+MS-15,+Suite+D,+Pontotoc,+MS+38863"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-white transition-colors duration-200"
+                  >
                     158 MS-15, Suite D<br />
                     Pontotoc, MS 38863
-                  </p>
+                  </a>
                 </div>
               </div>
               <div className="flex items-center space-x-3">

@@ -67,7 +67,7 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-            <button className="btn-primary">
+            <button className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200">
               Get Quote
             </button>
           </div>
@@ -95,7 +95,7 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              <button className="btn-primary w-full mt-4">
+              <button className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 w-full mt-4">
                 Get Quote
               </button>
             </div>
