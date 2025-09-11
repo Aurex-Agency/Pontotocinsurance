@@ -1,3 +1,5 @@
+'use client'
+
 import { Shield, Home, DollarSign, CheckCircle } from 'lucide-react'
 
 const HomeInsuranceHero = () => {

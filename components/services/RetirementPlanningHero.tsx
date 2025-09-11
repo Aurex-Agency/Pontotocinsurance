@@ -1,3 +1,5 @@
+'use client'
+
 import { PiggyBank, DollarSign, TrendingUp, CheckCircle } from 'lucide-react'
 
 const RetirementPlanningHero = () => {
