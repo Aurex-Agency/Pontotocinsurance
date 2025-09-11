@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Linkedin } from 'lucide-react'
 
 const Footer = () => {
@@ -25,9 +26,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
+            <div className="flex items-center space-x-3 mb-4">
+              {/* Logo Image - Replace with your actual logo */}
+              <div className="relative w-12 h-12">
+                <Image
+                  src="/logo.svg"
+                  alt="Pontotoc Insurance Agency"
+                  fill
+                  className="object-contain"
+                />
               </div>
               <div>
                 <h3 className="text-xl font-bold">Pontotoc Insurance Agency</h3>

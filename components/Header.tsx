@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, Phone, Mail } from 'lucide-react'
+import Image from 'next/image'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -34,7 +35,7 @@ const Header = () => {
               </div>
             </div>
             <div className="text-sm">
-              158 MS-15, Pontotoc, MS 38863
+              158 MS-15, Suite D, Pontotoc, MS 38863
             </div>
           </div>
         </div>
@@ -44,9 +45,16 @@ const Header = () => {
       <nav className="container-custom">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">A</span>
+          <Link href="/" className="flex items-center space-x-3">
+            {/* Logo Image - Replace with your actual logo */}
+            <div className="relative w-12 h-12">
+              <Image
+                src="/logo.svg"
+                alt="Pontotoc Insurance Agency"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">Pontotoc Insurance Agency</h1>
