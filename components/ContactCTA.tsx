@@ -41,8 +41,8 @@ const ContactCTA = () => {
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <div className="font-semibold">Visit Our Office</div>
-                  <div className="text-gray-300">158 MS-15, Pontotoc, MS 38863</div>
+                <div className="font-semibold">Visit Our Office</div>
+                <div className="text-gray-300">158 MS-15, Suite D, Pontotoc, MS 38863</div>
                 </div>
               </div>
 

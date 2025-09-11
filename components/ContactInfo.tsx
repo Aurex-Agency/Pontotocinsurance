@@ -25,7 +25,7 @@ const ContactInfo = () => {
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-              <p className="text-gray-600 mb-1">info@theagencynextdoor.com</p>
+              <p className="text-gray-600 mb-1">info@pontotocinsuranceagency.com</p>
               <p className="text-sm text-gray-500">We respond within 2 hours</p>
             </div>
           </div>
@@ -36,7 +36,7 @@ const ContactInfo = () => {
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
-              <p className="text-gray-600 mb-1">158 MS-15</p>
+              <p className="text-gray-600 mb-1">158 MS-15, Suite D</p>
               <p className="text-gray-600">Pontotoc, MS 38863</p>
             </div>
           </div>

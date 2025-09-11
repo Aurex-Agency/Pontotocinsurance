@@ -93,7 +93,7 @@ const Footer = () => {
                 <MapPin size={18} className="text-primary-400 mt-1" />
                 <div>
                   <p className="text-gray-400">
-                    158 MS-15<br />
+                    158 MS-15, Suite D<br />
                     Pontotoc, MS 38863
                   </p>
                 </div>
