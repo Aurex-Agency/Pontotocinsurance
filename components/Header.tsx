@@ -46,15 +46,14 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="relative h-16 w-auto">
-              <Image
-                src="/pia_logo.png"
-                alt="Pontotoc Insurance Agency"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
+            <Image
+              src="/pia_logo.png"
+              alt="Pontotoc Insurance Agency"
+              width={200}
+              height={64}
+              className="h-16 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
