@@ -9,20 +9,19 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Home Insurance', href: '/home' },
-    { name: 'Auto Insurance', href: '/auto' },
-    { name: 'Life Insurance', href: '/life' },
-    { name: 'Health Insurance', href: '/health' },
+    { name: 'Life', href: '/life' },
+    { name: 'Health', href: '/health' },
     { name: 'Medicare', href: '/medicare' },
-    { name: 'Retirement Planning', href: '/retirement' },
+    { name: 'Retirement', href: '/retirement' },
+    { name: 'Home', href: '/home' },
+    { name: 'Auto', href: '/auto' },
     { name: 'Contact', href: '/contact' },
   ]
 
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       {/* Top bar with contact info */}
-      <div className="bg-primary-600 text-white py-2">
+      <div className="bg-secondary-900 text-white py-2">
         <div className="container-custom">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-4">
