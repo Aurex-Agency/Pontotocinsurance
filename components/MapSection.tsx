@@ -19,9 +19,14 @@ const MapSection = () => {
               <p className="text-sm">
                 158 MS-15, Suite D, Pontotoc, MS 38863
               </p>
-              <button className="mt-4 bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors">
+              <a 
+                href="https://maps.google.com/?q=158+MS-15,+Suite+D,+Pontotoc,+MS+38863"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors inline-block"
+              >
                 Get Directions
-              </button>
+              </a>
             </div>
           </div>
 
@@ -94,9 +99,14 @@ const MapSection = () => {
               <button className="btn-primary">
                 Schedule Appointment
               </button>
-              <button className="btn-secondary">
+              <a 
+                href="https://maps.google.com/?q=158+MS-15,+Suite+D,+Pontotoc,+MS+38863"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+              >
                 Get Directions
-              </button>
+              </a>
             </div>
           </div>
         </div>
