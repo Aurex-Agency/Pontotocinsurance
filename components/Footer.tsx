@@ -26,20 +26,18 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-3 mb-4">
-              {/* Logo Image - Replace with your actual logo */}
-              <div className="relative w-12 h-12">
+            <div className="mb-4">
+              {/* Logo Image */}
+              <div className="relative h-16 w-auto mb-4">
                 <Image
-                  src="/logo.svg"
+                  src="/Copy of Pontotoc Insurance-01.jpeg"
                   alt="Pontotoc Insurance Agency"
                   fill
                   className="object-contain"
                 />
               </div>
-              <div>
-                <h3 className="text-xl font-bold">Pontotoc Insurance Agency</h3>
-                <p className="text-sm text-gray-400">Your Trusted Insurance Partner</p>
-              </div>
+              <h3 className="text-xl font-bold">Pontotoc Insurance Agency</h3>
+              <p className="text-sm text-gray-400">Your Trusted Insurance Partner</p>
             </div>
             <p className="text-gray-400 mb-6">
               Providing comprehensive insurance solutions with personalized service and local expertise. 

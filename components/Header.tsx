@@ -45,20 +45,15 @@ const Header = () => {
       <nav className="container-custom">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            {/* Logo Image - Replace with your actual logo */}
-            <div className="relative w-12 h-12">
+          <Link href="/" className="flex items-center">
+            <div className="relative h-16 w-auto">
               <Image
-                src="/logo.svg"
+                src="/Copy of Pontotoc Insurance-01.jpeg"
                 alt="Pontotoc Insurance Agency"
                 fill
                 className="object-contain"
                 priority
               />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Pontotoc Insurance Agency</h1>
-              <p className="text-sm text-gray-600">Your Trusted Insurance Partner</p>
             </div>
           </Link>
 
