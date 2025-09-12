@@ -1,3 +1,5 @@
+'use client'
+
 import { Shield, Car, Heart, Users, PiggyBank, CheckCircle, Pill } from 'lucide-react'
 
 interface CoverageOptionsProps {

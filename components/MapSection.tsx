@@ -1,3 +1,5 @@
+'use client'
+
 const MapSection = () => {
   return (
     <section className="bg-gray-100">

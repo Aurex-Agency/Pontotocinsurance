@@ -1,3 +1,5 @@
+'use client'
+
 import { Award, Clock, Users, Shield, CheckCircle, Star } from 'lucide-react'
 
 const WhyChooseUs = () => {
