@@ -1,6 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import { Shield, Car, Heart, Users, PiggyBank, CheckCircle, Pill } from 'lucide-react'
+import QuoteModal from '../QuoteModal'
 
 interface CoverageOptionsProps {
   service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
@@ -9,6 +11,7 @@ interface CoverageOptionsProps {
 }
 
 const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) => {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const coverageData = {
     home: {
       icon: Shield,
@@ -215,12 +218,12 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
                 and make sure you're fully protected.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a 
-                  href="/contact" 
-                  className="btn-primary inline-block"
+                <button
+                  onClick={() => setIsQuoteModalOpen(true)}
+                  className="btn-primary"
                 >
                   Get Free Quote
-                </a>
+                </button>
                 <button 
                   onClick={() => {
                     // Open booking modal or redirect to contact page
@@ -256,6 +259,15 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
           </div>
         </div>
       </div>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        service={service}
+        title={`Get Your ${title} Quote`}
+        description={`Get a personalized quote for ${title.toLowerCase()} coverage.`}
+      />
     </section>
   )
 }

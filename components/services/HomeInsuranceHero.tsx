@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import { Shield, Home, DollarSign, CheckCircle } from 'lucide-react'
+import QuoteModal from '../QuoteModal'
 
 const HomeInsuranceHero = () => {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const benefits = [
     'Comprehensive property protection',
     'Personal liability coverage',
@@ -64,12 +67,12 @@ const HomeInsuranceHero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="/contact" 
-                className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl inline-block text-center"
+              <button
+                onClick={() => setIsQuoteModalOpen(true)}
+                className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
               >
                 Get Free Quote
-              </a>
+              </button>
               <a 
                 href="/home" 
                 className="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 inline-block text-center"
@@ -101,6 +104,15 @@ const HomeInsuranceHero = () => {
           </div>
         </div>
       </div>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        service="home"
+        title="Get Your Home Insurance Quote"
+        description="Get a personalized quote for comprehensive home insurance coverage."
+      />
     </section>
   )
 }

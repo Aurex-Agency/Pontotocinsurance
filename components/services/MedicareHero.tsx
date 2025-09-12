@@ -1,10 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Shield, Clock, Users } from 'lucide-react';
+import QuoteModal from '../QuoteModal';
 
 export default function MedicareHero() {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   return (
     <section 
       className="relative py-20 bg-gradient-to-br from-primary-50 to-secondary-50 overflow-hidden"
@@ -111,15 +113,15 @@ export default function MedicareHero() {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <a
-                href="#quote-form"
+              <button
+                onClick={() => setIsQuoteModalOpen(true)}
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
               >
                 Get Medicare Quote
                 <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </a>
+              </button>
               <a
                 href="#medicare-info"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 font-semibold rounded-lg border-2 border-primary-600 hover:bg-primary-50 transition-colors duration-200"
@@ -192,6 +194,15 @@ export default function MedicareHero() {
           </motion.div>
         </div>
       </div>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        service="medicare"
+        title="Get Your Medicare Quote"
+        description="Get a personalized quote for Medicare coverage and supplement plans."
+      />
     </section>
   );
 }

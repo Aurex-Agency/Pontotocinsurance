@@ -1,0 +1,85 @@
+{
+  "teamMembers": [
+    {
+      "id": "1",
+      "name": "Justin Stark",
+      "title": "Owner & Lead Agent",
+      "bio": "With over 7 years of experience in the insurance industry, Justin founded Pontotoc Insurance Agency to provide personalized service to the local community. He specializes in all lines of insurance and is committed to finding the best coverage at competitive rates.",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+      "email": "justin@pontotocinsuranceagency.com",
+      "phone": "(662) 200-2249",
+      "specialties": [
+        "Home Insurance",
+        "Auto Insurance",
+        "Life Insurance",
+        "Medicare",
+        "Retirement Planning"
+      ],
+      "licenses": [
+        "Property & Casualty",
+        "Life & Health",
+        "Medicare"
+      ],
+      "yearsExperience": "07",
+      "displayOrder": 1,
+      "isActive": true,
+      "socialMedia": {
+        "linkedin": "https://linkedin.com/in/justin-stark",
+        "facebook": "https://facebook.com/justinstark"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Sarah Johnson",
+      "title": "Senior Insurance Agent",
+      "bio": "Sarah brings 6 years of expertise in health and life insurance. She has helped hundreds of families find the right coverage for their needs and is passionate about educating clients about their options.",
+      "image": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face",
+      "email": "sarah@pontotocinsuranceagency.com",
+      "phone": "(662) 200-2250",
+      "specialties": [
+        "Health Insurance",
+        "Life Insurance",
+        "Medicare Supplement"
+      ],
+      "licenses": [
+        "Life & Health",
+        "Medicare"
+      ],
+      "yearsExperience": 6,
+      "displayOrder": 2,
+      "isActive": true,
+      "socialMedia": {
+        "linkedin": "https://linkedin.com/in/sarah-johnson-insurance"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Mike Thompson",
+      "title": "Auto & Home Specialist",
+      "bio": "Mike specializes in property and casualty insurance with 5 years of experience. He understands the unique needs of Mississippi homeowners and drivers, helping them protect what matters most.",
+      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+      "email": "mike@pontotocinsuranceagency.com",
+      "phone": "(662) 200-2251",
+      "specialties": [
+        "Auto Insurance",
+        "Home Insurance",
+        "Umbrella Insurance"
+      ],
+      "licenses": [
+        "Property & Casualty"
+      ],
+      "yearsExperience": 5,
+      "displayOrder": 3,
+      "isActive": true,
+      "socialMedia": {}
+    }
+  ],
+  "settings": {
+    "showSocialMedia": true,
+    "showContactInfo": true,
+    "showSpecialties": true,
+    "showExperience": true,
+    "gridColumns": 3,
+    "enableDragDrop": true
+  }
+}

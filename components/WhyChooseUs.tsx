@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import { Award, Clock, Users, Shield, CheckCircle, Star } from 'lucide-react'
+import QuoteModal from './QuoteModal'
 
 const WhyChooseUs = () => {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const reasons = [
     {
       icon: Award,
@@ -28,7 +31,7 @@ const WhyChooseUs = () => {
 
   const stats = [
     { number: '500+', label: 'Happy Clients' },
-    { number: '5+', label: 'Years Experience' },
+    { number: '7+', label: 'Years Experience' },
     { number: '98%', label: 'Customer Satisfaction' },
     { number: '24/7', label: 'Claims Support' }
   ]
@@ -149,12 +152,12 @@ const WhyChooseUs = () => {
                 Contact us today for a free consultation and quote. Let us help you find the perfect insurance solution for your needs.
               </p>
               <div className="space-y-3">
-                <a 
-                  href="/contact" 
-                  className="btn-primary w-full inline-block text-center"
+                <button
+                  onClick={() => setIsQuoteModalOpen(true)}
+                  className="btn-primary w-full"
                 >
                   Get Free Quote
-                </a>
+                </button>
                 <button 
                   onClick={() => {
                     window.location.href = '/contact#schedule';
@@ -168,6 +171,12 @@ const WhyChooseUs = () => {
           </div>
         </div>
       </div>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+      />
     </section>
   )
 }

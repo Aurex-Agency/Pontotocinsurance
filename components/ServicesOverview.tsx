@@ -1,7 +1,12 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
 import { Shield, Car, Heart, Users, PiggyBank, ArrowRight, Pill } from 'lucide-react'
+import QuoteModal from './QuoteModal'
 
 const ServicesOverview = () => {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const services = [
     {
       icon: Shield,
@@ -95,13 +100,10 @@ const ServicesOverview = () => {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-gray-100">
-                    <a 
-                      href={service.href}
-                      className="flex items-center text-primary-600 font-semibold group-hover:text-primary-700 transition-colors"
-                    >
+                    <div className="flex items-center text-primary-600 font-semibold group-hover:text-primary-700 transition-colors">
                       Learn More
                       <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform duration-200" />
-                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -118,15 +120,24 @@ const ServicesOverview = () => {
             <p className="text-gray-600 mb-6">
               Bundle your insurance policies and save money while simplifying your coverage management.
             </p>
-            <a 
-              href="/contact" 
-              className="btn-primary inline-block"
-            >
-              Get Bundle Quote
-            </a>
+              <button
+                onClick={() => setIsQuoteModalOpen(true)}
+                className="btn-primary"
+              >
+                Get Bundle Quote
+              </button>
           </div>
         </div>
       </div>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        service="all"
+        title="Get Your Bundle Quote"
+        description="Get quotes for multiple insurance types and save with our bundle discounts."
+      />
     </section>
   )
 }

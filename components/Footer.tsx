@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Linkedin } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Linkedin, Shield } from 'lucide-react'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -16,9 +16,11 @@ const Footer = () => {
 
   const company = [
     { name: 'About Us', href: '/about' },
+    { name: 'Team', href: '/team' },
     { name: 'Contact', href: '/contact' },
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
+    { name: 'Agent Login', href: '/admin/login', isAdmin: true },
   ]
 
   return (
@@ -34,7 +36,9 @@ const Footer = () => {
                   src="/pia_logo.png"
                   alt="Pontotoc Insurance Agency"
                   fill
+                  sizes="(max-width: 768px) 200px, 200px"
                   className="object-contain"
+                  priority
                 />
               </div>
             </div>
@@ -80,9 +84,10 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link 
                     href={item.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-200"
+                    className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center space-x-2"
                   >
-                    {item.name}
+                    {item.isAdmin && <Shield size={16} />}
+                    <span>{item.name}</span>
                   </Link>
                 </li>
               ))}

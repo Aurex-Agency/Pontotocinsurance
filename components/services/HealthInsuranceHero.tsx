@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import { Users, Shield, DollarSign, CheckCircle } from 'lucide-react'
+import QuoteModal from '../QuoteModal'
 
 const HealthInsuranceHero = () => {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const benefits = [
     'Individual and family plans',
     'Medicare supplement coverage',
@@ -62,7 +65,10 @@ const HealthInsuranceHero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-purple-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+              <button 
+                onClick={() => setIsQuoteModalOpen(true)}
+                className="bg-white text-purple-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+              >
                 Get Free Quote
               </button>
               <button className="border-2 border-white text-white hover:bg-white hover:text-purple-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200">
@@ -92,6 +98,15 @@ const HealthInsuranceHero = () => {
           </div>
         </div>
       </div>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        service="health"
+        title="Get Your Health Insurance Quote"
+        description="Get a personalized quote for comprehensive health insurance coverage."
+      />
     </section>
   )
 }

@@ -4,9 +4,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, Phone, Mail } from 'lucide-react'
 import Image from 'next/image'
+import QuoteModal from './QuoteModal'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
 
   const navigation = [
     { name: 'Life', href: '/life' },
@@ -15,6 +17,7 @@ const Header = () => {
     { name: 'Retirement', href: '/retirement' },
     { name: 'Home', href: '/home' },
     { name: 'Auto', href: '/auto' },
+    { name: 'Team', href: '/team' },
     { name: 'Contact', href: '/contact' },
   ]
 
@@ -53,6 +56,7 @@ const Header = () => {
               height={64}
               className="h-16 w-auto object-contain"
               priority
+              sizes="(max-width: 768px) 150px, 200px"
             />
           </Link>
 
@@ -67,12 +71,12 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-                    <a 
-                      href="/contact" 
-                      className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 inline-block"
-                    >
-                      Get Quote
-                    </a>
+                <button
+                  onClick={() => setIsQuoteModalOpen(true)}
+                  className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200"
+                >
+                  Get Quote
+                </button>
           </div>
 
           {/* Mobile menu button */}
@@ -98,16 +102,22 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-                      <a 
-                        href="/contact" 
-                        className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 w-full mt-4 inline-block text-center"
-                      >
-                        Get Quote
-                      </a>
+              <button
+                onClick={() => setIsQuoteModalOpen(true)}
+                className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 w-full mt-4"
+              >
+                Get Quote
+              </button>
             </div>
           </div>
         )}
       </nav>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+      />
     </header>
   )
 }

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: 'Pontotoc Insurance Agency - Your Trusted Insurance Partner',
     template: '%s | Pontotoc Insurance Agency'
   },
-  description: 'Comprehensive insurance solutions for Home, Auto, Life, Health, Medicare, and Retirement Planning. Your trusted local insurance agency in Pontotoc, Mississippi. Licensed professionals with 5+ years experience.',
+  description: 'Comprehensive insurance solutions for Home, Auto, Life, Health, Medicare, and Retirement Planning. Your trusted local insurance agency in Pontotoc, Mississippi. Licensed professionals with 7+ years experience.',
   keywords: [
     'insurance Pontotoc MS',
     'home insurance Mississippi',

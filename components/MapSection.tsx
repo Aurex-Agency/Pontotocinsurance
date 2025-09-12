@@ -1,6 +1,10 @@
 'use client'
 
+import { useState } from 'react'
+import BookingModal from './BookingModal'
+
 const MapSection = () => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
   return (
     <section className="bg-gray-100">
       <div className="container-custom py-16">
@@ -99,9 +103,7 @@ const MapSection = () => {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <button 
-                onClick={() => {
-                  window.location.href = '/contact#schedule';
-                }}
+                onClick={() => setIsBookingModalOpen(true)}
                 className="btn-primary"
               >
                 Schedule Appointment
@@ -118,6 +120,12 @@ const MapSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </section>
   )
 }

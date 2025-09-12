@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import QuoteModal from '../QuoteModal';
 
 export default function MedicareFAQ() {
   const [openItem, setOpenItem] = useState<number | null>(null);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   const faqs = [
     {
@@ -138,12 +140,12 @@ export default function MedicareFAQ() {
               Our Medicare experts are here to help you understand your options and find the right coverage for your needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#quote-form"
+              <button
+                onClick={() => setIsQuoteModalOpen(true)}
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
               >
                 Get Personalized Quote
-              </a>
+              </button>
               <a
                 href="/contact"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 font-semibold rounded-lg border-2 border-primary-600 hover:bg-primary-50 transition-colors duration-200"
@@ -154,6 +156,15 @@ export default function MedicareFAQ() {
           </div>
         </motion.div>
       </div>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
+        service="medicare"
+        title="Get Your Personalized Medicare Quote"
+        description="Get a personalized quote for Medicare coverage tailored to your specific needs."
+      />
     </section>
   );
 }
