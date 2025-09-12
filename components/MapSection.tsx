@@ -96,7 +96,12 @@ const MapSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="btn-primary">
+              <button 
+                onClick={() => {
+                  window.location.href = '/contact#schedule';
+                }}
+                className="btn-primary"
+              >
                 Schedule Appointment
               </button>
               <a 

@@ -95,10 +95,13 @@ const ServicesOverview = () => {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-gray-100">
-                    <div className="flex items-center text-primary-600 font-semibold group-hover:text-primary-700 transition-colors">
+                    <a 
+                      href={service.href}
+                      className="flex items-center text-primary-600 font-semibold group-hover:text-primary-700 transition-colors"
+                    >
                       Learn More
                       <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform duration-200" />
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -115,9 +118,12 @@ const ServicesOverview = () => {
             <p className="text-gray-600 mb-6">
               Bundle your insurance policies and save money while simplifying your coverage management.
             </p>
-            <button className="btn-primary">
+            <a 
+              href="/contact" 
+              className="btn-primary inline-block"
+            >
               Get Bundle Quote
-            </button>
+            </a>
           </div>
         </div>
       </div>

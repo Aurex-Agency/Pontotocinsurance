@@ -252,11 +252,19 @@ const ContactCTA = () => {
               Join hundreds of satisfied customers who trust Pontotoc Insurance Agency for their insurance needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+              <a 
+                href="/contact" 
+                className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+              >
                 <MessageCircle size={20} />
                 <span>Start Online Quote</span>
-              </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+              </a>
+              <button 
+                onClick={() => {
+                  window.location.href = '/contact#schedule';
+                }}
+                className="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+              >
                 <Calendar size={20} />
                 <span>Book Consultation</span>
               </button>

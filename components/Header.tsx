@@ -67,9 +67,12 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-            <button className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200">
-              Get Quote
-            </button>
+                    <a 
+                      href="/contact" 
+                      className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 inline-block"
+                    >
+                      Get Quote
+                    </a>
           </div>
 
           {/* Mobile menu button */}
@@ -95,9 +98,12 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              <button className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 w-full mt-4">
-                Get Quote
-              </button>
+                      <a 
+                        href="/contact" 
+                        className="bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 w-full mt-4 inline-block text-center"
+                      >
+                        Get Quote
+                      </a>
             </div>
           </div>
         )}

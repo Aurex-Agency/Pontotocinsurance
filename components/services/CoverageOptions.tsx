@@ -213,8 +213,21 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
                 and make sure you're fully protected.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="btn-primary">Get Free Quote</button>
-                <button className="btn-secondary">Schedule Consultation</button>
+                <a 
+                  href="/contact" 
+                  className="btn-primary inline-block"
+                >
+                  Get Free Quote
+                </a>
+                <button 
+                  onClick={() => {
+                    // Open booking modal or redirect to contact page
+                    window.location.href = '/contact#schedule';
+                  }}
+                  className="btn-secondary"
+                >
+                  Schedule Consultation
+                </button>
               </div>
             </div>
             <div className="bg-gray-50 rounded-xl p-6">

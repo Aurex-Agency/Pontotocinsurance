@@ -64,12 +64,18 @@ const AutoInsuranceHero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-green-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+              <a 
+                href="/contact" 
+                className="bg-white text-green-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl inline-block text-center"
+              >
                 Get Free Quote
-              </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-green-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200">
+              </a>
+              <a 
+                href="/auto" 
+                className="border-2 border-white text-white hover:bg-white hover:text-green-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 inline-block text-center"
+              >
                 Compare Rates
-              </button>
+              </a>
             </div>
           </div>
 

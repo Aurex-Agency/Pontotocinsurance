@@ -134,7 +134,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right Content - Quote Form */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+          <div id="quote-form" className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-white mb-2">Get Your Free Quote</h3>
               <p className="text-primary-100">No obligation, just expert advice</p>

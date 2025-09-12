@@ -1,6 +1,11 @@
+'use client'
+
+import { useState } from 'react'
 import { Phone, Mail, MapPin, Clock, MessageCircle, Calendar } from 'lucide-react'
+import BookingModal from './BookingModal'
 
 const ContactInfo = () => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
   return (
     <div className="space-y-8">
       {/* Contact Details */}
@@ -14,7 +19,12 @@ const ContactInfo = () => {
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
-              <p className="text-gray-600 mb-1">(662) 200-2249</p>
+              <a 
+                href="tel:+16622002249" 
+                className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
+              >
+                (662) 200-2249
+              </a>
               <p className="text-sm text-gray-500">Available Mon-Fri: 8:00 AM - 6:00 PM</p>
             </div>
           </div>
@@ -25,7 +35,12 @@ const ContactInfo = () => {
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-              <p className="text-gray-600 mb-1">info@pontotocinsuranceagency.com</p>
+              <a 
+                href="mailto:info@pontotocinsuranceagency.com" 
+                className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
+              >
+                info@pontotocinsuranceagency.com
+              </a>
               <p className="text-sm text-gray-500">We respond within 2 hours</p>
             </div>
           </div>
@@ -36,8 +51,15 @@ const ContactInfo = () => {
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
-              <p className="text-gray-600 mb-1">158 MS-15, Suite D</p>
-              <p className="text-gray-600">Pontotoc, MS 38863</p>
+              <a 
+                href="https://maps.google.com/?q=158+MS-15,+Suite+D,+Pontotoc,+MS+38863"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200 block"
+              >
+                <span className="block">158 MS-15, Suite D</span>
+                <span className="block">Pontotoc, MS 38863</span>
+              </a>
             </div>
           </div>
 
@@ -62,7 +84,10 @@ const ContactInfo = () => {
         <h3 className="text-2xl font-bold mb-6">Quick Actions</h3>
         
         <div className="space-y-4">
-          <button className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg p-4 transition-colors duration-200 flex items-center space-x-3">
+          <button 
+            onClick={() => window.location.href = '/#quote-form'}
+            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg p-4 transition-colors duration-200 flex items-center space-x-3"
+          >
             <MessageCircle size={24} />
             <div className="text-left">
               <div className="font-semibold">Get Instant Quote</div>
@@ -70,7 +95,10 @@ const ContactInfo = () => {
             </div>
           </button>
 
-          <button className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg p-4 transition-colors duration-200 flex items-center space-x-3">
+          <button 
+            onClick={() => setIsBookingModalOpen(true)}
+            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg p-4 transition-colors duration-200 flex items-center space-x-3"
+          >
             <Calendar size={24} />
             <div className="text-left">
               <div className="font-semibold">Schedule Consultation</div>
@@ -78,13 +106,16 @@ const ContactInfo = () => {
             </div>
           </button>
 
-          <button className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg p-4 transition-colors duration-200 flex items-center space-x-3">
+          <a 
+            href="tel:+16622002249"
+            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg p-4 transition-colors duration-200 flex items-center space-x-3"
+          >
             <Phone size={24} />
             <div className="text-left">
               <div className="font-semibold">Call Now</div>
               <div className="text-sm text-primary-100">Speak with an agent</div>
             </div>
-          </button>
+          </a>
         </div>
       </div>
 
@@ -98,6 +129,12 @@ const ContactInfo = () => {
           For non-emergency claims, you can reach us during business hours or use our online claim forms.
         </p>
       </div>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </div>
   )
 }

@@ -147,10 +147,18 @@ const WhyChooseUs = () => {
                 Contact us today for a free consultation and quote. Let us help you find the perfect insurance solution for your needs.
               </p>
               <div className="space-y-3">
-                <button className="btn-primary w-full">
+                <a 
+                  href="/contact" 
+                  className="btn-primary w-full inline-block text-center"
+                >
                   Get Free Quote
-                </button>
-                <button className="btn-secondary w-full">
+                </a>
+                <button 
+                  onClick={() => {
+                    window.location.href = '/contact#schedule';
+                  }}
+                  className="btn-secondary w-full"
+                >
                   Schedule Consultation
                 </button>
               </div>
