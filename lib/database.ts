@@ -36,21 +36,21 @@ export interface TeamMember {
 export async function submitContactForm(data: ContactFormData) {
   try {
     const { data: result, error } = await supabase
-      .from('contact_submissions')
+      .from('contact_submissions' as any)
       .insert([{
         name: data.name,
         email: data.email,
-        phone: data.phone,
+        phone: data.phone || null,
         message: data.message,
-        service_type: data.service_type,
+        service_type: data.service_type || null,
         created_at: new Date().toISOString()
-      }])
+      }] as any)
 
     if (error) throw error
     return { success: true, data: result }
   } catch (error) {
     console.error('Error submitting contact form:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
@@ -58,21 +58,22 @@ export async function submitContactForm(data: ContactFormData) {
 export async function submitQuoteRequest(data: QuoteRequest) {
   try {
     const { data: result, error } = await supabase
-      .from('quote_requests')
+      .from('quote_requests' as any)
       .insert([{
         name: data.name,
         email: data.email,
-        phone: data.phone,
+        phone: data.phone || null,
         service_type: data.service_type,
-        additional_info: data.additional_info,
+        additional_info: data.additional_info || null,
+        status: 'pending',
         created_at: new Date().toISOString()
-      }])
+      }] as any)
 
     if (error) throw error
     return { success: true, data: result }
   } catch (error) {
     console.error('Error submitting quote request:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
@@ -80,7 +81,7 @@ export async function submitQuoteRequest(data: QuoteRequest) {
 export async function getTeamMembers() {
   try {
     const { data, error } = await supabase
-      .from('team_members')
+      .from('team_members' as any)
       .select('*')
       .order('created_at', { ascending: true })
 
@@ -88,13 +89,13 @@ export async function getTeamMembers() {
     return { success: true, data }
   } catch (error) {
     console.error('Error fetching team members:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
 export async function createTeamMember(member: TeamMember) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('team_members')
       .insert([{
         ...member,
@@ -107,13 +108,13 @@ export async function createTeamMember(member: TeamMember) {
     return { success: true, data }
   } catch (error) {
     console.error('Error creating team member:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
 export async function updateTeamMember(id: string, member: Partial<TeamMember>) {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('team_members')
       .update({
         ...member,
@@ -126,13 +127,13 @@ export async function updateTeamMember(id: string, member: Partial<TeamMember>) 
     return { success: true, data }
   } catch (error) {
     console.error('Error updating team member:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
 export async function deleteTeamMember(id: string) {
   try {
-    const { error } = await supabaseAdmin
+    const { error } = await (supabaseAdmin as any)
       .from('team_members')
       .delete()
       .eq('id', id)
@@ -141,14 +142,14 @@ export async function deleteTeamMember(id: string) {
     return { success: true }
   } catch (error) {
     console.error('Error deleting team member:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
 // Analytics and reporting
 export async function getContactSubmissions() {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('contact_submissions')
       .select('*')
       .order('created_at', { ascending: false })
@@ -157,13 +158,13 @@ export async function getContactSubmissions() {
     return { success: true, data }
   } catch (error) {
     console.error('Error fetching contact submissions:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
 
 export async function getQuoteRequests() {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('quote_requests')
       .select('*')
       .order('created_at', { ascending: false })
@@ -172,6 +173,6 @@ export async function getQuoteRequests() {
     return { success: true, data }
   } catch (error) {
     console.error('Error fetching quote requests:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
