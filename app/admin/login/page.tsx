@@ -33,7 +33,7 @@ export default function AdminLogin() {
         credentials.password === ADMIN_CREDENTIALS.password) {
       // Store auth token in localStorage (in production, use secure cookies)
       localStorage.setItem('adminAuth', 'true')
-      router.push('/admin/team')
+      router.push('/admin')
     } else {
       setError('Invalid username or password')
     }
