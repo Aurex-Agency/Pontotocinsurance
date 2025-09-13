@@ -125,7 +125,7 @@ export default function AdminLogin() {
           <p className="text-sm text-gray-500">
             Demo credentials: <br />
             Username: <code className="bg-gray-100 px-2 py-1 rounded">admin</code><br />
-            Password: <code className="bg-gray-100 px-2 py-1 rounded">pontotoc2024</code>
+            Password: <code className="bg-gray-100 px-2 py-1 rounded">pontotoc2025!@#</code>
           </p>
         </div>
       </div>
