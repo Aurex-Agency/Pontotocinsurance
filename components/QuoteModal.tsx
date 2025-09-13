@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { X, Send, Shield, Car, Heart, Users, PiggyBank, Pill } from 'lucide-react'
+import { submitQuoteRequest } from '@/lib/database'
 
 interface QuoteModalProps {
   isOpen: boolean
@@ -35,25 +36,41 @@ const QuoteModal = ({
     setSubmitStatus('idle')
 
     try {
-      const response = await fetch('https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/3433cf41-731f-4a93-9074-2c37e3c9c0a2', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
+      // Submit to both webhook and Supabase
+      const [webhookResponse, supabaseResult] = await Promise.allSettled([
+        // Original webhook submission
+        fetch('https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/3433cf41-731f-4a93-9074-2c37e3c9c0a2', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            zipCode: formData.zipCode,
+            message: formData.message,
+            service: service,
+            source: `Website: ${service.charAt(0).toUpperCase() + service.slice(1)} Quote Modal`,
+            timestamp: new Date().toISOString()
+          })
+        }),
+        // Supabase submission
+        submitQuoteRequest({
+          name: `${formData.firstName} ${formData.lastName}`,
           email: formData.email,
           phone: formData.phone,
-          zipCode: formData.zipCode,
-          message: formData.message,
-          service: service,
-          source: `Website: ${service.charAt(0).toUpperCase() + service.slice(1)} Quote Modal`,
-          timestamp: new Date().toISOString()
+          service_type: service,
+          additional_info: `ZIP: ${formData.zipCode}\nMessage: ${formData.message}`
         })
-      })
+      ])
 
-      if (response.ok) {
+      // Check if at least one submission succeeded
+      const webhookSuccess = webhookResponse.status === 'fulfilled' && webhookResponse.value.ok
+      const supabaseSuccess = supabaseResult.status === 'fulfilled' && supabaseResult.value.success
+
+      if (webhookSuccess || supabaseSuccess) {
         setSubmitStatus('success')
         setFormData({
           firstName: '',
@@ -69,7 +86,7 @@ const QuoteModal = ({
         }, 2000)
       } else {
         setSubmitStatus('error')
-        console.error('Webhook submission failed:', response.statusText)
+        console.error('Quote submission failed:', { webhookResponse, supabaseResult })
       }
     } catch (error) {
       setSubmitStatus('error')
