@@ -31,9 +31,16 @@ export default function AdminDashboard() {
   const [quoteRequests, setQuoteRequests] = useState<QuoteRequest[]>([])
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     // Check if user is authenticated
     const authStatus = localStorage.getItem('adminAuth')
     if (!authStatus) {
@@ -42,7 +49,7 @@ export default function AdminDashboard() {
     }
     setIsAuthenticated(true)
     loadData()
-  }, [router])
+  }, [mounted, router])
 
   const loadData = async () => {
     setLoading(true)
@@ -80,8 +87,12 @@ export default function AdminDashboard() {
     router.push('/admin/login')
   }
 
-  if (!isAuthenticated) {
-    return null
+  if (!mounted || !isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+      </div>
+    )
   }
 
   if (loading) {
