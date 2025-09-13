@@ -1,9 +1,6 @@
 -- Supabase Database Schema for Pontotoc Insurance Agency
 -- Run this in your Supabase SQL editor
 
--- Enable Row Level Security
-ALTER DATABASE postgres SET "app.jwt_secret" TO 'your-jwt-secret';
-
 -- Create contact_submissions table
 CREATE TABLE IF NOT EXISTS contact_submissions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -77,12 +74,18 @@ ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public to insert contact submissions" ON contact_submissions
   FOR INSERT WITH CHECK (true);
 
+CREATE POLICY "Allow public to read contact submissions" ON contact_submissions
+  FOR SELECT USING (true);
+
 CREATE POLICY "Allow admins to read all contact submissions" ON contact_submissions
   FOR SELECT USING (auth.role() = 'service_role');
 
 -- Quote requests: Allow public to insert, admins to read all
 CREATE POLICY "Allow public to insert quote requests" ON quote_requests
   FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow public to read quote requests" ON quote_requests
+  FOR SELECT USING (true);
 
 CREATE POLICY "Allow admins to read all quote requests" ON quote_requests
   FOR SELECT USING (auth.role() = 'service_role');
