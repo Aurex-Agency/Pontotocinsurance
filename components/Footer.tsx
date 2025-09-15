@@ -111,7 +111,13 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors duration-200"
                   >
-                    {isLoading ? 'Loading...' : getAddress().replace(', ', '<br />')}
+                    {isLoading ? 'Loading...' : (
+                      <div>
+                        {getAddress().split(', ').map((line, index) => (
+                          <div key={index}>{line}</div>
+                        ))}
+                      </div>
+                    )}
                   </a>
                 </div>
               </div>
