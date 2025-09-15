@@ -4,7 +4,24 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, Edit, Trash2, Eye, EyeOff, GripVertical, Save, X } from 'lucide-react'
 import TeamMemberForm from './TeamMemberForm'
-// import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
+import {
+  useSortable,
+} from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 interface TeamMember {
   id: string
@@ -37,11 +54,131 @@ interface TeamData {
   }
 }
 
+// Sortable Team Member Card Component
+function SortableTeamMemberCard({ 
+  member, 
+  onEdit, 
+  onDelete, 
+  onToggleActive 
+}: { 
+  member: TeamMember
+  onEdit: (member: TeamMember) => void
+  onDelete: (id: string) => void
+  onToggleActive: (id: string) => void
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: member.id })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  }
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`bg-white rounded-lg shadow-md p-6 border-2 ${
+        member.isActive ? 'border-gray-200' : 'border-red-200 bg-red-50'
+      } ${isDragging ? 'shadow-lg' : ''}`}
+    >
+      <div className="flex items-start justify-between">
+        <div className="flex items-start space-x-4 flex-1">
+          <div className="flex items-center space-x-2">
+            <div
+              {...attributes}
+              {...listeners}
+              className="cursor-grab hover:cursor-grabbing p-1 text-gray-400 hover:text-gray-600"
+            >
+              <GripVertical size={16} />
+            </div>
+            <img
+              src={member.image}
+              alt={member.name}
+              className="w-16 h-16 rounded-full object-cover"
+            />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center space-x-2">
+              <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
+              <span className={`px-2 py-1 text-xs rounded-full ${
+                member.isActive 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-red-100 text-red-800'
+              }`}>
+                {member.isActive ? 'Active' : 'Inactive'}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600">{member.title}</p>
+            <p className="text-sm text-gray-500 mt-1 line-clamp-2">{member.bio}</p>
+            <div className="flex flex-wrap gap-1 mt-2">
+              {member.specialties.slice(0, 3).map((specialty, index) => (
+                <span
+                  key={index}
+                  className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                >
+                  {specialty}
+                </span>
+              ))}
+              {member.specialties.length > 3 && (
+                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                  +{member.specialties.length - 3} more
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => onToggleActive(member.id)}
+            className={`p-2 rounded-lg transition-colors ${
+              member.isActive
+                ? 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                : 'text-red-400 hover:text-red-600 hover:bg-red-100'
+            }`}
+            title={member.isActive ? 'Hide from team page' : 'Show on team page'}
+          >
+            {member.isActive ? <EyeOff size={16} /> : <Eye size={16} />}
+          </button>
+          <button
+            onClick={() => onEdit(member)}
+            className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-100 rounded-lg transition-colors"
+            title="Edit team member"
+          >
+            <Edit size={16} />
+          </button>
+          <button
+            onClick={() => onDelete(member.id)}
+            className="p-2 text-red-600 hover:text-red-800 hover:bg-red-100 rounded-lg transition-colors"
+            title="Delete team member"
+          >
+            <Trash2 size={16} />
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const TeamAdmin = () => {
   const [teamData, setTeamData] = useState<TeamData | null>(null)
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
 
   useEffect(() => {
     fetchTeamData()
@@ -160,6 +297,48 @@ const TeamAdmin = () => {
   //   }
   // }
 
+  const handleDragEnd = async (event: any) => {
+    const { active, over } = event
+
+    if (active.id !== over.id && teamData) {
+      const oldIndex = teamData.teamMembers.findIndex(member => member.id === active.id)
+      const newIndex = teamData.teamMembers.findIndex(member => member.id === over.id)
+
+      const newMembers = arrayMove(teamData.teamMembers, oldIndex, newIndex)
+      
+      // Update display order for all members
+      const updatedMembers = newMembers.map((member, index) => ({
+        ...member,
+        displayOrder: index + 1
+      }))
+
+      // Update local state immediately for better UX
+      setTeamData({
+        ...teamData,
+        teamMembers: updatedMembers
+      })
+
+      // Update display order in database
+      try {
+        for (const member of updatedMembers) {
+          await fetch('/api/team', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'update',
+              memberId: member.id,
+              member: { ...member, displayOrder: member.displayOrder }
+            })
+          })
+        }
+      } catch (error) {
+        console.error('Error updating display order:', error)
+        // Revert on error
+        fetchTeamData()
+      }
+    }
+  }
+
   const handleFormSubmit = async (memberData: Partial<TeamMember>) => {
     try {
       const isEditing = !!editingMember
@@ -240,78 +419,28 @@ const TeamAdmin = () => {
 
       {/* Team Members List */}
       <div className="bg-white rounded-lg shadow">
-        <div className="divide-y divide-gray-200">
-          {sortedMembers.map((member, index) => (
-            <div
-              key={member.id}
-              className="p-6 hover:bg-gray-50 transition-colors"
-            >
-              <div className="flex items-center space-x-4">
-                {/* Order Number */}
-                <div className="text-gray-400 font-mono text-sm">
-                  #{member.displayOrder}
-                </div>
-
-                {/* Member Info */}
-                <div className="flex-1 flex items-center space-x-4">
-                  <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2">
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        {member.name}
-                      </h3>
-                      {!member.isActive && (
-                        <span className="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">
-                          Inactive
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-gray-600">{member.title}</p>
-                    <p className="text-sm text-gray-500">
-                      {member.specialties.slice(0, 3).join(', ')}
-                      {member.specialties.length > 3 && '...'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => handleToggleActive(member.id)}
-                    className={`p-2 rounded-lg transition-colors ${
-                      member.isActive
-                        ? 'text-green-600 hover:bg-green-50'
-                        : 'text-gray-400 hover:bg-gray-50'
-                    }`}
-                    title={member.isActive ? 'Hide from team page' : 'Show on team page'}
-                  >
-                    {member.isActive ? <Eye size={18} /> : <EyeOff size={18} />}
-                  </button>
-                  <button
-                    onClick={() => handleEditMember(member)}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                    title="Edit member"
-                  >
-                    <Edit size={18} />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteMember(member.id)}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                    title="Delete member"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </div>
-              </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={sortedMembers.map(member => member.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            <div className="divide-y divide-gray-200">
+              {sortedMembers.map((member) => (
+                <SortableTeamMemberCard
+                  key={member.id}
+                  member={member}
+                  onEdit={handleEditMember}
+                  onDelete={handleDeleteMember}
+                  onToggleActive={handleToggleActive}
+                />
+              ))}
             </div>
-          ))}
-        </div>
+          </SortableContext>
+        </DndContext>
       </div>
 
       {/* Team Member Form Modal */}

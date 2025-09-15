@@ -58,6 +58,10 @@ async function migrateTeamData() {
         email: member.email || null,
         phone: member.phone || null,
         specialties: member.specialties || [],
+        licenses: member.licenses || [],
+        years_experience: parseInt(member.yearsExperience) || 0,
+        display_order: member.displayOrder || 1,
+        social_media: member.socialMedia || {},
         is_active: member.isActive !== false
       }
       
