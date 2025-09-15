@@ -131,9 +131,9 @@ END:VCARD`
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header with Agency Branding */}
       <div className="bg-white shadow-sm">
-        <div className="max-w-md mx-auto px-4 py-3">
+        <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">PIA</span>
             </div>
             <span className="text-gray-800 font-semibold">Pontotoc Insurance Agency</span>
@@ -141,7 +141,7 @@ END:VCARD`
         </div>
       </div>
 
-      <div className="max-w-md mx-auto px-4 py-6">
+      <div className="max-w-md mx-auto px-4 py-6 md:max-w-4xl lg:max-w-6xl">
         {/* Profile Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -149,161 +149,310 @@ END:VCARD`
           transition={{ duration: 0.6 }}
           className="bg-white rounded-2xl shadow-xl overflow-hidden mb-6"
         >
-          {/* Profile Image */}
-          <div className="relative">
-            <div className="h-32 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
-            <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
-              <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden">
+          {/* Desktop Layout */}
+          <div className="hidden md:flex">
+            {/* Left Side - Image and Basic Info */}
+            <div className="w-1/3 bg-gradient-to-br from-primary-600 to-primary-700 p-8 flex flex-col items-center justify-center text-white">
+              <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden mb-6">
                 <img
                   src={member.image}
                   alt={member.name}
                   className="w-full h-full object-cover"
                 />
               </div>
+              <h1 className="text-2xl font-bold mb-2">{member.name}</h1>
+              <p className="text-lg text-primary-100 mb-4">{member.title}</p>
+              {member.yearsExperience > 0 && (
+                <div className="inline-flex items-center space-x-1 bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <Clock size={14} />
+                  <span>{member.yearsExperience}+ years experience</span>
+                </div>
+              )}
+            </div>
+
+            {/* Right Side - Bio and Details */}
+            <div className="w-2/3 p-8">
+              <p className="text-gray-600 text-base leading-relaxed mb-6">{member.bio}</p>
+
+              {/* Specialties */}
+              {member.specialties.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-3">Specialties</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {member.specialties.map((specialty, index) => (
+                      <span
+                        key={index}
+                        className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-xs font-medium"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Licenses */}
+              {member.licenses.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-3">Licenses</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {member.licenses.map((license, index) => (
+                      <span
+                        key={index}
+                        className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-1"
+                      >
+                        <Award size={12} />
+                        <span>{license}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Profile Info */}
-          <div className="pt-16 pb-6 px-6 text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h1>
-            <p className="text-lg text-blue-600 font-medium mb-3">{member.title}</p>
-            
-            {/* Experience Badge */}
-            {member.yearsExperience > 0 && (
-              <div className="inline-flex items-center space-x-1 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
-                <Clock size={14} />
-                <span>{member.yearsExperience}+ years experience</span>
-              </div>
-            )}
-
-            <p className="text-gray-600 text-sm leading-relaxed mb-6">{member.bio}</p>
-
-            {/* Specialties */}
-            {member.specialties.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Specialties</h3>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {member.specialties.map((specialty, index) => (
-                    <span
-                      key={index}
-                      className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium"
-                    >
-                      {specialty}
-                    </span>
-                  ))}
+          {/* Mobile Layout */}
+          <div className="md:hidden">
+            {/* Profile Image */}
+            <div className="relative">
+              <div className="h-32 bg-gradient-to-r from-primary-600 to-primary-700"></div>
+              <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
+                <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
-            )}
+            </div>
 
-            {/* Licenses */}
-            {member.licenses.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-sm font-semibold text-gray-700 mb-3">Licenses</h3>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {member.licenses.map((license, index) => (
-                    <span
-                      key={index}
-                      className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-1"
-                    >
-                      <Award size={12} />
-                      <span>{license}</span>
-                    </span>
-                  ))}
+            {/* Profile Info */}
+            <div className="pt-16 pb-6 px-6 text-center">
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h1>
+              <p className="text-lg text-primary-600 font-medium mb-3">{member.title}</p>
+              
+              {/* Experience Badge */}
+              {member.yearsExperience > 0 && (
+                <div className="inline-flex items-center space-x-1 bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  <Clock size={14} />
+                  <span>{member.yearsExperience}+ years experience</span>
                 </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
+              )}
 
-        {/* Contact Information */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white rounded-2xl shadow-lg p-6 mb-6"
-        >
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Contact Information</h2>
-          
-          <div className="space-y-4">
-            {member.phone && (
-              <a
-                href={`tel:${member.phone}`}
-                className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
-              >
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Phone</p>
-                  <p className="font-medium text-gray-900">{member.phone}</p>
-                </div>
-              </a>
-            )}
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">{member.bio}</p>
 
-            {member.email && (
-              <a
-                href={`mailto:${member.email}`}
-                className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
-              >
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-blue-600" />
+              {/* Specialties */}
+              {member.specialties.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-3">Specialties</h3>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {member.specialties.map((specialty, index) => (
+                      <span
+                        key={index}
+                        className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-xs font-medium"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Email</p>
-                  <p className="font-medium text-gray-900">{member.email}</p>
-                </div>
-              </a>
-            )}
+              )}
 
-            <div className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50">
-              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-red-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Location</p>
-                <p className="font-medium text-gray-900">Pontotoc, MS</p>
-              </div>
+              {/* Licenses */}
+              {member.licenses.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-3">Licenses</h3>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {member.licenses.map((license, index) => (
+                      <span
+                        key={index}
+                        className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-1"
+                      >
+                        <Award size={12} />
+                        <span>{license}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
 
-        {/* Social Media */}
-        {socialLinks.length > 0 && (
+        {/* Contact Information & Social Media - Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-2 gap-6 mb-6">
+          {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white rounded-2xl shadow-lg p-6 mb-6"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white rounded-2xl shadow-lg p-6"
           >
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Connect With Me</h2>
-            <div className="grid grid-cols-2 gap-3">
-              {socialLinks.map((link, index) => (
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Contact Information</h2>
+            
+            <div className="space-y-4">
+              {member.phone && (
                 <a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex items-center space-x-3 p-3 rounded-xl text-white ${link.color} transition-colors`}
+                  href={`tel:${member.phone}`}
+                  className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
                 >
-                  <link.icon className="w-5 h-5" />
-                  <span className="font-medium">{link.name}</span>
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <Phone className="w-5 h-5 text-primary-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Phone</p>
+                    <p className="font-medium text-gray-900">{member.phone}</p>
+                  </div>
                 </a>
-              ))}
+              )}
+
+              {member.email && (
+                <a
+                  href={`mailto:${member.email}`}
+                  className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
+                >
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-primary-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="font-medium text-gray-900">{member.email}</p>
+                  </div>
+                </a>
+              )}
+
+              <div className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50">
+                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-primary-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Location</p>
+                  <p className="font-medium text-gray-900">Pontotoc, MS</p>
+                </div>
+              </div>
             </div>
           </motion.div>
-        )}
+
+          {/* Social Media */}
+          {socialLinks.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="bg-white rounded-2xl shadow-lg p-6"
+            >
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Connect With Me</h2>
+              <div className="grid grid-cols-1 gap-3">
+                {socialLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center space-x-3 p-3 rounded-xl text-white ${link.color} transition-colors`}
+                  >
+                    <link.icon className="w-5 h-5" />
+                    <span className="font-medium">{link.name}</span>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Mobile Layout */}
+        <div className="md:hidden">
+          {/* Contact Information */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white rounded-2xl shadow-lg p-6 mb-6"
+          >
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Contact Information</h2>
+            
+            <div className="space-y-4">
+              {member.phone && (
+                <a
+                  href={`tel:${member.phone}`}
+                  className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
+                >
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <Phone className="w-5 h-5 text-primary-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Phone</p>
+                    <p className="font-medium text-gray-900">{member.phone}</p>
+                  </div>
+                </a>
+              )}
+
+              {member.email && (
+                <a
+                  href={`mailto:${member.email}`}
+                  className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
+                >
+                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-primary-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Email</p>
+                    <p className="font-medium text-gray-900">{member.email}</p>
+                  </div>
+                </a>
+              )}
+
+              <div className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50">
+                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-primary-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Location</p>
+                  <p className="font-medium text-gray-900">Pontotoc, MS</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Social Media */}
+          {socialLinks.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="bg-white rounded-2xl shadow-lg p-6 mb-6"
+            >
+              <h2 className="text-lg font-bold text-gray-900 mb-4">Connect With Me</h2>
+              <div className="grid grid-cols-2 gap-3">
+                {socialLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center space-x-3 p-3 rounded-xl text-white ${link.color} transition-colors`}
+                  >
+                    <link.icon className="w-5 h-5" />
+                    <span className="font-medium">{link.name}</span>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </div>
 
         {/* Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="space-y-3"
+          className="flex flex-col md:flex-row gap-4"
         >
           <button
             onClick={handleVCardDownload}
             disabled={isVCardDownloading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-4 px-6 rounded-xl transition-colors flex items-center justify-center space-x-2"
+            className="flex-1 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
           >
             <Download className="w-5 h-5" />
             <span>{isVCardDownloading ? 'Downloading...' : 'Download vCard'}</span>
@@ -311,7 +460,7 @@ END:VCARD`
 
           <button
             onClick={handleShare}
-            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 px-6 rounded-xl transition-colors flex items-center justify-center space-x-2"
+            className="flex-1 bg-white text-primary-600 font-semibold py-4 px-6 rounded-lg border-2 border-primary-600 hover:bg-primary-50 transition-colors duration-200 flex items-center justify-center space-x-2"
           >
             <Share2 className="w-5 h-5" />
             <span>Share Profile</span>

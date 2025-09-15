@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Phone, Linkedin, Facebook, Award, Clock, Shield, ExternalLink } from 'lucide-react'
-import TeamMemberModal from './TeamMemberModal'
 
 interface TeamMember {
   id: string
@@ -40,8 +39,6 @@ interface TeamData {
 
 const TeamGrid = () => {
   const [teamData, setTeamData] = useState<TeamData | null>(null)
-  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     const fetchTeamData = async () => {
@@ -56,11 +53,6 @@ const TeamGrid = () => {
 
     fetchTeamData()
   }, [])
-
-  const handleMemberClick = (member: TeamMember) => {
-    setSelectedMember(member)
-    setIsModalOpen(true)
-  }
 
   if (!teamData) {
     return (
@@ -98,15 +90,18 @@ const TeamGrid = () => {
 
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${teamData.settings.gridColumns} gap-8`}>
           {activeMembers.map((member, index) => (
-            <motion.div
+            <Link
               key={member.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer"
-              onClick={() => handleMemberClick(member)}
+              href={`/agent/${member.name.toLowerCase().replace(/\s+/g, '-')}`}
+              className="block"
             >
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group cursor-pointer"
+              >
               {/* Image */}
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
@@ -203,36 +198,19 @@ const TeamGrid = () => {
                   </div>
                 )}
 
-                {/* Action Buttons */}
+                {/* Action Button */}
                 <div className="mt-4 pt-4 border-t border-gray-100">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-center">
                     <span className="text-primary-600 font-medium text-sm group-hover:text-primary-700 transition-colors">
-                      Learn More →
+                      View Profile →
                     </span>
-                    <Link
-                      href={`/agent/${member.name.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="flex items-center space-x-1 text-gray-500 hover:text-primary-600 transition-colors text-sm"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <span>Profile</span>
-                      <ExternalLink size={14} />
-                    </Link>
                   </div>
                 </div>
               </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </div>
-
-        {/* Team Member Modal */}
-        <TeamMemberModal
-          member={selectedMember}
-          isOpen={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false)
-            setSelectedMember(null)
-          }}
-        />
       </div>
     </section>
   )
