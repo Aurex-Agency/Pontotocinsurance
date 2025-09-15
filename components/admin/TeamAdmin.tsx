@@ -74,21 +74,19 @@ const TeamAdmin = () => {
     if (!teamData) return
 
     if (confirm('Are you sure you want to delete this team member?')) {
-      const updatedMembers = teamData.teamMembers.filter(member => member.id !== memberId)
-      const updatedData = {
-        ...teamData,
-        teamMembers: updatedMembers
-      }
-      
       try {
         const response = await fetch('/api/team', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updatedData)
+          body: JSON.stringify({
+            action: 'delete',
+            memberId: memberId
+          })
         })
         
         if (response.ok) {
-          setTeamData(updatedData)
+          // Refresh team data from database
+          await fetchTeamData()
         } else {
           console.error('Failed to delete member')
         }
@@ -101,23 +99,23 @@ const TeamAdmin = () => {
   const handleToggleActive = async (memberId: string) => {
     if (!teamData) return
 
-    const updatedMembers = teamData.teamMembers.map(member =>
-      member.id === memberId ? { ...member, isActive: !member.isActive } : member
-    )
-    const updatedData = {
-      ...teamData,
-      teamMembers: updatedMembers
-    }
-    
+    const member = teamData.teamMembers.find(m => m.id === memberId)
+    if (!member) return
+
     try {
       const response = await fetch('/api/team', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedData)
+        body: JSON.stringify({
+          action: 'update',
+          memberId: memberId,
+          member: { ...member, isActive: !member.isActive }
+        })
       })
       
       if (response.ok) {
-        setTeamData(updatedData)
+        // Refresh team data from database
+        await fetchTeamData()
       } else {
         console.error('Failed to toggle member status')
       }
@@ -163,19 +161,11 @@ const TeamAdmin = () => {
   // }
 
   const handleFormSubmit = async (memberData: Partial<TeamMember>) => {
-    if (!teamData) return
-
-    let updatedMembers: TeamMember[]
-
-    if (editingMember) {
-      // Update existing member
-      updatedMembers = teamData.teamMembers.map(member =>
-        member.id === editingMember.id ? { ...member, ...memberData } : member
-      )
-    } else {
-      // Add new member
-      const newMember: TeamMember = {
-        id: Date.now().toString(),
+    try {
+      const isEditing = !!editingMember
+      const action = isEditing ? 'update' : 'create'
+      
+      const memberPayload = {
         name: memberData.name || '',
         title: memberData.title || '',
         bio: memberData.bio || '',
@@ -185,27 +175,24 @@ const TeamAdmin = () => {
         specialties: memberData.specialties || [],
         licenses: memberData.licenses || [],
         yearsExperience: memberData.yearsExperience || 0,
-        displayOrder: teamData.teamMembers.length + 1,
+        displayOrder: teamData?.teamMembers.length || 0,
         isActive: true,
         socialMedia: memberData.socialMedia || {}
       }
-      updatedMembers = [...teamData.teamMembers, newMember]
-    }
 
-    const updatedData = {
-      ...teamData,
-      teamMembers: updatedMembers
-    }
-
-    try {
       const response = await fetch('/api/team', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedData)
+        body: JSON.stringify({
+          action,
+          memberId: editingMember?.id,
+          member: memberPayload
+        })
       })
       
       if (response.ok) {
-        setTeamData(updatedData)
+        // Refresh team data from database
+        await fetchTeamData()
         setIsFormOpen(false)
         setEditingMember(null)
       } else {
@@ -236,24 +223,6 @@ const TeamAdmin = () => {
 
   return (
     <div className="space-y-6">
-      {/* Production Warning */}
-      {process.env.NODE_ENV === 'production' && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <h3 className="text-sm font-medium text-yellow-800">Production Mode Notice</h3>
-              <div className="mt-2 text-sm text-yellow-700">
-                <p>Changes are saved in memory and will reset when the server restarts. For permanent storage, consider implementing a database solution.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
       {/* Header Actions */}
       <div className="flex justify-between items-center">
         <div>

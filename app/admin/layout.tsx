@@ -96,15 +96,8 @@ export default function AdminLayout({
         <div className="container-custom">
           <div className="flex space-x-8">
             <Link
-              href="/admin"
-              className="flex items-center space-x-2 py-4 px-2 border-b-2 border-primary-600 text-primary-600 font-medium"
-            >
-              <Shield size={18} />
-              <span>Dashboard</span>
-            </Link>
-            <Link
               href="/admin/team"
-              className="flex items-center space-x-2 py-4 px-2 border-b-2 border-transparent text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center space-x-2 py-4 px-2 border-b-2 border-primary-600 text-primary-600 font-medium"
             >
               <Users size={18} />
               <span>Team Management</span>

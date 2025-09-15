@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Shield, Car, Heart, Users, PiggyBank, CheckCircle, Pill } from 'lucide-react'
 import QuoteModal from '../QuoteModal'
+import BookingModal from '../BookingModal'
 
 interface CoverageOptionsProps {
   service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
@@ -12,6 +13,7 @@ interface CoverageOptionsProps {
 
 const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
   const coverageData = {
     home: {
       icon: Shield,
@@ -224,11 +226,8 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
                 >
                   Get Free Quote
                 </button>
-                <button 
-                  onClick={() => {
-                    // Open booking modal or redirect to contact page
-                    window.location.href = '/contact#schedule';
-                  }}
+                <button
+                  onClick={() => setIsBookingModalOpen(true)}
                   className="btn-secondary"
                 >
                   Schedule Consultation
@@ -267,6 +266,12 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
         service={service}
         title={`Get Your ${title} Quote`}
         description={`Get a personalized quote for ${title.toLowerCase()} coverage.`}
+      />
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
       />
     </section>
   )

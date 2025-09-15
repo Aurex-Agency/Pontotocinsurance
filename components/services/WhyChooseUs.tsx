@@ -1,4 +1,8 @@
+'use client'
+
+import { useState } from 'react'
 import { Award, Clock, Users, Shield, CheckCircle, Phone, Mail } from 'lucide-react'
+import BookingModal from '../BookingModal'
 
 interface WhyChooseUsProps {
   service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
@@ -7,6 +11,7 @@ interface WhyChooseUsProps {
 }
 
 const WhyChooseUs = ({ service, title, description }: WhyChooseUsProps) => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
   const reasons = [
     {
       icon: Award,
@@ -145,13 +150,22 @@ const WhyChooseUs = ({ service, title, description }: WhyChooseUsProps) => {
               <button className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200">
                 Get Free Quote
               </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200">
+              <button 
+                onClick={() => setIsBookingModalOpen(true)}
+                className="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200"
+              >
                 Schedule Consultation
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </section>
   )
 }

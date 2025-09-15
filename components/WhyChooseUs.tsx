@@ -3,9 +3,11 @@
 import { useState } from 'react'
 import { Award, Clock, Users, Shield, CheckCircle, Star } from 'lucide-react'
 import QuoteModal from './QuoteModal'
+import BookingModal from './BookingModal'
 
 const WhyChooseUs = () => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
   const reasons = [
     {
       icon: Award,
@@ -158,10 +160,8 @@ const WhyChooseUs = () => {
                 >
                   Get Free Quote
                 </button>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/contact#schedule';
-                  }}
+                <button
+                  onClick={() => setIsBookingModalOpen(true)}
                   className="btn-secondary w-full"
                 >
                   Schedule Consultation
@@ -176,6 +176,12 @@ const WhyChooseUs = () => {
       <QuoteModal
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
+      />
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
       />
     </section>
   )

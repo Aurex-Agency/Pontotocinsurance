@@ -1,52 +1,64 @@
 import { NextRequest, NextResponse } from 'next/server'
-import fs from 'fs'
-import path from 'path'
+import { getTeamMembers, createTeamMember, updateTeamMember, deleteTeamMember } from '../../../lib/database'
 
-const TEAM_DATA_PATH = path.join(process.cwd(), 'lib', 'team-data.json')
+// Helper function to convert database team member to frontend format
+function convertTeamMemberToFrontend(dbMember: any) {
+  return {
+    id: dbMember.id,
+    name: dbMember.name,
+    title: dbMember.title,
+    bio: dbMember.bio,
+    image: dbMember.image_url || '/team/default-avatar.jpg',
+    email: dbMember.email || '',
+    phone: dbMember.phone || '',
+    specialties: dbMember.specialties || [],
+    licenses: [], // Not stored in database yet
+    yearsExperience: 0, // Not stored in database yet
+    displayOrder: 1, // Not stored in database yet
+    isActive: dbMember.is_active,
+    socialMedia: {} // Not stored in database yet
+  }
+}
 
-// In-memory storage for production (resets on server restart)
-let teamDataCache: any = null
-
-// Load initial data
-function loadInitialData() {
-  try {
-    const data = fs.readFileSync(TEAM_DATA_PATH, 'utf8')
-    return JSON.parse(data)
-  } catch (error) {
-    console.error('Error reading team data:', error)
-    // Return default data if file doesn't exist
-    return {
-      teamMembers: [
-        {
-          id: '1',
-          name: 'John Smith',
-          position: 'Senior Insurance Agent',
-          bio: 'With over 10 years of experience in the insurance industry, John specializes in home and auto insurance.',
-          image: '/team/default-avatar.jpg',
-          email: 'john@pontotocinsuranceagency.com',
-          phone: '(662) 200-2249',
-          specialties: ['Home Insurance', 'Auto Insurance'],
-          isVisible: true,
-          displayOrder: 1
-        }
-      ]
-    }
+// Helper function to convert frontend team member to database format
+function convertTeamMemberToDatabase(frontendMember: any) {
+  return {
+    name: frontendMember.name,
+    title: frontendMember.title,
+    bio: frontendMember.bio,
+    image_url: frontendMember.image,
+    email: frontendMember.email || null,
+    phone: frontendMember.phone || null,
+    specialties: frontendMember.specialties || [],
+    is_active: frontendMember.isActive !== false
   }
 }
 
 export async function GET() {
   try {
-    // In production, use cache; in development, read from file
-    if (process.env.NODE_ENV === 'production') {
-      if (!teamDataCache) {
-        teamDataCache = loadInitialData()
-      }
-      return NextResponse.json(teamDataCache)
-    } else {
-      const data = fs.readFileSync(TEAM_DATA_PATH, 'utf8')
-      const teamData = JSON.parse(data)
-      return NextResponse.json(teamData)
+    const result = await getTeamMembers()
+    
+    if (!result.success) {
+      return NextResponse.json({ error: result.error }, { status: 500 })
     }
+
+    // Convert database format to frontend format
+    const teamMembers = result.data?.map(convertTeamMemberToFrontend) || []
+    
+    // Return in the expected format with settings
+    const teamData = {
+      teamMembers,
+      settings: {
+        showSocialMedia: true,
+        showContactInfo: true,
+        showSpecialties: true,
+        showExperience: true,
+        gridColumns: 3,
+        enableDragDrop: true
+      }
+    }
+
+    return NextResponse.json(teamData)
   } catch (error) {
     console.error('Error reading team data:', error)
     return NextResponse.json({ error: 'Failed to read team data' }, { status: 500 })
@@ -55,26 +67,50 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const teamData = await request.json()
+    const { action, member, memberId } = await request.json()
     
-    // Validate the data structure
-    if (!teamData.teamMembers || !Array.isArray(teamData.teamMembers)) {
-      return NextResponse.json({ error: 'Invalid team data structure' }, { status: 400 })
+    switch (action) {
+      case 'create':
+        if (!member) {
+          return NextResponse.json({ error: 'Member data required for create' }, { status: 400 })
+        }
+        
+        const createResult = await createTeamMember(convertTeamMemberToDatabase(member))
+        if (!createResult.success) {
+          return NextResponse.json({ error: createResult.error }, { status: 500 })
+        }
+        
+        return NextResponse.json({ success: true, data: createResult.data })
+        
+      case 'update':
+        if (!memberId || !member) {
+          return NextResponse.json({ error: 'Member ID and data required for update' }, { status: 400 })
+        }
+        
+        const updateResult = await updateTeamMember(memberId, convertTeamMemberToDatabase(member))
+        if (!updateResult.success) {
+          return NextResponse.json({ error: updateResult.error }, { status: 500 })
+        }
+        
+        return NextResponse.json({ success: true, data: updateResult.data })
+        
+      case 'delete':
+        if (!memberId) {
+          return NextResponse.json({ error: 'Member ID required for delete' }, { status: 400 })
+        }
+        
+        const deleteResult = await deleteTeamMember(memberId)
+        if (!deleteResult.success) {
+          return NextResponse.json({ error: deleteResult.error }, { status: 500 })
+        }
+        
+        return NextResponse.json({ success: true })
+        
+      default:
+        return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
     }
-
-    if (process.env.NODE_ENV === 'production') {
-      // In production, update the in-memory cache
-      teamDataCache = teamData
-      console.log('Team data updated in memory (production mode)')
-    } else {
-      // In development, write to file
-      fs.writeFileSync(TEAM_DATA_PATH, JSON.stringify(teamData, null, 2))
-      console.log('Team data updated in file (development mode)')
-    }
-    
-    return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error updating team data:', error)
-    return NextResponse.json({ error: 'Failed to update team data' }, { status: 500 })
+    console.error('Error processing team data:', error)
+    return NextResponse.json({ error: 'Failed to process team data' }, { status: 500 })
   }
 }
