@@ -30,6 +30,10 @@ function convertTeamMemberToDatabase(frontendMember: any) {
     email: frontendMember.email || null,
     phone: frontendMember.phone || null,
     specialties: frontendMember.specialties || [],
+    licenses: frontendMember.licenses || [],
+    years_experience: frontendMember.yearsExperience || 0,
+    display_order: frontendMember.displayOrder || 1,
+    social_media: frontendMember.socialMedia || {},
     is_active: frontendMember.isActive !== false
   }
 }
