@@ -21,6 +21,10 @@ interface TeamMember {
   socialMedia: {
     linkedin?: string
     facebook?: string
+    instagram?: string
+    twitter?: string
+    tiktok?: string
+    website?: string
   }
 }
 
@@ -394,6 +398,46 @@ const TeamMemberForm = ({ isOpen, onClose, onSubmit, member }: TeamMemberFormPro
                     onChange={(e) => handleSocialMediaChange('facebook', e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="https://facebook.com/username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">Instagram</label>
+                  <input
+                    type="url"
+                    value={formData.socialMedia?.instagram || ''}
+                    onChange={(e) => handleSocialMediaChange('instagram', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="https://instagram.com/username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">TikTok</label>
+                  <input
+                    type="url"
+                    value={formData.socialMedia?.tiktok || ''}
+                    onChange={(e) => handleSocialMediaChange('tiktok', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="https://tiktok.com/@username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">Twitter</label>
+                  <input
+                    type="url"
+                    value={formData.socialMedia?.twitter || ''}
+                    onChange={(e) => handleSocialMediaChange('twitter', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="https://twitter.com/username"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">Website</label>
+                  <input
+                    type="url"
+                    value={formData.socialMedia?.website || ''}
+                    onChange={(e) => handleSocialMediaChange('website', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="https://yourwebsite.com"
                   />
                 </div>
               </div>

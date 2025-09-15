@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
   phone VARCHAR(20),
   message TEXT NOT NULL,
   service_type VARCHAR(100),
+  status VARCHAR(20) DEFAULT 'new',
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -57,6 +58,16 @@ CREATE TABLE IF NOT EXISTS admin_users (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Create site_settings table for universal site configuration
+CREATE TABLE IF NOT EXISTS site_settings (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  key VARCHAR(100) UNIQUE NOT NULL,
+  value TEXT NOT NULL,
+  description TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_contact_submissions_email ON contact_submissions(email);
 CREATE INDEX IF NOT EXISTS idx_contact_submissions_created_at ON contact_submissions(created_at);
@@ -71,6 +82,7 @@ ALTER TABLE contact_submissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE quote_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE team_members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
 
 -- Create RLS policies
 
@@ -105,6 +117,13 @@ CREATE POLICY "Allow admins to manage team members" ON team_members
 CREATE POLICY "Allow service role to manage admin users" ON admin_users
   FOR ALL USING (auth.role() = 'service_role');
 
+-- Site settings: Allow public to read, admins to manage
+CREATE POLICY "Allow public to read site settings" ON site_settings
+  FOR SELECT USING (true);
+
+CREATE POLICY "Allow admins to manage site settings" ON site_settings
+  FOR ALL USING (auth.role() = 'service_role');
+
 -- Create functions for updated_at timestamps
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -129,6 +148,10 @@ CREATE TRIGGER update_team_members_updated_at
 
 CREATE TRIGGER update_admin_users_updated_at
   BEFORE UPDATE ON admin_users
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_site_settings_updated_at
+  BEFORE UPDATE ON site_settings
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Insert sample team member data

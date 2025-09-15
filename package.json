@@ -9,7 +9,10 @@
     "lint": "next lint",
     "migrate-team": "node scripts/migrate-team-data.js",
     "update-schema": "node scripts/update-team-schema.js",
-    "clear-team": "node scripts/clear-team-data.js"
+    "clear-team": "node scripts/clear-team-data.js",
+    "init-settings": "node scripts/init-site-settings.js",
+    "apply-schema": "node scripts/apply-schema.js",
+    "create-settings-table": "node scripts/create-settings-table.js"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

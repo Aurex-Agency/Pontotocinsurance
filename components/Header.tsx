@@ -5,10 +5,12 @@ import Link from 'next/link'
 import { Menu, X, Phone, Mail } from 'lucide-react'
 import Image from 'next/image'
 import QuoteModal from './QuoteModal'
+import { useSiteSettings } from '../lib/useSiteSettings'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
+  const { getPhone, getEmail, getAddress, isLoading } = useSiteSettings()
 
   const navigation = [
     { name: 'Life', href: '/life' },
@@ -30,15 +32,15 @@ const Header = () => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-1">
                 <Phone size={16} />
-                <span>(662) 200-2249</span>
+                <span>{isLoading ? 'Loading...' : getPhone()}</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Mail size={16} />
-                <span>info@pontotocinsuranceagency.com</span>
+                <span>{isLoading ? 'Loading...' : getEmail()}</span>
               </div>
             </div>
             <div className="text-sm">
-              158 MS-15, Suite D, Pontotoc, MS 38863
+              {isLoading ? 'Loading...' : getAddress()}
             </div>
           </div>
         </div>
@@ -55,6 +57,7 @@ const Header = () => {
               width={200}
               height={64}
               className="h-16 w-auto object-contain"
+              style={{ width: 'auto' }}
               priority
               sizes="(max-width: 768px) 150px, 200px"
             />

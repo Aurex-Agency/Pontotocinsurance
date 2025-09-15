@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import { Phone, Mail, MapPin, Clock, MessageCircle, Calendar } from 'lucide-react'
+import { useSiteSettings } from '@/lib/useSiteSettings'
 
 const ContactCTA = () => {
+  const { getHours } = useSiteSettings()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -118,9 +120,8 @@ const ContactCTA = () => {
                 </div>
                 <div>
                   <div className="font-semibold">Office Hours</div>
-                  <div className="text-gray-300">
-                    Mon-Fri: 8:00 AM - 6:00 PM<br />
-                    Sat: 9:00 AM - 2:00 PM
+                  <div className="text-gray-300 whitespace-pre-line">
+                    {getHours()}
                   </div>
                 </div>
               </div>

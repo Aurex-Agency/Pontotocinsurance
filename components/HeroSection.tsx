@@ -96,10 +96,9 @@ const HeroSection = () => {
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
                 Pontotoc Insurance Agency
-                <span className="block text-primary-200">Your Trusted Partner</span>
               </h1>
               <p className="text-xl text-primary-100 leading-relaxed">
-                Comprehensive insurance solutions for Home, Auto, Life, Health, and Retirement Planning. 
+                Comprehensive insurance solutions for Home, Auto, Life, Health, Medicare, and Retirement Planning. 
                 Local expertise with nationwide coverage options.
               </p>
             </div>
@@ -123,7 +122,7 @@ const HeroSection = () => {
                 <div className="text-sm text-primary-100">Happy Clients</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary-200">5+</div>
+                <div className="text-2xl font-bold text-primary-200">7+</div>
                 <div className="text-sm text-primary-100">Years Experience</div>
               </div>
               <div className="text-center">

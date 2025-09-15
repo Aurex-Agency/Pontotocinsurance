@@ -3,9 +3,11 @@
 import { useState } from 'react'
 import { Phone, Mail, MapPin, Clock, MessageCircle, Calendar } from 'lucide-react'
 import BookingModal from './BookingModal'
+import { useSiteSettings } from '../lib/useSiteSettings'
 
 const ContactInfo = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+  const { getPhone, getEmail, getAddress, getHours, isLoading } = useSiteSettings()
   return (
     <div className="space-y-8">
       {/* Contact Details */}
@@ -20,12 +22,14 @@ const ContactInfo = () => {
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
               <a 
-                href="tel:+16622002249" 
+                href={`tel:${isLoading ? '' : getPhone().replace(/[^\d]/g, '')}`}
                 className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
               >
-                (662) 200-2249
+                {isLoading ? 'Loading...' : getPhone()}
               </a>
-              <p className="text-sm text-gray-500">Available Mon-Fri: 8:00 AM - 6:00 PM</p>
+              <div className="text-sm text-gray-500 whitespace-pre-line">
+                {isLoading ? 'Loading...' : `Available ${getHours()}`}
+              </div>
             </div>
           </div>
 
@@ -36,10 +40,10 @@ const ContactInfo = () => {
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
               <a 
-                href="mailto:info@pontotocinsuranceagency.com" 
+                href={`mailto:${isLoading ? '' : getEmail()}`}
                 className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200"
               >
-                info@pontotocinsuranceagency.com
+                {isLoading ? 'Loading...' : getEmail()}
               </a>
               <p className="text-sm text-gray-500">We respond within 2 hours</p>
             </div>
@@ -52,13 +56,14 @@ const ContactInfo = () => {
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
               <a 
-                href="https://maps.google.com/?q=158+MS-15,+Suite+D,+Pontotoc,+MS+38863"
+                href={`https://maps.google.com/?q=${encodeURIComponent(isLoading ? 'Loading...' : getAddress())}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-600 hover:text-primary-700 font-medium transition-colors duration-200 block"
               >
-                <span className="block">158 MS-15, Suite D</span>
-                <span className="block">Pontotoc, MS 38863</span>
+                <div className="whitespace-pre-line">
+                  {isLoading ? 'Loading...' : getAddress()}
+                </div>
               </a>
             </div>
           </div>
@@ -69,10 +74,8 @@ const ContactInfo = () => {
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-1">Office Hours</h4>
-              <div className="text-gray-600 space-y-1">
-                <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                <p>Saturday: 9:00 AM - 2:00 PM</p>
-                <p>Sunday: Closed</p>
+              <div className="text-gray-600 whitespace-pre-line">
+                {isLoading ? 'Loading...' : getHours()}
               </div>
             </div>
           </div>

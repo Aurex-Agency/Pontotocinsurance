@@ -1,6 +1,11 @@
+'use client'
+
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
+import { useSiteSettings } from '@/lib/useSiteSettings'
 
 const ContactHero = () => {
+  const { getHours } = useSiteSettings()
+  
   return (
     <section className="relative bg-gradient-to-br from-primary-600 to-primary-800 text-white overflow-hidden">
       <div className="absolute inset-0 bg-black/10">
@@ -27,7 +32,7 @@ const ContactHero = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2">Call Us</h3>
             <p className="text-primary-100 mb-2">(662) 200-2249</p>
-            <p className="text-sm text-primary-200">Available Mon-Fri 8AM-6PM</p>
+            <p className="text-sm text-primary-200">Available during business hours</p>
           </div>
 
           <div className="text-center">
@@ -53,8 +58,9 @@ const ContactHero = () => {
               <Clock size={32} className="text-white" />
             </div>
             <h3 className="text-xl font-semibold mb-2">Office Hours</h3>
-            <p className="text-primary-100 mb-2">Mon-Fri: 8AM-6PM</p>
-            <p className="text-sm text-primary-200">Sat: 9AM-2PM</p>
+            <div className="text-primary-100 whitespace-pre-line">
+              {getHours()}
+            </div>
           </div>
         </div>
       </div>

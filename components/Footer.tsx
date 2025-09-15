@@ -1,9 +1,13 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Linkedin, Shield } from 'lucide-react'
+import { useSiteSettings } from '../lib/useSiteSettings'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const { getPhone, getEmail, getAddress, getName, getHours, isLoading } = useSiteSettings()
 
   const services = [
     { name: 'Home Insurance', href: '/home' },
@@ -102,36 +106,33 @@ const Footer = () => {
                 <MapPin size={18} className="text-primary-400 mt-1" />
                 <div>
                   <a 
-                    href="https://maps.google.com/?q=158+MS-15,+Suite+D,+Pontotoc,+MS+38863"
+                    href={`https://maps.google.com/?q=${encodeURIComponent(isLoading ? 'Loading...' : getAddress())}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors duration-200"
                   >
-                    158 MS-15, Suite D<br />
-                    Pontotoc, MS 38863
+                    {isLoading ? 'Loading...' : getAddress().replace(', ', '<br />')}
                   </a>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={18} className="text-primary-400" />
-                <a href="tel:+16622002249" className="text-gray-400 hover:text-white transition-colors">
-                  (662) 200-2249
+                <a href={`tel:${isLoading ? '' : getPhone().replace(/[^\d]/g, '')}`} className="text-gray-400 hover:text-white transition-colors">
+                  {isLoading ? 'Loading...' : getPhone()}
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail size={18} className="text-primary-400" />
-                <a href="mailto:info@pontotocinsuranceagency.com" className="text-gray-400 hover:text-white transition-colors">
-                  info@pontotocinsuranceagency.com
+                <a href={`mailto:${isLoading ? '' : getEmail()}`} className="text-gray-400 hover:text-white transition-colors">
+                  {isLoading ? 'Loading...' : getEmail()}
                 </a>
               </div>
               <div className="flex items-start space-x-3">
                 <Clock size={18} className="text-primary-400 mt-1" />
                 <div>
-                  <p className="text-gray-400">
-                    Mon - Fri: 8:00 AM - 6:00 PM<br />
-                    Sat: 9:00 AM - 2:00 PM<br />
-                    Sun: Closed
-                  </p>
+                  <div className="text-gray-400 whitespace-pre-line">
+                    {isLoading ? 'Loading...' : getHours()}
+                  </div>
                 </div>
               </div>
             </div>
@@ -142,7 +143,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Pontotoc Insurance Agency. All rights reserved.
+              © {currentYear} {isLoading ? 'Loading...' : getName()}. All rights reserved.
             </p>
             <p className="text-gray-400 text-sm mt-2 md:mt-0">
               Licensed in Mississippi • Not affiliated with or endorsed by the United States government

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Shield, Car, Heart, Users, PiggyBank, Send, Pill } from 'lucide-react'
+import { useSiteSettings } from '@/lib/useSiteSettings'
 
 interface QuoteFormProps {
   service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
@@ -10,6 +11,7 @@ interface QuoteFormProps {
 }
 
 const QuoteForm = ({ service, title, description }: QuoteFormProps) => {
+  const { getHours } = useSiteSettings()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -278,7 +280,7 @@ const QuoteForm = ({ service, title, description }: QuoteFormProps) => {
                     </div>
                     <div>
                       <div className="font-semibold">(662) 200-2249</div>
-                      <div className="text-primary-100 text-sm">Mon-Fri: 8AM-6PM</div>
+                      <div className="text-primary-100 text-sm whitespace-pre-line">{getHours()}</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">

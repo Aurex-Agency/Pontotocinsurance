@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   const result = await getTeamMembers()
   if (!result.success) return []
   
-  return result.data.map((member) => ({
+  return result.data.map((member: any) => ({
     slug: member.name.toLowerCase().replace(/\s+/g, '-')
   }))
 }
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: AgentPageProps) {
   const result = await getTeamMembers()
   if (!result.success) return {}
   
-  const member = result.data.find(m => 
+  const member = result.data.find((m: any) => 
     m.name.toLowerCase().replace(/\s+/g, '-') === params.slug
   )
   
@@ -44,7 +44,7 @@ export default async function AgentPage({ params }: AgentPageProps) {
     notFound()
   }
   
-  const member = result.data.find(m => 
+  const member = result.data.find((m: any) => 
     m.name.toLowerCase().replace(/\s+/g, '-') === params.slug
   )
   

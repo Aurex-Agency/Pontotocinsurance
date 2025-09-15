@@ -1,57 +1,51 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
-import { Shield, LogOut, Users, Settings } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { Shield, LogOut, Users, Settings, Mail } from 'lucide-react'
 import Link from 'next/link'
+import { useAuth } from '@/lib/AuthContext'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import AdminAuthProvider from './AuthProvider'
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const router = useRouter()
+function AdminContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const { user, loading, signOut, isAuthenticated } = useAuth()
+  const router = useRouter()
 
   // Skip authentication check for login page
   const isLoginPage = pathname === '/admin/login'
-
-  useEffect(() => {
-    if (isLoginPage) {
-      setIsLoading(false)
-      return
-    }
-
-    // Check if user is authenticated
-    const authToken = localStorage.getItem('adminAuth')
-    if (authToken === 'true') {
-      setIsAuthenticated(true)
-    } else {
-      router.push('/admin/login')
-    }
-    setIsLoading(false)
-  }, [router, isLoginPage])
-
-  const handleLogout = () => {
-    localStorage.removeItem('adminAuth')
-    router.push('/admin/login')
-  }
 
   // For login page, render children directly without admin layout
   if (isLoginPage) {
     return <>{children}</>
   }
 
-  if (isLoading) {
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      router.push('/admin/login')
+    }
+  }, [loading, isAuthenticated, router])
+
+  const handleLogout = async () => {
+    await signOut()
+    router.push('/admin/login')
+  }
+
+  // Show loading spinner while checking authentication
+  if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
       </div>
     )
   }
 
+  // If not authenticated, show nothing (will redirect)
   if (!isAuthenticated) {
     return null
   }
@@ -68,7 +62,9 @@ export default function AdminLayout({
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">Admin Panel</h1>
-                <p className="text-sm text-gray-600">Pontotoc Insurance Agency</p>
+                <p className="text-sm text-gray-600">
+                  {user?.user_metadata?.full_name || user?.email || 'Admin User'}
+                </p>
               </div>
             </div>
             
@@ -96,15 +92,34 @@ export default function AdminLayout({
         <div className="container-custom">
           <div className="flex space-x-8">
             <Link
-              href="/admin/team"
-              className="flex items-center space-x-2 py-4 px-2 border-b-2 border-primary-600 text-primary-600 font-medium"
+              href="/admin"
+              className={`flex items-center space-x-2 py-4 px-2 border-b-2 transition-colors ${
+                pathname === '/admin' || pathname === '/admin/team'
+                  ? 'border-primary-600 text-primary-600 font-medium'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
             >
               <Users size={18} />
               <span>Team Management</span>
             </Link>
             <Link
+              href="/admin/leads"
+              className={`flex items-center space-x-2 py-4 px-2 border-b-2 transition-colors ${
+                pathname === '/admin/leads'
+                  ? 'border-primary-600 text-primary-600 font-medium'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Mail size={18} />
+              <span>Leads</span>
+            </Link>
+            <Link
               href="/admin/settings"
-              className="flex items-center space-x-2 py-4 px-2 border-b-2 border-transparent text-gray-600 hover:text-gray-900 transition-colors"
+              className={`flex items-center space-x-2 py-4 px-2 border-b-2 transition-colors ${
+                pathname === '/admin/settings'
+                  ? 'border-primary-600 text-primary-600 font-medium'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
             >
               <Settings size={18} />
               <span>Settings</span>
@@ -114,9 +129,23 @@ export default function AdminLayout({
       </nav>
 
       {/* Admin Content */}
-      <main className="min-h-screen">
-        {children}
+      <main className="min-h-screen bg-gray-50">
+        <div className="container-custom py-8">
+          {children}
+        </div>
       </main>
     </div>
+  )
+}
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <AdminAuthProvider>
+      <AdminContent>{children}</AdminContent>
+    </AdminAuthProvider>
   )
 }

@@ -28,6 +28,18 @@ export interface TeamMember {
   email?: string
   phone?: string
   specialties?: string[]
+  licenses?: string[]
+  years_experience?: number
+  display_order?: number
+  is_active?: boolean
+  social_media?: {
+    linkedin?: string
+    facebook?: string
+    instagram?: string
+    twitter?: string
+    tiktok?: string
+    website?: string
+  }
   created_at?: string
   updated_at?: string
 }
@@ -90,6 +102,29 @@ export async function getTeamMembers() {
     return { success: true, data }
   } catch (error) {
     console.error('Error fetching team members:', error)
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+  }
+}
+
+// Site settings functions
+export async function getSiteSettings() {
+  try {
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('*')
+      .order('key', { ascending: true })
+
+    if (error) throw error
+
+    // Convert array to object for easier frontend usage
+    const settingsObject = data.reduce((acc, setting: any) => {
+      acc[setting.key] = setting.value
+      return acc
+    }, {} as Record<string, string>)
+
+    return { success: true, data: settingsObject }
+  } catch (error) {
+    console.error('Error fetching site settings:', error)
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }

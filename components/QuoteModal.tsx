@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { X, Send, Shield, Car, Heart, Users, PiggyBank, Pill } from 'lucide-react'
 import { submitQuoteRequest } from '@/lib/database'
+import { useSiteSettings } from '../lib/useSiteSettings'
 
 interface QuoteModalProps {
   isOpen: boolean
@@ -19,6 +20,7 @@ const QuoteModal = ({
   title = 'Get Your Free Quote',
   description = 'Fill out the form below and we\'ll get back to you within 2 hours.'
 }: QuoteModalProps) => {
+  const { getName, getPhone, isLoading } = useSiteSettings()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -245,12 +247,12 @@ const QuoteModal = ({
 
             {submitStatus === 'error' && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
-                <p className="text-sm font-medium">Sorry, there was an error sending your request. Please try again or call us directly at (662) 200-2249.</p>
+                <p className="text-sm font-medium">Sorry, there was an error sending your request. Please try again or call us directly at {isLoading ? 'Loading...' : getPhone()}.</p>
               </div>
             )}
 
             <p className="text-xs text-gray-500 text-center">
-              By submitting this form, you agree to receive communications from Pontotoc Insurance Agency.
+              By submitting this form, you agree to receive communications from {isLoading ? 'Loading...' : getName()}.
             </p>
           </form>
         </div>

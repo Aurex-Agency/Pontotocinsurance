@@ -3,42 +3,29 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Shield, Eye, EyeOff } from 'lucide-react'
+import { useAuth } from '@/lib/AuthContext'
 
 export default function AdminLogin() {
   const [credentials, setCredentials] = useState({
-    username: '',
+    email: '',
     password: ''
   })
   const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
-
-  // Simple hardcoded credentials for demo purposes
-  // In production, this should be handled by a proper authentication system
-  const ADMIN_CREDENTIALS = {
-    username: 'admin',
-    password: 'pontotoc2025!@#'
-  }
+  const { signIn, loading } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
     setError('')
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    if (credentials.username === ADMIN_CREDENTIALS.username && 
-        credentials.password === ADMIN_CREDENTIALS.password) {
-      // Store auth token in localStorage (in production, use secure cookies)
-      localStorage.setItem('adminAuth', 'true')
+    const result = await signIn(credentials.email, credentials.password)
+    
+    if (result.success) {
       router.push('/admin/team')
     } else {
-      setError('Invalid username or password')
+      setError(result.error?.message || 'Invalid email or password')
     }
-
-    setIsLoading(false)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,16 +49,16 @@ export default function AdminLogin() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Username
+              Email
             </label>
             <input
-              type="text"
-              name="username"
-              value={credentials.username}
+              type="email"
+              name="email"
+              value={credentials.email}
               onChange={handleInputChange}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-              placeholder="Enter your username"
+              placeholder="Enter your email"
             />
           </div>
 
@@ -107,10 +94,10 @@ export default function AdminLogin() {
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={loading}
             className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
           >
-            {isLoading ? (
+            {loading ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                 <span>Signing in...</span>
@@ -123,9 +110,7 @@ export default function AdminLogin() {
 
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-500">
-            Demo credentials: <br />
-            Username: <code className="bg-gray-100 px-2 py-1 rounded">admin</code><br />
-            Password: <code className="bg-gray-100 px-2 py-1 rounded">pontotoc2025!@#</code>
+            Contact your administrator for login credentials
           </p>
         </div>
       </div>
