@@ -12,11 +12,11 @@ function convertTeamMemberToFrontend(dbMember: any) {
     email: dbMember.email || '',
     phone: dbMember.phone || '',
     specialties: dbMember.specialties || [],
-    licenses: [], // Not stored in database yet
-    yearsExperience: 0, // Not stored in database yet
-    displayOrder: 1, // Not stored in database yet
+    licenses: dbMember.licenses || [],
+    yearsExperience: dbMember.years_experience || 0,
+    displayOrder: dbMember.display_order || 1,
     isActive: dbMember.is_active,
-    socialMedia: {} // Not stored in database yet
+    socialMedia: dbMember.social_media || {}
   }
 }
 

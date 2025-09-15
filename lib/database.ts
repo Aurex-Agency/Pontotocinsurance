@@ -80,8 +80,8 @@ export async function submitQuoteRequest(data: QuoteRequest) {
 // Team member operations
 export async function getTeamMembers() {
   try {
-    const { data, error } = await supabase
-      .from('team_members' as any)
+    const { data, error } = await (supabaseAdmin as any)
+      .from('team_members')
       .select('*')
       .order('created_at', { ascending: true })
 

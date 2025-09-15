@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate-team": "node scripts/migrate-team-data.js"
+    "migrate-team": "node scripts/migrate-team-data.js",
+    "update-schema": "node scripts/update-team-schema.js",
+    "clear-team": "node scripts/clear-team-data.js"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
