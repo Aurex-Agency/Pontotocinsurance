@@ -103,7 +103,7 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
-                <MapPin size={18} className="text-primary-400 mt-1" />
+                <MapPin size={18} className="text-white mt-1" />
                 <div>
                   <a 
                     href={`https://maps.google.com/?q=${encodeURIComponent(isLoading ? 'Loading...' : getAddress())}`}
@@ -132,19 +132,19 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone size={18} className="text-primary-400" />
+                <Phone size={18} className="text-white" />
                 <a href={`tel:${isLoading ? '6622002249' : getPhone().replace(/[^\d]/g, '')}`} className="text-gray-400 hover:text-white transition-colors">
                   {isLoading ? '(662) 200-2249' : getPhone()}
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail size={18} className="text-primary-400" />
+                <Mail size={18} className="text-white" />
                 <a href={`mailto:${isLoading ? 'info@pontotocinsuranceagency.com' : getEmail()}`} className="text-gray-400 hover:text-white transition-colors">
                   {isLoading ? 'info@pontotocinsuranceagency.com' : getEmail()}
                 </a>
               </div>
               <div className="flex items-start space-x-3">
-                <Clock size={18} className="text-primary-400 mt-1" />
+                <Clock size={18} className="text-white mt-1" />
                 <div>
                   <div className="text-gray-400 whitespace-pre-line">
                     {isLoading ? (
