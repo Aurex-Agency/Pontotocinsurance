@@ -111,7 +111,12 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors duration-200"
                   >
-                    {isLoading ? 'Loading...' : (() => {
+                    {isLoading ? (
+                      <div>
+                        <div>158 MS-15, Suite D</div>
+                        <div>Pontotoc MS 38863</div>
+                      </div>
+                    ) : (() => {
                       const addressParts = getAddress().split(', ')
                       // Format as: "158 MS-15, Suite D" and "Pontotoc MS 38863"
                       const line1 = addressParts[0] + ', ' + addressParts[1] // "158 MS-15, Suite D"
