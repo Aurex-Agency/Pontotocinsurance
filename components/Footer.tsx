@@ -133,21 +133,27 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={18} className="text-primary-400" />
-                <a href={`tel:${isLoading ? '' : getPhone().replace(/[^\d]/g, '')}`} className="text-gray-400 hover:text-white transition-colors">
-                  {isLoading ? 'Loading...' : getPhone()}
+                <a href={`tel:${isLoading ? '6622002249' : getPhone().replace(/[^\d]/g, '')}`} className="text-gray-400 hover:text-white transition-colors">
+                  {isLoading ? '(662) 200-2249' : getPhone()}
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail size={18} className="text-primary-400" />
-                <a href={`mailto:${isLoading ? '' : getEmail()}`} className="text-gray-400 hover:text-white transition-colors">
-                  {isLoading ? 'Loading...' : getEmail()}
+                <a href={`mailto:${isLoading ? 'info@pontotocinsuranceagency.com' : getEmail()}`} className="text-gray-400 hover:text-white transition-colors">
+                  {isLoading ? 'info@pontotocinsuranceagency.com' : getEmail()}
                 </a>
               </div>
               <div className="flex items-start space-x-3">
                 <Clock size={18} className="text-primary-400 mt-1" />
                 <div>
                   <div className="text-gray-400 whitespace-pre-line">
-                    {isLoading ? 'Loading...' : getHours()}
+                    {isLoading ? (
+                      <>
+                        Mon - Fri: 8:00 AM - 6:00 PM<br />
+                        Sat: 9:00 AM - 2:00 PM<br />
+                        Sun: Closed
+                      </>
+                    ) : getHours()}
                   </div>
                 </div>
               </div>
