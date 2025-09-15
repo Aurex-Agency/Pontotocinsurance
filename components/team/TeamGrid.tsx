@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { Mail, Phone, Linkedin, Facebook, Award, Clock, Shield } from 'lucide-react'
+import Link from 'next/link'
+import { Mail, Phone, Linkedin, Facebook, Award, Clock, Shield, ExternalLink } from 'lucide-react'
 import TeamMemberModal from './TeamMemberModal'
 
 interface TeamMember {
@@ -202,11 +203,21 @@ const TeamGrid = () => {
                   </div>
                 )}
 
-                {/* Learn More Button */}
+                {/* Action Buttons */}
                 <div className="mt-4 pt-4 border-t border-gray-100">
-                  <span className="text-primary-600 font-medium text-sm group-hover:text-primary-700 transition-colors">
-                    Learn More →
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-primary-600 font-medium text-sm group-hover:text-primary-700 transition-colors">
+                      Learn More →
+                    </span>
+                    <Link
+                      href={`/agent/${member.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="flex items-center space-x-1 text-gray-500 hover:text-primary-600 transition-colors text-sm"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span>Profile</span>
+                      <ExternalLink size={14} />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>
