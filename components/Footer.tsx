@@ -111,13 +111,18 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors duration-200"
                   >
-                    {isLoading ? 'Loading...' : (
-                      <div>
-                        {getAddress().split(', ').map((line, index) => (
-                          <div key={index}>{line}</div>
-                        ))}
-                      </div>
-                    )}
+                    {isLoading ? 'Loading...' : (() => {
+                      const addressParts = getAddress().split(', ')
+                      // Format as: "158 MS-15, Suite D" and "Pontotoc MS 38863"
+                      const line1 = addressParts[0] + ', ' + addressParts[1] // "158 MS-15, Suite D"
+                      const line2 = addressParts[2] + ' ' + addressParts[3] // "Pontotoc MS 38863"
+                      return (
+                        <div>
+                          <div>{line1}</div>
+                          <div>{line2}</div>
+                        </div>
+                      )
+                    })()}
                   </a>
                 </div>
               </div>
