@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Shield, Eye, EyeOff, CheckCircle } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { supabaseClient } from '@/lib/supabase-client'
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState('')
@@ -20,7 +20,7 @@ export default function ResetPasswordPage() {
   useEffect(() => {
     // Check if user is authenticated (they should be after clicking the reset link)
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { user } } = await supabaseClient.auth.getUser()
       if (user) {
         setUser(user)
       } else {
@@ -49,7 +49,7 @@ export default function ResetPasswordPage() {
     }
 
     try {
-      const { error } = await supabase.auth.updateUser({
+      const { error } = await supabaseClient.auth.updateUser({
         password: password
       })
 
