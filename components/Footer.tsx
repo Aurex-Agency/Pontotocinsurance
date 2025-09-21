@@ -88,10 +88,9 @@ const Footer = () => {
                 <li key={item.name}>
                   <Link 
                     href={item.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center space-x-2"
+                    className="text-gray-400 hover:text-white transition-colors duration-200"
                   >
-                    {item.isAdmin && <Shield size={16} />}
-                    <span>{item.name}</span>
+                    {item.name}
                   </Link>
                 </li>
               ))}
