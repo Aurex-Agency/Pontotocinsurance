@@ -138,6 +138,7 @@ const Footer = () => {
                 </a>
               </div>
               <div className="flex items-center space-x-3">
+                {/* Email icon - updated to white */}
                 <Mail size={18} className="text-white" />
                 <a href={`mailto:${isLoading ? 'info@pontotocinsuranceagency.com' : getEmail()}`} className="text-gray-400 hover:text-white transition-colors">
                   {isLoading ? 'info@pontotocinsuranceagency.com' : getEmail()}
