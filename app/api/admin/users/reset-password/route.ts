@@ -12,12 +12,8 @@ export async function POST(request: NextRequest) {
     console.log('Attempting to send password reset email to:', email)
 
     // Send password reset email using admin client
-    const { data, error } = await supabaseAdmin.auth.admin.generateLink({
-      type: 'recovery',
-      email: email,
-      options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://pontotocinsuranceagency.com'}/admin/reset-password`
-      }
+    const { data, error } = await supabaseAdmin.auth.admin.resetPasswordForEmail(email, {
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://pontotocinsuranceagency.com'}/admin/reset-password`
     })
 
     if (error) {
@@ -34,7 +30,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: error.message }, { status: 400 })
     }
 
-    console.log('Password reset link generated successfully:', data)
+    console.log('Password reset email sent successfully:', data)
 
     return NextResponse.json({ 
       success: true, 
