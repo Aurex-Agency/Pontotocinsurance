@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { supabaseAdmin } from '@/lib/supabase'
 
 // GET - Fetch all site settings
 export async function GET() {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('site_settings')
       .select('*')
       .order('key', { ascending: true })
@@ -12,7 +12,7 @@ export async function GET() {
     if (error) throw error
 
     // Convert array to object for easier frontend usage
-    const settingsObject = data.reduce((acc, setting) => {
+    const settingsObject = data.reduce((acc: any, setting: any) => {
       acc[setting.key] = {
         value: setting.value,
         description: setting.description,
@@ -45,7 +45,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const updatePromises = Object.entries(settings).map(async ([key, value]) => {
-      const { error } = await supabaseAdmin
+      const { error } = await (supabaseAdmin as any)
         .from('site_settings')
         .update({ value: value as string })
         .eq('key', key)
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { error } = await supabaseAdmin
+    const { error } = await (supabaseAdmin as any)
       .from('site_settings')
       .insert([{
         key,

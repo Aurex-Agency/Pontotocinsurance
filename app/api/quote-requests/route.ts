@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { supabaseAdmin } from '@/lib/supabase'
 
 // GET - Fetch all quote requests
 export async function GET() {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('quote_requests')
       .select('*')
       .order('created_at', { ascending: false })
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('quote_requests')
       .insert([{
         name,

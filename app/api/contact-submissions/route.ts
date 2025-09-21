@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { supabaseAdmin } from '@/lib/supabase'
 
 // GET - Fetch all contact submissions
 export async function GET() {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('contact_submissions')
       .select('*')
       .order('created_at', { ascending: false })
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('contact_submissions')
       .insert([{
         name,

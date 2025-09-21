@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { supabaseAdmin } from '@/lib/supabase'
 
 // PATCH - Update quote request status
 export async function PATCH(
@@ -18,7 +18,7 @@ export async function PATCH(
       )
     }
 
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await (supabaseAdmin as any)
       .from('quote_requests')
       .update({ 
         status,
@@ -47,7 +47,7 @@ export async function DELETE(
   try {
     const { id } = params
 
-    const { error } = await supabaseAdmin
+    const { error } = await (supabaseAdmin as any)
       .from('quote_requests')
       .delete()
       .eq('id', id)
