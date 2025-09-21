@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase'
+import { supabaseAdmin, supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,8 +11,8 @@ export async function POST(request: NextRequest) {
 
     console.log('Attempting to send password reset email to:', email)
 
-    // Send password reset email using admin client
-    const { data, error } = await supabaseAdmin.auth.admin.resetPasswordForEmail(email, {
+    // Send password reset email using regular client (this actually sends the email)
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://pontotocinsuranceagency.com'}/admin/reset-password`
     })
 
