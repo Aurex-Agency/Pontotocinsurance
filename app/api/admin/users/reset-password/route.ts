@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,8 +9,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 })
     }
 
+    console.log('Attempting to send password reset email to:', email)
+
     // Send password reset email using admin client
-    const { error } = await supabaseAdmin.auth.admin.generateLink({
+    const { data, error } = await supabaseAdmin.auth.admin.generateLink({
       type: 'recovery',
       email: email,
       options: {
@@ -20,8 +22,19 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error('Error generating password reset link:', error)
+      
+      // Check for rate limit error specifically
+      if (error.message.includes('rate limit') || error.message.includes('429')) {
+        return NextResponse.json({ 
+          success: false, 
+          error: 'Email rate limit exceeded. Please wait a few minutes before trying again.' 
+        }, { status: 429 })
+      }
+      
       return NextResponse.json({ success: false, error: error.message }, { status: 400 })
     }
+
+    console.log('Password reset link generated successfully:', data)
 
     return NextResponse.json({ 
       success: true, 

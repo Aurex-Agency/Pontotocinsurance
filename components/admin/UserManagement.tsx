@@ -147,7 +147,9 @@ const UserManagement = () => {
       
       const result = await response.json()
       
-      if (result.success) {
+      if (response.status === 429) {
+        setMessage({ type: 'error', text: 'Email rate limit exceeded. Please wait a few minutes before trying again.' })
+      } else if (result.success) {
         setMessage({ type: 'success', text: `Password reset email sent to ${user.email}` })
       } else {
         setMessage({ type: 'error', text: result.error || 'Failed to send password reset email' })
