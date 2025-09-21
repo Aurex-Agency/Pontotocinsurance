@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       type: 'recovery',
       email: email,
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://pontotocinsuranceagency.com'}/admin/login`
+        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://pontotocinsuranceagency.com'}/admin/reset-password`
       }
     })
 
