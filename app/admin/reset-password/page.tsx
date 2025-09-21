@@ -18,17 +18,37 @@ export default function ResetPasswordPage() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    // Check if user is authenticated (they should be after clicking the reset link)
-    const getUser = async () => {
-      const { data: { user } } = await supabaseClient.auth.getUser()
-      if (user) {
-        setUser(user)
+    // Listen for auth changes (including password reset)
+    const { data: { subscription } } = supabaseClient.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('Auth state change:', event, session)
+        
+        if (event === 'PASSWORD_RECOVERY' && session?.user) {
+          setUser(session.user)
+        } else if (session?.user) {
+          setUser(session.user)
+        } else {
+          // If no session, redirect to login
+          router.push('/admin/login')
+        }
+      }
+    )
+
+    // Check initial session
+    const checkSession = async () => {
+      const { data: { session } } = await supabaseClient.auth.getSession()
+      if (session?.user) {
+        setUser(session.user)
       } else {
-        // If no user, redirect to login
         router.push('/admin/login')
       }
     }
-    getUser()
+    
+    checkSession()
+
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [router])
 
   const handleSubmit = async (e: React.FormEvent) => {
