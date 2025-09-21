@@ -1,9 +1,7 @@
-import { createClient } from '@supabase/supabase-js'
+import { supabase, supabaseAdmin } from './supabase'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Re-export supabase client for backward compatibility
+export { supabase }
 
 export interface User {
   id: string
@@ -74,7 +72,7 @@ export const auth = {
   // Create new user (admin only)
   async createUser(email: string, password: string, fullName?: string) {
     try {
-      const { data, error } = await supabase.auth.admin.createUser({
+      const { data, error } = await supabaseAdmin.auth.admin.createUser({
         email,
         password,
         user_metadata: {
@@ -97,7 +95,7 @@ export const auth = {
   // Delete user (admin only)
   async deleteUser(userId: string) {
     try {
-      const { error } = await supabase.auth.admin.deleteUser(userId)
+      const { error } = await supabaseAdmin.auth.admin.deleteUser(userId)
       if (error) throw error
       return { success: true, error: null }
     } catch (error: any) {
@@ -111,7 +109,7 @@ export const auth = {
   // List all users (admin only)
   async listUsers() {
     try {
-      const { data, error } = await supabase.auth.admin.listUsers()
+      const { data, error } = await supabaseAdmin.auth.admin.listUsers()
       if (error) throw error
       return { success: true, users: data.users, error: null }
     } catch (error: any) {
@@ -126,7 +124,7 @@ export const auth = {
   // Update user (admin only)
   async updateUser(userId: string, updates: { email?: string; user_metadata?: any }) {
     try {
-      const { data, error } = await supabase.auth.admin.updateUserById(userId, updates)
+      const { data, error } = await supabaseAdmin.auth.admin.updateUserById(userId, updates)
       if (error) throw error
       return { success: true, user: data.user, error: null }
     } catch (error: any) {
