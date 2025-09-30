@@ -1,2 +1,7 @@
-# This is a placeholder for the default avatar image
-# In a real implementation, you would place an actual image file here
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#f3f4f6"/>
+  <circle cx="200" cy="160" r="60" fill="#d1d5db"/>
+  <path d="M80 320c0-66.274 53.726-120 120-120s120 53.726 120 120v80H80v-80z" fill="#d1d5db"/>
+  <text x="200" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#6b7280">Default Avatar</text>
+</svg>

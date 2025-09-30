@@ -43,11 +43,29 @@ const TeamGrid = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
+        console.log('Fetching team data...')
         const response = await fetch('/api/team')
+        console.log('Response status:', response.status)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
         const data = await response.json()
+        console.log('Team data received:', data)
         setTeamData(data)
       } catch (error) {
         console.error('Error fetching team data:', error)
+        // Set a fallback data structure to prevent infinite loading
+        setTeamData({
+          teamMembers: [],
+          settings: {
+            showSocialMedia: true,
+            showContactInfo: true,
+            showSpecialties: true,
+            showExperience: true,
+            gridColumns: 2,
+            enableDragDrop: false
+          }
+        })
       }
     }
 
@@ -69,6 +87,24 @@ const TeamGrid = () => {
   const activeMembers = teamData.teamMembers
     .filter(member => member.isActive)
     .sort((a, b) => a.displayOrder - b.displayOrder)
+
+  // If no team members, show a message
+  if (activeMembers.length === 0) {
+    return (
+      <section className="py-16 bg-gray-50">
+        <div className="container-custom">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Our Insurance Experts
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              No team members available at this time. Please check back later.
+            </p>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="py-16 bg-gray-50">
