@@ -64,7 +64,7 @@ const staticTeamData = {
       name: "Jake Wingo", 
       title: "Insurance Advisor",
       bio: "Jake focuses on personal insurance needs and helps individuals and families secure the protection they need for life's uncertainties.",
-      image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", // Small placeholder
+      image: "/team/default-avatar.jpg",
       email: "jake@pontotocinsuranceagency.com",
       phone: "(662) 200-2249", 
       specialties: ["Personal Insurance", "Health Insurance", "Medicare"],
@@ -92,6 +92,91 @@ const staticTeamData = {
       socialMedia: {
         linkedin: "https://linkedin.com/in/dalton-bryant"
       }
+    },
+    {
+      id: "5",
+      name: "Sarah Mitchell",
+      title: "Customer Service Manager",
+      bio: "Sarah ensures our clients receive exceptional service and support throughout their insurance journey with us.",
+      image: "/team/default-avatar.jpg",
+      email: "sarah@pontotocinsuranceagency.com",
+      phone: "(662) 200-2249",
+      specialties: ["Customer Service", "Claims Support", "Policy Management"],
+      licenses: ["Property & Casualty"],
+      yearsExperience: 4,
+      displayOrder: 5,
+      isActive: true,
+      socialMedia: {
+        linkedin: "https://linkedin.com/in/sarah-mitchell"
+      }
+    },
+    {
+      id: "6",
+      name: "Michael Thompson",
+      title: "Senior Claims Specialist",
+      bio: "Michael handles complex insurance claims and ensures our clients receive fair and timely settlements.",
+      image: "/team/default-avatar.jpg",
+      email: "michael@pontotocinsuranceagency.com",
+      phone: "(662) 200-2249",
+      specialties: ["Claims Processing", "Risk Assessment", "Loss Prevention"],
+      licenses: ["Property & Casualty", "Adjuster License"],
+      yearsExperience: 9,
+      displayOrder: 6,
+      isActive: true,
+      socialMedia: {
+        linkedin: "https://linkedin.com/in/michael-thompson"
+      }
+    },
+    {
+      id: "7",
+      name: "Lisa Rodriguez",
+      title: "Health Insurance Specialist",
+      bio: "Lisa specializes in health insurance solutions and helps individuals and families find comprehensive coverage.",
+      image: "/team/default-avatar.jpg",
+      email: "lisa@pontotocinsuranceagency.com",
+      phone: "(662) 200-2249",
+      specialties: ["Health Insurance", "Medicare", "Dental Insurance"],
+      licenses: ["Life & Health"],
+      yearsExperience: 6,
+      displayOrder: 7,
+      isActive: true,
+      socialMedia: {
+        linkedin: "https://linkedin.com/in/lisa-rodriguez"
+      }
+    },
+    {
+      id: "8",
+      name: "David Wilson",
+      title: "Commercial Insurance Expert",
+      bio: "David focuses on commercial insurance solutions for businesses of all sizes, from small startups to large corporations.",
+      image: "/team/default-avatar.jpg",
+      email: "david@pontotocinsuranceagency.com",
+      phone: "(662) 200-2249",
+      specialties: ["Commercial Insurance", "General Liability", "Professional Liability"],
+      licenses: ["Property & Casualty"],
+      yearsExperience: 10,
+      displayOrder: 8,
+      isActive: true,
+      socialMedia: {
+        linkedin: "https://linkedin.com/in/david-wilson"
+      }
+    },
+    {
+      id: "9",
+      name: "Jennifer Davis",
+      title: "Life Insurance Advisor",
+      bio: "Jennifer helps clients secure their family's financial future with comprehensive life insurance and estate planning solutions.",
+      image: "/team/default-avatar.jpg",
+      email: "jennifer@pontotocinsuranceagency.com",
+      phone: "(662) 200-2249",
+      specialties: ["Life Insurance", "Estate Planning", "Long-term Care"],
+      licenses: ["Life & Health"],
+      yearsExperience: 8,
+      displayOrder: 9,
+      isActive: true,
+      socialMedia: {
+        linkedin: "https://linkedin.com/in/jennifer-davis"
+      }
     }
   ],
   settings: {
@@ -99,7 +184,7 @@ const staticTeamData = {
     showContactInfo: true,
     showSpecialties: true,
     showExperience: true,
-    gridColumns: 2,
+    gridColumns: 3,
     enableDragDrop: false
   }
 }
@@ -121,7 +206,7 @@ const StaticTeamGrid = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {activeMembers.map((member, index) => (
             <Link
               key={member.id}
