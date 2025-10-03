@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { 
   Phone, 
   Mail, 
@@ -155,11 +156,18 @@ END:VCARD`
           <div className="hidden md:flex">
             {/* Left Side - Image and Basic Info */}
             <div className="w-1/3 bg-gradient-to-br from-primary-600 to-primary-700 p-8 flex flex-col items-center justify-center text-white">
-              <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden mb-6">
-                <img
+              <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden mb-6 relative">
+                <Image
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  onError={(e) => {
+                    console.error('Desktop image failed to load:', member.image, e)
+                  }}
+                  onLoad={() => {
+                    console.log('Desktop image loaded successfully:', member.image)
+                  }}
                 />
               </div>
               <h1 className="text-2xl font-bold mb-2">{member.name}</h1>
@@ -219,11 +227,18 @@ END:VCARD`
             <div className="relative">
               <div className="h-32 bg-gradient-to-r from-primary-600 to-primary-700"></div>
               <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
-                <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden">
-                  <img
+                <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden relative">
+                  <Image
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    onError={(e) => {
+                      console.error('Mobile image failed to load:', member.image, e)
+                    }}
+                    onLoad={() => {
+                      console.log('Mobile image loaded successfully:', member.image)
+                    }}
                   />
                 </div>
               </div>
