@@ -51,6 +51,8 @@ const TeamGrid = () => {
         }
         const data = await response.json()
         console.log('Team data received:', data)
+        console.log('Team members count:', data.teamMembers?.length)
+        console.log('First team member:', data.teamMembers?.[0])
         setTeamData(data)
       } catch (error) {
         console.error('Error fetching team data:', error)
@@ -62,7 +64,7 @@ const TeamGrid = () => {
             showContactInfo: true,
             showSpecialties: true,
             showExperience: true,
-            gridColumns: 2,
+            gridColumns: 3,
             enableDragDrop: false
           }
         })
@@ -145,6 +147,12 @@ const TeamGrid = () => {
                   alt={member.name}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    console.error('Image failed to load:', member.image, e)
+                  }}
+                  onLoad={() => {
+                    console.log('Image loaded successfully:', member.image)
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
