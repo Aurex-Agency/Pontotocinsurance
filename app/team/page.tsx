@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import TeamHero from '@/components/team/TeamHero'
-import StaticTeamGrid from '@/components/team/StaticTeamGrid'
+import TeamGrid from '@/components/team/TeamGrid'
 import TeamStats from '@/components/team/TeamStats'
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function TeamPage() {
     <div className="min-h-screen">
       <TeamHero />
       <TeamStats />
-      <StaticTeamGrid />
+      <TeamGrid />
     </div>
   )
 }
