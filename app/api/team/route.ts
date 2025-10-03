@@ -40,18 +40,14 @@ function convertTeamMemberToDatabase(frontendMember: any) {
 
 export async function GET() {
   try {
-    console.log('Team API: Starting to fetch team members...')
     const result = await getTeamMembers()
-    console.log('Team API: Database result:', result)
     
     if (!result.success) {
-      console.error('Team API: Database error:', result.error)
       return NextResponse.json({ error: result.error }, { status: 500 })
     }
 
     // Convert database format to frontend format
     const teamMembers = result.data?.map(convertTeamMemberToFrontend) || []
-    console.log('Team API: Converted team members:', teamMembers)
     
     // Return in the expected format with settings
     const teamData = {
@@ -66,10 +62,9 @@ export async function GET() {
       }
     }
 
-    console.log('Team API: Final team data:', teamData)
     return NextResponse.json(teamData)
   } catch (error) {
-    console.error('Team API: Error reading team data:', error)
+    console.error('Error reading team data:', error)
     return NextResponse.json({ error: 'Failed to read team data' }, { status: 500 })
   }
 }
