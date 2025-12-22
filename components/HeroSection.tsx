@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Shield, Car, Heart, Users, PiggyBank } from 'lucide-react'
+import { Heart, Users, PiggyBank, Pill } from 'lucide-react'
 import BookingModal from './BookingModal'
 
 const HeroSection = () => {
@@ -69,11 +69,9 @@ const HeroSection = () => {
   }
 
   const services = [
-    { name: 'Home Insurance', icon: Shield, value: 'home' },
-    { name: 'Auto Insurance', icon: Car, value: 'auto' },
     { name: 'Life Insurance', icon: Heart, value: 'life' },
     { name: 'Health Insurance', icon: Users, value: 'health' },
-    { name: 'Medicare', icon: Users, value: 'medicare' },
+    { name: 'Medicare', icon: Pill, value: 'medicare' },
     { name: 'Retirement Planning', icon: PiggyBank, value: 'retirement' },
   ]
 
@@ -98,8 +96,8 @@ const HeroSection = () => {
                 Pontotoc Insurance Agency
               </h1>
               <p className="text-xl text-primary-100 leading-relaxed">
-                Comprehensive insurance solutions for Home, Auto, Life, Health, Medicare, and Retirement Planning. 
-                Local expertise with nationwide coverage options.
+                Expert financial guidance for life insurance, health insurance, Medicare, and retirement planning. 
+                Helping high-net-worth individuals and families build wealth and protect their financial future with personalized strategies.
               </p>
             </div>
 

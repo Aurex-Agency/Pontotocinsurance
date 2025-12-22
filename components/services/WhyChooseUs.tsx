@@ -5,7 +5,7 @@ import { Award, Clock, Users, Shield, CheckCircle, Phone, Mail } from 'lucide-re
 import BookingModal from '../BookingModal'
 
 interface WhyChooseUsProps {
-  service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
+  service: 'life' | 'health' | 'medicare' | 'retirement'
   title: string
   description: string
 }
@@ -36,22 +36,6 @@ const WhyChooseUs = ({ service, title, description }: WhyChooseUsProps) => {
   ]
 
   const serviceSpecificBenefits = {
-    home: [
-      'Comprehensive dwelling and personal property coverage',
-      'Natural disaster and weather protection',
-      'Personal liability and medical payments',
-      'Additional living expenses coverage',
-      'Identity theft protection options',
-      'Home security discounts'
-    ],
-    auto: [
-      'Competitive rates from multiple carriers',
-      'Multi-vehicle and multi-policy discounts',
-      'Roadside assistance and rental coverage',
-      'Uninsured motorist protection',
-      'Comprehensive collision coverage',
-      'Flexible payment options'
-    ],
     life: [
       'Term and permanent life insurance options',
       'No medical exam policies available',

@@ -10,8 +10,6 @@ const Footer = () => {
   const { getPhone, getEmail, getAddress, getName, getHours, isLoading } = useSiteSettings()
 
   const services = [
-    { name: 'Home Insurance', href: '/home' },
-    { name: 'Auto Insurance', href: '/auto' },
     { name: 'Life Insurance', href: '/life' },
     { name: 'Health Insurance', href: '/health' },
     { name: 'Medicare', href: '/medicare' },
@@ -47,8 +45,8 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-400 mb-6">
-              Providing comprehensive insurance solutions with personalized service and local expertise. 
-              Your trusted partner for all your insurance needs.
+              Expert financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. 
+              Your trusted partner for building wealth and protecting your financial future.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">

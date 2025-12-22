@@ -9,25 +9,36 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Pontotoc Insurance Agency - Your Trusted Insurance Partner',
+    default: 'Pontotoc Insurance Agency - Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning',
     template: '%s | Pontotoc Insurance Agency'
   },
-  description: 'Comprehensive insurance solutions for Home, Auto, Life, Health, Medicare, and Retirement Planning. Your trusted local insurance agency in Pontotoc, Mississippi. Licensed professionals with 7+ years experience.',
+  description: 'Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Mississippi. Licensed professionals with 7+ years experience.',
   keywords: [
-    'insurance Pontotoc MS',
-    'home insurance Mississippi',
-    'auto insurance Pontotoc',
-    'life insurance Mississippi',
-    'health insurance Pontotoc',
-    'Medicare insurance Mississippi',
-    'Medicare Advantage plans',
-    'Medigap insurance',
-    'retirement planning Mississippi',
-    'insurance agent Pontotoc',
-    'local insurance agency',
-    'insurance quotes Mississippi',
-    'affordable insurance Pontotoc',
-    'insurance broker Mississippi'
+    'financial advisor Mississippi',
+    'life insurance advisor Pontotoc',
+    'health insurance broker Mississippi',
+    'retirement planning advisor',
+    'wealth management Mississippi',
+    'estate planning Pontotoc',
+    'high net worth financial advisor',
+    'life insurance quotes Mississippi',
+    'health insurance plans Mississippi',
+    'Medicare advisor Pontotoc',
+    'retirement planning services',
+    '401k rollover advisor',
+    'IRA management Mississippi',
+    'annuity advisor Pontotoc',
+    'term life insurance Mississippi',
+    'whole life insurance advisor',
+    'universal life insurance',
+    'Medicare Advantage plans Mississippi',
+    'Medigap insurance Pontotoc',
+    'financial planning services',
+    'investment advisor Mississippi',
+    'tax planning advisor',
+    'financial consultant Pontotoc',
+    'insurance agent Mississippi',
+    'licensed financial advisor'
   ],
   authors: [{ name: 'Pontotoc Insurance Agency' }],
   creator: 'Pontotoc Insurance Agency',
@@ -45,8 +56,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://pontotocinsuranceagency.com',
-    title: 'Pontotoc Insurance Agency - Your Trusted Insurance Partner',
-    description: 'Comprehensive insurance solutions for Home, Auto, Life, Health, Medicare, and Retirement Planning. Your trusted local insurance agency in Pontotoc, Mississippi.',
+    title: 'Pontotoc Insurance Agency - Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning',
+    description: 'Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Mississippi.',
     siteName: 'Pontotoc Insurance Agency',
     images: [
       {
@@ -59,8 +70,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pontotoc Insurance Agency - Your Trusted Insurance Partner',
-    description: 'Comprehensive insurance solutions for Home, Auto, Life, Health, Medicare, and Retirement Planning. Your trusted local insurance agency in Pontotoc, Mississippi.',
+    title: 'Pontotoc Insurance Agency - Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning',
+    description: 'Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Mississippi.',
     images: ['/pia_logo.png'],
   },
   robots: {
@@ -89,7 +100,7 @@ export default function RootLayout({
     "@type": "InsuranceAgency",
     "name": "Pontotoc Insurance Agency",
     "alternateName": "PIA",
-    "description": "Comprehensive insurance solutions for Home, Auto, Life, Health, Medicare, and Retirement Planning. Your trusted local insurance agency in Pontotoc, Mississippi.",
+    "description": "Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Pontotoc, Mississippi.",
     "url": "https://pontotocinsuranceagency.com",
     "logo": "https://pontotocinsuranceagency.com/pia_logo.png",
     "image": "https://pontotocinsuranceagency.com/pia_logo.png",
@@ -139,39 +150,24 @@ export default function RootLayout({
       }
     ],
     "serviceType": [
-      "Home Insurance",
-      "Auto Insurance", 
       "Life Insurance",
       "Health Insurance",
       "Medicare Insurance",
-      "Retirement Planning"
+      "Retirement Planning",
+      "Wealth Management",
+      "Estate Planning",
+      "Financial Planning"
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Insurance Services",
+      "name": "Financial Advisory Services",
       "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Home Insurance",
-            "description": "Comprehensive home insurance coverage for dwelling, personal property, and liability protection."
-          }
-        },
-        {
-          "@type": "Offer", 
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Auto Insurance",
-            "description": "Complete auto insurance coverage including liability, collision, and comprehensive protection."
-          }
-        },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service", 
             "name": "Life Insurance",
-            "description": "Term and permanent life insurance options to protect your loved ones."
+            "description": "Comprehensive life insurance solutions including term, whole, and universal life policies. Expert guidance for estate planning and wealth transfer strategies for high-net-worth individuals."
           }
         },
         {
@@ -179,7 +175,7 @@ export default function RootLayout({
           "itemOffered": {
             "@type": "Service",
             "name": "Health Insurance", 
-            "description": "Individual and family health insurance plans with comprehensive coverage options."
+            "description": "Expert health insurance brokerage services for individuals, families, and businesses. Navigate the marketplace with personalized guidance and comprehensive coverage options."
           }
         },
         {
@@ -187,7 +183,7 @@ export default function RootLayout({
           "itemOffered": {
             "@type": "Service",
             "name": "Medicare Insurance",
-            "description": "Medicare Advantage, Medigap, and Prescription Drug Plans for seniors."
+            "description": "Specialized Medicare advisory services including Medicare Advantage, Medigap, and Prescription Drug Plans. Expert guidance for seniors and their families."
           }
         },
         {
@@ -195,7 +191,23 @@ export default function RootLayout({
           "itemOffered": {
             "@type": "Service",
             "name": "Retirement Planning",
-            "description": "Comprehensive retirement planning including 401(k), IRA, and annuity strategies."
+            "description": "Comprehensive retirement planning and wealth management services including 401(k) rollovers, IRA management, annuities, Social Security optimization, and investment strategies for long-term financial security."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wealth Management",
+            "description": "Personalized wealth management and investment advisory services for high-net-worth individuals and families seeking long-term financial growth and security."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Estate Planning",
+            "description": "Expert estate planning services to protect and transfer wealth efficiently, including life insurance strategies for estate tax planning and legacy building."
           }
         }
       ]

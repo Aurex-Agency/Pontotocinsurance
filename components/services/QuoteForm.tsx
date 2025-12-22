@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Shield, Car, Heart, Users, PiggyBank, Send, Pill } from 'lucide-react'
+import { Heart, Users, PiggyBank, Send, Pill } from 'lucide-react'
 import { useSiteSettings } from '@/lib/useSiteSettings'
 
 interface QuoteFormProps {
-  service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
+  service: 'life' | 'health' | 'medicare' | 'retirement'
   title: string
   description: string
 }
@@ -78,8 +78,6 @@ const QuoteForm = ({ service, title, description }: QuoteFormProps) => {
   }
 
   const serviceIcons = {
-    home: Shield,
-    auto: Car,
     life: Heart,
     health: Users,
     medicare: Pill,

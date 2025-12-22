@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Shield, Car, Heart, Users, PiggyBank, CheckCircle, Pill } from 'lucide-react'
+import { Heart, Users, PiggyBank, CheckCircle, Pill } from 'lucide-react'
 import QuoteModal from '../QuoteModal'
 import BookingModal from '../BookingModal'
 
 interface CoverageOptionsProps {
-  service: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement'
+  service: 'life' | 'health' | 'medicare' | 'retirement'
   title: string
   description: string
 }
@@ -15,58 +15,6 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
   const coverageData = {
-    home: {
-      icon: Shield,
-      color: 'from-blue-500 to-blue-600',
-      coverages: [
-        {
-          title: 'Dwelling Coverage',
-          description: 'Protects the structure of your home, including walls, roof, and built-in appliances.',
-          features: ['Replacement cost coverage', 'Extended replacement cost', 'Ordinance or law coverage']
-        },
-        {
-          title: 'Personal Property',
-          description: 'Covers your belongings inside your home and anywhere in the world.',
-          features: ['Scheduled personal property', 'Replacement cost coverage', 'Off-premises coverage']
-        },
-        {
-          title: 'Liability Protection',
-          description: 'Protects you if someone is injured on your property or you damage someone else\'s property.',
-          features: ['Personal liability', 'Medical payments', 'Guest medical protection']
-        },
-        {
-          title: 'Additional Living Expenses',
-          description: 'Covers extra costs if you need to live elsewhere while your home is being repaired.',
-          features: ['Temporary housing', 'Meal expenses', 'Storage costs']
-        }
-      ]
-    },
-    auto: {
-      icon: Car,
-      color: 'from-green-500 to-green-600',
-      coverages: [
-        {
-          title: 'Liability Coverage',
-          description: 'Covers damage you cause to others in an accident.',
-          features: ['Bodily injury liability', 'Property damage liability', 'Split limits coverage']
-        },
-        {
-          title: 'Collision Coverage',
-          description: 'Pays for damage to your car from collisions with other vehicles or objects.',
-          features: ['Deductible options', 'Rental car coverage', 'Glass coverage']
-        },
-        {
-          title: 'Comprehensive Coverage',
-          description: 'Protects against non-collision damage like theft, vandalism, and weather.',
-          features: ['Theft protection', 'Vandalism coverage', 'Weather damage']
-        },
-        {
-          title: 'Uninsured/Underinsured Motorist',
-          description: 'Protects you if you\'re hit by someone with little or no insurance.',
-          features: ['Uninsured motorist', 'Underinsured motorist', 'Hit-and-run coverage']
-        }
-      ]
-    },
     life: {
       icon: Heart,
       color: 'from-red-500 to-red-600',

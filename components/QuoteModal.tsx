@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { X, Send, Shield, Car, Heart, Users, PiggyBank, Pill } from 'lucide-react'
+import { X, Send, Heart, Users, PiggyBank, Pill } from 'lucide-react'
 import { submitQuoteRequest } from '@/lib/database'
 import { useSiteSettings } from '../lib/useSiteSettings'
 
 interface QuoteModalProps {
   isOpen: boolean
   onClose: () => void
-  service?: 'home' | 'auto' | 'life' | 'health' | 'medicare' | 'retirement' | 'all'
+  service?: 'life' | 'health' | 'medicare' | 'retirement' | 'all'
   title?: string
   description?: string
 }
@@ -107,26 +107,22 @@ const QuoteModal = ({
 
   const getServiceIcon = (service: string) => {
     switch (service) {
-      case 'home': return Shield
-      case 'auto': return Car
       case 'life': return Heart
       case 'health': return Users
       case 'medicare': return Pill
       case 'retirement': return PiggyBank
-      default: return Shield
+      default: return Heart
     }
   }
 
   const getServiceName = (service: string) => {
     switch (service) {
-      case 'home': return 'Home Insurance'
-      case 'auto': return 'Auto Insurance'
       case 'life': return 'Life Insurance'
       case 'health': return 'Health Insurance'
       case 'medicare': return 'Medicare'
       case 'retirement': return 'Retirement Planning'
       case 'all': return 'All Services'
-      default: return 'Insurance'
+      default: return 'Financial Services'
     }
   }
 

@@ -13,12 +13,10 @@ const Header = () => {
   const { getPhone, getEmail, getAddress, isLoading } = useSiteSettings()
 
   const navigation = [
-    { name: 'Life', href: '/life' },
-    { name: 'Health', href: '/health' },
+    { name: 'Life Insurance', href: '/life' },
+    { name: 'Health Insurance', href: '/health' },
     { name: 'Medicare', href: '/medicare' },
-    { name: 'Retirement', href: '/retirement' },
-    { name: 'Home', href: '/home' },
-    { name: 'Auto', href: '/auto' },
+    { name: 'Retirement Planning', href: '/retirement' },
     { name: 'Team', href: '/team' },
     { name: 'Contact', href: '/contact' },
   ]

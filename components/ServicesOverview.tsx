@@ -2,43 +2,35 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Shield, Car, Heart, Users, PiggyBank, ArrowRight, Pill } from 'lucide-react'
+import { Heart, Users, PiggyBank, ArrowRight, Pill } from 'lucide-react'
 import QuoteModal from './QuoteModal'
 
 const ServicesOverview = () => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const services = [
     {
-      icon: Shield,
-      title: 'Home Insurance',
-      description: 'Protect your most valuable asset with comprehensive home insurance coverage tailored to your needs.',
-      features: ['Property Protection', 'Liability Coverage', 'Natural Disaster Protection', 'Personal Property Coverage'],
-      href: '/home',
-      color: 'from-blue-500 to-blue-600'
-    },
-    {
-      icon: Car,
-      title: 'Auto Insurance',
-      description: 'Get the coverage you need to drive with confidence. Competitive rates and comprehensive protection.',
-      features: ['Liability Coverage', 'Collision Protection', 'Comprehensive Coverage', 'Uninsured Motorist'],
-      href: '/auto',
-      color: 'from-green-500 to-green-600'
-    },
-    {
       icon: Heart,
       title: 'Life Insurance',
-      description: 'Secure your family\'s future with life insurance plans that provide financial protection when they need it most.',
-      features: ['Term Life Insurance', 'Whole Life Insurance', 'Universal Life', 'Final Expense Coverage'],
+      description: 'Secure your family\'s financial future with comprehensive life insurance solutions. Protect your loved ones with term, whole, and universal life policies tailored to your needs.',
+      features: ['Term Life Insurance', 'Whole Life Insurance', 'Universal Life Insurance', 'Final Expense Coverage', 'Estate Planning'],
       href: '/life',
       color: 'from-red-500 to-red-600'
     },
     {
       icon: Users,
       title: 'Health Insurance',
-      description: 'Navigate the complex world of health insurance with expert guidance and personalized solutions.',
-      features: ['Individual Plans', 'Family Coverage', 'Health Savings Accounts', 'Short-term Coverage'],
+      description: 'Expert guidance through the complex health insurance marketplace. Find affordable individual, family, and group health plans with comprehensive coverage options.',
+      features: ['Individual Health Plans', 'Family Coverage', 'Health Savings Accounts (HSA)', 'Short-term Coverage', 'Group Health Plans'],
       href: '/health',
       color: 'from-purple-500 to-purple-600'
+    },
+    {
+      icon: PiggyBank,
+      title: 'Retirement Planning',
+      description: 'Build wealth and secure your retirement with comprehensive financial planning. Expert guidance on 401(k), IRAs, annuities, and investment strategies for long-term financial security.',
+      features: ['401(k) Planning & Rollovers', 'IRA Management', 'Annuities', 'Social Security Optimization', 'Investment Strategies'],
+      href: '/retirement',
+      color: 'from-yellow-500 to-yellow-600'
     },
     {
       icon: Pill,
@@ -48,14 +40,6 @@ const ServicesOverview = () => {
       href: '/medicare',
       color: 'from-indigo-500 to-indigo-600'
     },
-    {
-      icon: PiggyBank,
-      title: 'Retirement Planning',
-      description: 'Build a secure retirement with comprehensive planning services and investment strategies.',
-      features: ['401(k) Planning', 'IRA Management', 'Annuities', 'Social Security Optimization'],
-      href: '/retirement',
-      color: 'from-yellow-500 to-yellow-600'
-    }
   ]
 
   return (
@@ -63,11 +47,10 @@ const ServicesOverview = () => {
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Comprehensive Insurance Solutions
+            Comprehensive Financial & Insurance Solutions
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We offer a full range of insurance products to protect what matters most to you. 
-            From your home and car to your health and retirement, we've got you covered.
+            Expert guidance for your most important financial decisions. From protecting your family's future with life insurance to securing your health coverage and building wealth through retirement planning, we're your trusted financial partners.
           </p>
         </div>
 
