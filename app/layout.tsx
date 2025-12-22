@@ -221,8 +221,10 @@ export default function RootLayout({
       ]
     },
     "sameAs": [
-      "https://www.facebook.com/pontotocinsuranceagency",
-      "https://www.linkedin.com/company/pontotoc-insurance-agency"
+      "https://www.facebook.com/profile.php?id=61555385591316",
+      "https://www.instagram.com/pontotocinsuranceagency",
+      "https://www.linkedin.com/company/pontotoc-insurance-agency/",
+      "https://www.tiktok.com/@pontotocinsurance"
     ]
   }
 
