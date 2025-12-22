@@ -13,23 +13,33 @@ import MedicareEnrollment from '@/components/medicare/MedicareEnrollment';
 import MedicareFAQ from '@/components/medicare/MedicareFAQ';
 
 export const metadata: Metadata = {
-  title: 'Medicare Insurance Plans - Pontotoc Insurance Agency',
-  description: 'Expert Medicare insurance guidance in Pontotoc, MS. Medicare Advantage, Medigap, Part D plans. Licensed agents help you choose the right Medicare coverage. Free consultation.',
+  title: 'Medicare Insurance Plans Pontotoc MS | Medicare Advisor Pontotoc Mississippi',
+  description: 'Expert Medicare insurance advisor in Pontotoc, MS. Medicare Advantage, Medigap, Part D plans. Licensed Medicare agents serving Pontotoc, Tupelo, Oxford, and all of Mississippi. Free Medicare consultation. Compare Medicare plans in Pontotoc County.',
   keywords: [
+    'Medicare Pontotoc MS',
     'Medicare insurance Pontotoc MS',
-    'Medicare Advantage plans Mississippi',
-    'Medigap insurance Pontotoc',
-    'Medicare Part D plans',
-    'Medicare supplement insurance',
-    'Medicare enrollment Pontotoc',
-    'Medicare broker Mississippi',
-    'senior insurance Pontotoc',
-    'Medicare costs 2024',
-    'Medicare eligibility Mississippi'
+    'Medicare advisor Pontotoc Mississippi',
+    'Medicare agent Pontotoc MS',
+    'Medicare Advantage plans Pontotoc MS',
+    'Medigap insurance Pontotoc Mississippi',
+    'Medicare Part D plans Pontotoc',
+    'Medicare supplement Pontotoc MS',
+    'Medicare enrollment Pontotoc Mississippi',
+    'Medicare broker Pontotoc MS',
+    'senior insurance Pontotoc MS',
+    'Medicare costs Pontotoc Mississippi',
+    'Medicare eligibility Pontotoc MS',
+    'Medicare plans Pontotoc County',
+    'best Medicare plans Pontotoc MS',
+    'Medicare comparison Pontotoc Mississippi',
+    'Medicare Part C Pontotoc',
+    'Medicare Advantage Pontotoc MS',
+    'Medicare coverage Pontotoc Mississippi',
+    'Medicare quotes Pontotoc MS'
   ],
   openGraph: {
-    title: 'Medicare Insurance Plans - Pontotoc Insurance Agency',
-    description: 'Expert Medicare insurance guidance in Pontotoc, MS. Medicare Advantage, Medigap, Part D plans. Licensed agents help you choose the right Medicare coverage.',
+    title: 'Medicare Insurance Plans Pontotoc MS | Medicare Advisor Pontotoc Mississippi',
+    description: 'Expert Medicare insurance advisor in Pontotoc, MS. Medicare Advantage, Medigap, Part D plans. Licensed Medicare agents serving Pontotoc, Tupelo, Oxford, and all of Mississippi.',
     url: 'https://pontotocinsuranceagency.com/medicare',
     type: 'website',
   },
@@ -39,8 +49,72 @@ export const metadata: Metadata = {
 }
 
 export default function MedicarePage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Medicare Insurance Advisory",
+    "provider": {
+      "@type": "InsuranceAgency",
+      "name": "Pontotoc Insurance Agency",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "158 MS-15, Suite D",
+        "addressLocality": "Pontotoc",
+        "addressRegion": "MS",
+        "postalCode": "38863",
+        "addressCountry": "US"
+      },
+      "telephone": "+1-662-200-2249",
+      "email": "info@pontotocinsuranceagency.com",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "34.2479",
+        "longitude": "-89.0067"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Pontotoc",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Mississippi"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Tupelo",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Mississippi"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Oxford",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Mississippi"
+          }
+        }
+      ]
+    },
+    "description": "Expert Medicare insurance advisor in Pontotoc, MS. Medicare Advantage, Medigap, Part D plans. Licensed Medicare agents serving Pontotoc, Tupelo, Oxford, and all of Mississippi.",
+    "offers": {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Medicare Insurance Plans",
+        "description": "Medicare Advantage, Medigap, and Prescription Drug Plans for seniors in Pontotoc, MS and surrounding areas"
+      }
+    }
+  }
+
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <MedicareHero />
       
       <MedicareEligibility />

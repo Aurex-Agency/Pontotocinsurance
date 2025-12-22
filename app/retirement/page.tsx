@@ -5,40 +5,52 @@ import WhyChooseUs from '@/components/services/WhyChooseUs'
 import QuoteForm from '@/components/services/QuoteForm'
 
 export const metadata: Metadata = {
-  title: 'Retirement Planning Advisor | 401k Rollover, IRA & Wealth Management Mississippi',
-  description: 'Expert retirement planning advisor in Pontotoc, MS. Comprehensive wealth management services including 401(k) rollovers, IRA management, annuities, Social Security optimization, and investment strategies. Licensed financial advisors helping high-net-worth individuals build secure retirement portfolios.',
+  title: 'Annuities Pontotoc MS | Retirement Planning & Annuity Advisor Pontotoc Mississippi',
+  description: 'Expert annuity advisor and retirement planning specialist in Pontotoc, MS. Comprehensive annuities, 401(k) rollovers, IRA management, and wealth management services. Licensed financial advisors serving Pontotoc, Tupelo, Oxford, and all of Mississippi. Free annuity consultation in Pontotoc County.',
   keywords: [
-    'retirement planning advisor Mississippi',
-    '401k rollover advisor Pontotoc',
-    'IRA management Mississippi',
-    'retirement planning services',
-    'wealth management advisor Mississippi',
-    'retirement advisor Pontotoc',
-    '401k rollover services',
-    'IRA rollover advisor Mississippi',
-    'annuity advisor Pontotoc',
-    'Social Security optimization',
-    'retirement planning consultant Mississippi',
-    'financial planning services',
-    'retirement investment strategies',
-    'retirement savings advisor Pontotoc',
-    'pension planning Mississippi',
-    'retirement income planning',
-    'high net worth retirement planning',
-    'retirement portfolio management',
-    'retirement planning for professionals',
-    'comprehensive retirement planning Mississippi'
+    'annuities Pontotoc MS',
+    'annuity advisor Pontotoc Mississippi',
+    'annuity Pontotoc MS',
+    'annuity agent Pontotoc MS',
+    'annuity plans Pontotoc Mississippi',
+    'fixed annuity Pontotoc MS',
+    'variable annuity Pontotoc Mississippi',
+    'immediate annuity Pontotoc MS',
+    'deferred annuity Pontotoc MS',
+    'annuity rates Pontotoc Mississippi',
+    'annuity quotes Pontotoc MS',
+    'best annuities Pontotoc MS',
+    'annuity comparison Pontotoc Mississippi',
+    'retirement planning Pontotoc MS',
+    'retirement planning advisor Pontotoc Mississippi',
+    '401k rollover advisor Pontotoc MS',
+    'IRA management Pontotoc Mississippi',
+    'retirement planning services Pontotoc MS',
+    'wealth management advisor Pontotoc Mississippi',
+    'retirement advisor Pontotoc MS',
+    '401k rollover services Pontotoc',
+    'IRA rollover advisor Pontotoc MS',
+    'Social Security optimization Pontotoc',
+    'retirement planning consultant Pontotoc Mississippi',
+    'financial planning services Pontotoc MS',
+    'retirement investment strategies Pontotoc',
+    'retirement savings advisor Pontotoc MS',
+    'pension planning Pontotoc Mississippi',
+    'retirement income planning Pontotoc MS',
+    'annuity Pontotoc County',
+    'annuities Tupelo MS',
+    'annuities Oxford MS'
   ],
   openGraph: {
-    title: 'Retirement Planning Advisor | 401k Rollover, IRA & Wealth Management Mississippi',
-    description: 'Expert retirement planning advisor in Pontotoc, MS. Comprehensive wealth management services including 401(k) rollovers, IRA management, annuities, and investment strategies.',
+    title: 'Annuities Pontotoc MS | Retirement Planning & Annuity Advisor Pontotoc Mississippi',
+    description: 'Expert annuity advisor and retirement planning specialist in Pontotoc, MS. Comprehensive annuities, 401(k) rollovers, IRA management, and wealth management services. Serving Pontotoc, Tupelo, Oxford, and all of Mississippi.',
     url: 'https://pontotocinsuranceagency.com/retirement',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Retirement Planning Advisor | 401k Rollover, IRA & Wealth Management Mississippi',
-    description: 'Expert retirement planning advisor in Pontotoc, MS. Comprehensive wealth management services including 401(k) rollovers, IRA management, and investment strategies.',
+    title: 'Annuities Pontotoc MS | Retirement Planning & Annuity Advisor Pontotoc Mississippi',
+    description: 'Expert annuity advisor and retirement planning specialist in Pontotoc, MS. Comprehensive annuities, 401(k) rollovers, and IRA management. Serving Pontotoc County and all of Mississippi.',
   },
   alternates: {
     canonical: '/retirement',
@@ -64,17 +76,44 @@ export default function RetirementPlanning() {
       "telephone": "+1-662-200-2249",
       "email": "info@pontotocinsuranceagency.com"
     },
-    "areaServed": {
-      "@type": "State",
-      "name": "Mississippi"
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Pontotoc",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Mississippi"
+        }
+      },
+      {
+        "@type": "City",
+        "name": "Tupelo",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Mississippi"
+        }
+      },
+      {
+        "@type": "City",
+        "name": "Oxford",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Mississippi"
+        }
+      }
+    ],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "34.2479",
+      "longitude": "-89.0067"
     },
-    "description": "Expert retirement planning advisor in Pontotoc, MS. Comprehensive wealth management services including 401(k) rollovers, IRA management, annuities, and investment strategies.",
+    "description": "Expert annuity advisor and retirement planning specialist in Pontotoc, MS. Comprehensive annuities, 401(k) rollovers, IRA management, and wealth management services. Serving Pontotoc, Tupelo, Oxford, and all of Mississippi.",
     "offers": {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
-        "name": "Retirement Planning",
-        "description": "Comprehensive retirement planning including 401(k) rollovers, IRA management, annuities, Social Security optimization, and investment strategies"
+        "name": "Annuities and Retirement Planning",
+        "description": "Comprehensive annuities, retirement planning, 401(k) rollovers, IRA management, Social Security optimization, and investment strategies for residents of Pontotoc, MS and surrounding areas"
       }
     }
   }
