@@ -2,9 +2,16 @@
 
 import { useState } from 'react'
 import BookingModal from './BookingModal'
+import { useSiteSettings } from '@/lib/useSiteSettings'
 
 const MapSection = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
+  const { getAddress, isLoading } = useSiteSettings()
+  
+  // Default address fallback
+  const defaultAddress = '158 MS-15, Suite D, Pontotoc, MS 38863'
+  const address = isLoading ? defaultAddress : getAddress()
+  const encodedAddress = encodeURIComponent(address)
   return (
     <section className="bg-gray-100">
       <div className="container-custom py-16">
@@ -17,23 +24,19 @@ const MapSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Map Placeholder */}
-          <div className="bg-gray-200 rounded-2xl h-96 flex items-center justify-center">
-            <div className="text-center text-gray-500">
-              <div className="text-4xl mb-4">📍</div>
-              <h3 className="text-xl font-semibold mb-2">Our Office</h3>
-              <p className="text-sm">
-                158 MS-15, Suite D, Pontotoc, MS 38863
-              </p>
-              <a 
-                href="https://maps.google.com/?q=158+MS-15,+Suite+D,+Pontotoc,+MS+38863"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors inline-block"
-              >
-                Get Directions
-              </a>
-            </div>
+          {/* Google Map Embed */}
+          <div className="rounded-2xl overflow-hidden shadow-lg h-96">
+            <iframe
+              src={`https://www.google.com/maps?q=${encodedAddress}&output=embed`}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title={`Pontotoc Insurance Agency Location - ${address}`}
+              className="w-full h-full"
+            />
           </div>
 
           {/* Office Info */}
@@ -109,7 +112,7 @@ const MapSection = () => {
                 Schedule Appointment
               </button>
               <a 
-                href="https://maps.google.com/?q=158+MS-15,+Suite+D,+Pontotoc,+MS+38863"
+                href={`https://maps.google.com/?q=${encodedAddress}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"
