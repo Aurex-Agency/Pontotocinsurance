@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://pontotocinsuranceagency.com/sitemap.xml
+Sitemap: https://www.pontotocinsuranceagency.com/sitemap.xml
 
 # Disallow admin or private areas (if any)
 Disallow: /api/

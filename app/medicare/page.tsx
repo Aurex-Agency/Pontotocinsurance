@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Medicare Insurance Plans Pontotoc MS | Medicare Advisor Pontotoc Mississippi',
     description: 'Expert Medicare insurance advisor in Pontotoc, MS. Medicare Advantage, Medigap, Part D plans. Licensed Medicare agents serving Pontotoc, Tupelo, Oxford, and all of Mississippi.',
-    url: 'https://pontotocinsuranceagency.com/medicare',
+    url: 'https://www.pontotocinsuranceagency.com/medicare',
     type: 'website',
   },
   alternates: {

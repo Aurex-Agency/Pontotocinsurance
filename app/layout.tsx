@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://pontotocinsuranceagency.com'),
+  metadataBase: new URL('https://www.pontotocinsuranceagency.com'),
   alternates: {
     canonical: '/',
   },
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://pontotocinsuranceagency.com',
+    url: 'https://www.pontotocinsuranceagency.com',
     title: 'Pontotoc Insurance Agency - Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning',
     description: 'Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Mississippi.',
     siteName: 'Pontotoc Insurance Agency',
@@ -117,9 +117,9 @@ export default function RootLayout({
     "name": "Pontotoc Insurance Agency",
     "alternateName": "PIA",
     "description": "Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Pontotoc, Mississippi.",
-    "url": "https://pontotocinsuranceagency.com",
-    "logo": "https://pontotocinsuranceagency.com/pia_logo.png",
-    "image": "https://pontotocinsuranceagency.com/pia_logo.png",
+    "url": "https://www.pontotocinsuranceagency.com",
+    "logo": "https://www.pontotocinsuranceagency.com/pia_logo.png",
+    "image": "https://www.pontotocinsuranceagency.com/pia_logo.png",
     "telephone": "+1-662-200-2249",
     "email": "info@pontotocinsuranceagency.com",
     "address": {

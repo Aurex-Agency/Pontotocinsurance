@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Health Insurance Pontotoc MS | Health Insurance Broker Pontotoc Mississippi',
     description: 'Expert health insurance broker in Pontotoc, MS. Find affordable individual, family, and group health insurance plans. Serving Pontotoc, Tupelo, Oxford, and all of Mississippi.',
-    url: 'https://pontotocinsuranceagency.com/health',
+    url: 'https://www.pontotocinsuranceagency.com/health',
     type: 'website',
   },
   twitter: {

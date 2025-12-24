@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Annuities Pontotoc MS | Retirement Planning & Annuity Advisor Pontotoc Mississippi',
     description: 'Expert annuity advisor and retirement planning specialist in Pontotoc, MS. Comprehensive annuities, 401(k) rollovers, IRA management, and wealth management services. Serving Pontotoc, Tupelo, Oxford, and all of Mississippi.',
-    url: 'https://pontotocinsuranceagency.com/retirement',
+    url: 'https://www.pontotocinsuranceagency.com/retirement',
     type: 'website',
   },
   twitter: {

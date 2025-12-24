@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     // Send password reset email using regular client (this actually sends the email)
     // Use secure email link wrapper to prevent email scanners from triggering the link
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://pontotocinsuranceagency.com'}/admin/reset-password`
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.pontotocinsuranceagency.com'}/admin/reset-password`
     })
 
     if (error) {

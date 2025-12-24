@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Life Insurance Advisor | Term, Whole & Universal Life Insurance Mississippi',
     description: 'Expert life insurance advisor in Pontotoc, MS specializing in term, whole, and universal life insurance. Estate planning and wealth transfer strategies for high-net-worth individuals.',
-    url: 'https://pontotocinsuranceagency.com/life',
+    url: 'https://www.pontotocinsuranceagency.com/life',
     type: 'website',
   },
   twitter: {

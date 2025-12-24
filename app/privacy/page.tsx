@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Privacy Policy - Pontotoc Insurance Agency',
     description: 'Privacy Policy for Pontotoc Insurance Agency. Learn how we collect, use, and protect your personal information.',
-    url: 'https://pontotocinsuranceagency.com/privacy',
+    url: 'https://www.pontotocinsuranceagency.com/privacy',
   },
   alternates: {
     canonical: '/privacy',

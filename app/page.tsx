@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning Mississippi',
     description: 'Premier financial advisors in Pontotoc, MS specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management services.',
-    url: 'https://pontotocinsuranceagency.com',
+    url: 'https://www.pontotocinsuranceagency.com',
     type: 'website',
   },
   twitter: {

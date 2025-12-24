@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Terms of Service - Pontotoc Insurance Agency',
     description: 'Terms of Service for Pontotoc Insurance Agency. Read our terms and conditions for using our insurance services and website.',
-    url: 'https://pontotocinsuranceagency.com/terms',
+    url: 'https://www.pontotocinsuranceagency.com/terms',
   },
   alternates: {
     canonical: '/terms',

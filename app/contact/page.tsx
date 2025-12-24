@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact Pontotoc Insurance Agency - Get Your Quote Today',
     description: 'Contact Pontotoc Insurance Agency for expert insurance guidance. Located at 158 MS-15, Suite D, Pontotoc, MS.',
-    url: 'https://pontotocinsuranceagency.com/contact',
+    url: 'https://www.pontotocinsuranceagency.com/contact',
   },
   alternates: {
     canonical: '/contact',
