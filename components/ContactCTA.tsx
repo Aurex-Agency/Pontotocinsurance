@@ -193,8 +193,6 @@ const ContactCTA = () => {
                 className="w-full px-4 py-3 rounded-lg bg-white/90 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-400"
               >
                 <option value="">Select Service Interest</option>
-                <option value="home">Home Insurance</option>
-                <option value="auto">Auto Insurance</option>
                 <option value="life">Life Insurance</option>
                 <option value="health">Health Insurance</option>
                 <option value="medicare">Medicare</option>

@@ -167,8 +167,6 @@ const ContactForm = () => {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           >
             <option value="">Select a service</option>
-            <option value="home">Home Insurance</option>
-            <option value="auto">Auto Insurance</option>
             <option value="life">Life Insurance</option>
             <option value="health">Health Insurance</option>
             <option value="medicare">Medicare</option>
