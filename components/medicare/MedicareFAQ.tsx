@@ -32,11 +32,11 @@ export default function MedicareFAQ() {
     },
     {
       question: "What is IRMAA and how does it affect my Medicare costs?",
-      answer: "IRMAA (Income-Related Monthly Adjustment Amount) is an additional charge added to your Part B and Part D premiums if your income is above certain limits. For 2024, single filers with modified adjusted gross income above $103,000 pay higher premiums. The amount increases with higher income levels. IRMAA is based on your tax return from two years prior."
+      answer: "IRMAA (Income-Related Monthly Adjustment Amount) is an additional charge added to your Part B and Part D premiums if your income is above certain limits. For 2026, single filers with modified adjusted gross income above $109,000 (or joint filers above $218,000) pay higher premiums. The amount increases with higher income levels, with the highest earners paying up to $689.90 per month for Part B. IRMAA is based on your tax return from two years prior."
     },
     {
       question: "What's the difference between Medicare Supplement Plan F and Plan G?",
-      answer: "Plan F was the most comprehensive Medigap plan, covering all deductibles and coinsurance. However, it's only available to those who were eligible for Medicare before January 1, 2020. Plan G is now considered the most comprehensive plan for new Medicare beneficiaries - it covers everything Plan F did except the Part B deductible ($240 in 2024). Plan G often offers better value than Plan F."
+      answer: "Plan F was the most comprehensive Medigap plan, covering all deductibles and coinsurance. However, it's only available to those who were eligible for Medicare before January 1, 2020. Plan G is now considered the most comprehensive plan for new Medicare beneficiaries - it covers everything Plan F did except the Part B deductible ($283 in 2026). Plan G often offers better value than Plan F."
     },
     {
       question: "How do I know if my doctor accepts Medicare?",

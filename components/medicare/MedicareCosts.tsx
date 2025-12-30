@@ -28,14 +28,14 @@ export default function MedicareCosts() {
           </motion.p>
         </div>
 
-        {/* 2024 Medicare Costs */}
+        {/* 2026 Medicare Costs */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h3 className="text-3xl font-bold text-gray-900 text-center mb-12">2024 Medicare Costs</h3>
+          <h3 className="text-3xl font-bold text-gray-900 text-center mb-12">2026 Medicare Costs</h3>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200">
@@ -49,7 +49,8 @@ export default function MedicareCosts() {
                 <div className="text-2xl font-bold text-blue-600">$0</div>
                 <p className="text-sm text-gray-600">If you worked 40+ quarters</p>
                 <div className="text-sm text-gray-700">
-                  <p>Otherwise: $278-$505/month</p>
+                  <p>30-39 quarters: $311/month</p>
+                  <p>Fewer than 30: $565/month</p>
                 </div>
               </div>
             </div>
@@ -62,7 +63,7 @@ export default function MedicareCosts() {
                 <h4 className="text-lg font-bold text-gray-900">Part B Premium</h4>
               </div>
               <div className="space-y-2 text-center">
-                <div className="text-2xl font-bold text-green-600">$174.70</div>
+                <div className="text-2xl font-bold text-green-600">$202.90</div>
                 <p className="text-sm text-gray-600">Standard monthly premium</p>
                 <div className="text-sm text-gray-700">
                   <p>Higher incomes pay more</p>
@@ -78,10 +79,10 @@ export default function MedicareCosts() {
                 <h4 className="text-lg font-bold text-gray-900">Part D Premium</h4>
               </div>
               <div className="space-y-2 text-center">
-                <div className="text-2xl font-bold text-purple-600">$55+</div>
-                <p className="text-sm text-gray-600">Average monthly premium</p>
+                <div className="text-2xl font-bold text-purple-600">Varies</div>
+                <p className="text-sm text-gray-600">By plan selection</p>
                 <div className="text-sm text-gray-700">
-                  <p>Varies by plan</p>
+                  <p>Plus IRMAA if applicable</p>
                 </div>
               </div>
             </div>
@@ -112,23 +113,24 @@ export default function MedicareCosts() {
             transition={{ duration: 0.6 }}
             className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200"
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Deductibles & Copays (2024)</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Deductibles & Coinsurance (2026)</h3>
             
             <div className="space-y-6">
               <div className="border-b border-gray-200 pb-4">
                 <h4 className="font-semibold text-gray-900 mb-2">Part A (Hospital Insurance)</h4>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li>• Deductible: $1,632 per benefit period</li>
+                  <li>• Deductible: $1,736 per benefit period</li>
                   <li>• Days 1-60: $0 coinsurance</li>
-                  <li>• Days 61-90: $408 per day</li>
-                  <li>• Days 91+: $816 per day + lifetime reserve days</li>
+                  <li>• Days 61-90: $434 per day</li>
+                  <li>• Lifetime Reserve Days (91+): $868 per day</li>
+                  <li>• Skilled Nursing (Days 21-100): $217 per day</li>
                 </ul>
               </div>
               
               <div className="border-b border-gray-200 pb-4">
                 <h4 className="font-semibold text-gray-900 mb-2">Part B (Medical Insurance)</h4>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li>• Deductible: $240 per year</li>
+                  <li>• Deductible: $283 per year</li>
                   <li>• Coinsurance: 20% of Medicare-approved amount</li>
                   <li>• Preventive services: $0 (when provider accepts assignment)</li>
                 </ul>
@@ -137,7 +139,7 @@ export default function MedicareCosts() {
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2">Part D (Prescription Drugs)</h4>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li>• Deductible: Up to $545 per year</li>
+                  <li>• Deductible: Varies by plan (up to plan limit)</li>
                   <li>• Copays vary by plan and drug tier</li>
                   <li>• Coverage gap: 25% of drug costs</li>
                   <li>• Catastrophic: Small copays or 5% coinsurance</li>
@@ -161,13 +163,25 @@ export default function MedicareCosts() {
               
               <div className="space-y-3">
                 <div className="bg-white rounded-lg p-4 border border-primary-200">
-                  <h4 className="font-semibold text-gray-900 mb-2">2024 Income Limits (Single)</h4>
+                  <h4 className="font-semibold text-gray-900 mb-2">2026 Income Limits (Single/Joint)</h4>
                   <ul className="space-y-1 text-sm text-gray-700">
-                    <li>• $103,000 or less: Standard premium</li>
-                    <li>• $103,001-$129,000: +$69.90/month</li>
-                    <li>• $129,001-$161,000: +$174.70/month</li>
-                    <li>• $161,001-$193,000: +$279.50/month</li>
-                    <li>• Above $193,000: +$384.30/month</li>
+                    <li>• ≤$109,000 / ≤$218,000: $202.90/month</li>
+                    <li>• $109,001-$137,000 / $218,001-$274,000: $284.10/month</li>
+                    <li>• $137,001-$171,000 / $274,001-$342,000: $405.80/month</li>
+                    <li>• $171,001-$205,000 / $342,001-$410,000: $527.50/month</li>
+                    <li>• $205,001-$499,999 / $410,001-$749,999: $649.20/month</li>
+                    <li>• ≥$500,000 / ≥$750,000: $689.90/month</li>
+                  </ul>
+                </div>
+                <div className="bg-white rounded-lg p-4 border border-primary-200">
+                  <h4 className="font-semibold text-gray-900 mb-2">2026 Part D IRMAA (Single/Joint)</h4>
+                  <ul className="space-y-1 text-sm text-gray-700">
+                    <li>• ≤$109,000 / ≤$218,000: $0.00/month</li>
+                    <li>• $109,001-$137,000 / $218,001-$274,000: +$14.50/month</li>
+                    <li>• $137,001-$171,000 / $274,001-$342,000: +$37.50/month</li>
+                    <li>• $171,001-$205,000 / $342,001-$410,000: +$60.40/month</li>
+                    <li>• $205,001-$499,999 / $410,001-$749,999: +$83.30/month</li>
+                    <li>• ≥$500,000 / ≥$750,000: +$91.00/month</li>
                   </ul>
                 </div>
               </div>
@@ -206,11 +220,11 @@ export default function MedicareCosts() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-700">Part B Premium:</span>
-                  <span className="font-semibold">$174.70</span>
+                  <span className="font-semibold">$202.90</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-700">Part D Premium:</span>
-                  <span className="font-semibold">$55</span>
+                  <span className="font-semibold">$35+</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-700">Medigap Premium:</span>
@@ -219,7 +233,7 @@ export default function MedicareCosts() {
                 <div className="border-t pt-3">
                   <div className="flex justify-between font-bold text-lg">
                     <span>Monthly Total:</span>
-                    <span className="text-primary-600">$379.70</span>
+                    <span className="text-primary-600">$387.90+</span>
                   </div>
                 </div>
               </div>
@@ -230,7 +244,7 @@ export default function MedicareCosts() {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-700">Part B Premium:</span>
-                  <span className="font-semibold">$174.70</span>
+                  <span className="font-semibold">$202.90</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-700">MA Premium:</span>
@@ -242,12 +256,12 @@ export default function MedicareCosts() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-700">Max Out-of-Pocket:</span>
-                  <span className="font-semibold">$8,850</span>
+                  <span className="font-semibold">Varies by plan</span>
                 </div>
                 <div className="border-t pt-3">
                   <div className="flex justify-between font-bold text-lg">
                     <span>Monthly Total:</span>
-                    <span className="text-primary-600">$174.70+</span>
+                    <span className="text-primary-600">$202.90+</span>
                   </div>
                 </div>
               </div>
@@ -286,6 +300,9 @@ export default function MedicareCosts() {
             <p className="text-sm text-gray-600">
               <strong>Note:</strong> Costs vary significantly based on your specific needs, location, and plan choices. 
               These are examples only. Contact us for a personalized cost analysis.
+            </p>
+            <p className="text-xs text-gray-500 mt-2">
+              *2026 amounts based on official CMS data. Source: <a href="https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">CMS.gov</a>
             </p>
           </div>
         </motion.div>

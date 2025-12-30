@@ -132,7 +132,7 @@ export default function PrescriptionDrugPlans() {
                   <DollarSign className="w-6 h-6 text-green-600" />
                 </div>
                 <h4 className="text-lg font-bold text-gray-900">Deductible Phase</h4>
-                <p className="text-sm text-gray-600">Up to $545 (2024)</p>
+                <p className="text-sm text-gray-600">Varies by plan (2026)</p>
               </div>
               <p className="text-sm text-gray-600 text-center">
                 You pay 100% of drug costs until you reach the deductible amount.
