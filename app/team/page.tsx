@@ -18,7 +18,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Our Team - Expert Insurance Professionals',
     description: 'Meet our experienced team of insurance professionals at Pontotoc Insurance Agency. Licensed agents with 5+ years of experience dedicated to finding the best coverage for you.',
+    url: 'https://www.pontotocinsuranceagency.com/team',
+    type: 'website',
     images: ['/pia_logo.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Our Team - Expert Insurance Professionals',
+    description: 'Meet our experienced team of insurance professionals at Pontotoc Insurance Agency. Licensed agents with 5+ years of experience.',
+  },
+  alternates: {
+    canonical: '/team',
   },
 }
 

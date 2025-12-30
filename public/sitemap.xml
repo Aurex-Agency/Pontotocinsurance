@@ -52,6 +52,14 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- About -->
+  <url>
+    <loc>https://www.pontotocinsuranceagency.com/about</loc>
+    <lastmod>2025-12-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Contact -->
   <url>
     <loc>https://www.pontotocinsuranceagency.com/contact</loc>
