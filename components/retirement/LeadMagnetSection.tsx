@@ -1,14 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { Calculator, TrendingUp, Scale, FileCheck, BookOpen, ArrowRight } from 'lucide-react'
+import { Calculator, TrendingUp, Scale, FileCheck, BookOpen, FileText, ArrowRight } from 'lucide-react'
 import RetirementReadinessQuiz from './RetirementReadinessQuiz'
 import RetirementIncomeCalculator from './RetirementIncomeCalculator'
 import AnnuityComparisonTool from './AnnuityComparisonTool'
 import RetirementPlanningChecklist from './RetirementPlanningChecklist'
 import AnnuitySelectionGuide from './AnnuitySelectionGuide'
+import SocialSecurityGuide from './SocialSecurityGuide'
 
-type LeadMagnetType = 'quiz' | 'calculator' | 'comparison' | 'checklist' | 'guide' | null
+type LeadMagnetType = 'quiz' | 'calculator' | 'comparison' | 'checklist' | 'guide' | 'socialsecurity' | null
 
 const LeadMagnetSection = () => {
   const [activeMagnet, setActiveMagnet] = useState<LeadMagnetType>(null)
@@ -73,6 +74,18 @@ const LeadMagnetSection = () => {
       borderColor: 'border-indigo-600',
       textColor: 'text-indigo-600',
       hoverColor: 'hover:bg-indigo-50'
+    },
+    {
+      id: 'socialsecurity' as const,
+      title: 'Social Security Optimization Guide',
+      description: 'Maximize your Social Security benefits. Learn when to claim, spousal strategies, and tax planning.',
+      icon: FileText,
+      color: 'teal',
+      gradient: 'from-teal-500 to-teal-700',
+      bgGradient: 'from-teal-50 to-teal-100',
+      borderColor: 'border-teal-600',
+      textColor: 'text-teal-600',
+      hoverColor: 'hover:bg-teal-50'
     }
   ]
 
@@ -94,6 +107,10 @@ const LeadMagnetSection = () => {
 
   if (activeMagnet === 'guide') {
     return <AnnuitySelectionGuide />
+  }
+
+  if (activeMagnet === 'socialsecurity') {
+    return <SocialSecurityGuide />
   }
 
   return (
