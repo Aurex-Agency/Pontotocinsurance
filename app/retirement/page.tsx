@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import RetirementPlanningHero from '@/components/services/RetirementPlanningHero'
 import CoverageOptions from '@/components/services/CoverageOptions'
 import WhyChooseUs from '@/components/services/WhyChooseUs'
+import LeadMagnetSection from '@/components/retirement/LeadMagnetSection'
 import QuoteForm from '@/components/services/QuoteForm'
 
 export const metadata: Metadata = {
@@ -135,6 +136,7 @@ export default function RetirementPlanning() {
         title="Why Choose Us for Retirement Planning"
         description="Expert financial guidance and personalized retirement strategies for your future."
       />
+      <LeadMagnetSection />
       <QuoteForm 
         service="retirement"
         title="Start Your Retirement Planning"
