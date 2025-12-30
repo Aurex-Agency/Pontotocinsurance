@@ -21,7 +21,12 @@ export async function GET() {
       return acc
     }, {} as Record<string, any>)
 
-    return NextResponse.json({ success: true, data: settingsObject })
+    // Add caching headers for fast loading
+    return NextResponse.json({ success: true, data: settingsObject }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+      },
+    })
   } catch (error) {
     console.error('Error fetching site settings:', error)
     return NextResponse.json(

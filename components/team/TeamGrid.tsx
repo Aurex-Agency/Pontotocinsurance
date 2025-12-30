@@ -37,22 +37,26 @@ interface TeamData {
   }
 }
 
-const TeamGrid = () => {
-  const [teamData, setTeamData] = useState<TeamData | null>(null)
+interface TeamGridProps {
+  initialData?: TeamData
+}
+
+const TeamGrid = ({ initialData }: TeamGridProps) => {
+  const [teamData, setTeamData] = useState<TeamData | null>(initialData || null)
 
   useEffect(() => {
+    // Only fetch if we don't have initial data (fallback for client-side only usage)
+    if (initialData) {
+      return
+    }
+
     const fetchTeamData = async () => {
       try {
-        console.log('Fetching team data...')
         const response = await fetch('/api/team')
-        console.log('Response status:', response.status)
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
         const data = await response.json()
-        console.log('Team data received:', data)
-        console.log('Team members count:', data.teamMembers?.length)
-        console.log('First team member:', data.teamMembers?.[0])
         setTeamData(data)
       } catch (error) {
         console.error('Error fetching team data:', error)
@@ -72,7 +76,7 @@ const TeamGrid = () => {
     }
 
     fetchTeamData()
-  }, [])
+  }, [initialData])
 
   if (!teamData) {
     return (

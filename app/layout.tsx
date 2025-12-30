@@ -106,11 +106,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Fetch site settings on the server for instant loading
+  const { getSiteSettingsData } = await import('@/lib/getSiteSettings')
+  const siteSettings = await getSiteSettingsData()
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "InsuranceAgency",
@@ -250,7 +253,7 @@ export default function RootLayout({
         <main className="min-h-screen">
           {children}
         </main>
-        <Footer />
+        <Footer initialSettings={siteSettings} />
       </body>
     </html>
   )

@@ -5,9 +5,29 @@ import Image from 'next/image'
 import { Phone, Mail, MapPin, Clock, Facebook, Linkedin, Instagram } from 'lucide-react'
 import { useSiteSettings } from '../lib/useSiteSettings'
 
-const Footer = () => {
+interface SiteSettingsData {
+  site_phone: string
+  site_email: string
+  site_address: string
+  site_name: string
+  site_hours: string
+}
+
+interface FooterProps {
+  initialSettings?: SiteSettingsData
+}
+
+const Footer = ({ initialSettings }: FooterProps) => {
   const currentYear = new Date().getFullYear()
-  const { getPhone, getEmail, getAddress, getName, getHours, isLoading } = useSiteSettings()
+  const clientSettings = useSiteSettings()
+  
+  // Use server-side settings if available, otherwise fall back to client-side
+  const getPhone = () => initialSettings?.site_phone || clientSettings.getPhone()
+  const getEmail = () => initialSettings?.site_email || clientSettings.getEmail()
+  const getAddress = () => initialSettings?.site_address || clientSettings.getAddress()
+  const getName = () => initialSettings?.site_name || clientSettings.getName()
+  const getHours = () => initialSettings?.site_hours || clientSettings.getHours()
+  const isLoading = !initialSettings && clientSettings.isLoading
 
   const services = [
     { name: 'Life Insurance', href: '/life' },

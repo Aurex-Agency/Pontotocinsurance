@@ -62,7 +62,12 @@ export async function GET() {
       }
     }
 
-    return NextResponse.json(teamData)
+    // Add caching headers for fast loading
+    return NextResponse.json(teamData, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+      },
+    })
   } catch (error) {
     console.error('Error reading team data:', error)
     return NextResponse.json({ error: 'Failed to read team data' }, { status: 500 })
