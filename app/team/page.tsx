@@ -4,6 +4,10 @@ import TeamGrid from '@/components/team/TeamGrid'
 import TeamStats from '@/components/team/TeamStats'
 import { getTeamMembers } from '@/lib/database'
 
+// Always fetch the latest team data from the database on each request, so admin
+// changes (and the initial seed) appear without needing a redeploy.
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Our Team - Expert Insurance Professionals',
   description: 'Meet our experienced team of insurance professionals at Pontotoc Insurance Agency. Licensed agents with 5+ years of experience dedicated to finding the best coverage for you.',
