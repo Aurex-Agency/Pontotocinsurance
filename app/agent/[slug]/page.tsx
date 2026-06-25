@@ -2,19 +2,14 @@ import { notFound } from 'next/navigation'
 import { getTeamMembers } from '@/lib/database'
 import AgentProfile from '@/components/agent/AgentProfile'
 
+// Render agent profiles on demand with fresh database data, so newly added or
+// edited team members work immediately without a redeploy.
+export const dynamic = 'force-dynamic'
+
 interface AgentPageProps {
   params: {
     slug: string
   }
-}
-
-export async function generateStaticParams() {
-  const result = await getTeamMembers()
-  if (!result.success) return []
-  
-  return result.data.map((member: any) => ({
-    slug: member.name.toLowerCase().replace(/\s+/g, '-')
-  }))
 }
 
 export async function generateMetadata({ params }: AgentPageProps) {
