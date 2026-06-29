@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Volume2, FileDown, CheckCircle, CalendarCheck } from 'lucide-react'
+import { Volume2, FileDown, CheckCircle, CalendarCheck, X } from 'lucide-react'
 import BookingModal from '@/components/BookingModal'
 
 // ---------------------------------------------------------------------------
@@ -110,6 +110,17 @@ export default function WebinarPlayer() {
     return () => clearInterval(interval)
   }, [checked])
 
+  // Pause the video while the opt-in is showing (file mode only).
+  useEffect(() => {
+    if (showOptin && isFileVideo) videoRef.current?.pause()
+  }, [showOptin])
+
+  // Dismiss the opt-in and resume playback.
+  const closeOptin = () => {
+    setShowOptin(false)
+    if (isFileVideo) videoRef.current?.play().catch(() => {})
+  }
+
   const enableSound = () => {
     const v = videoRef.current
     if (!v) return
@@ -200,6 +211,90 @@ export default function WebinarPlayer() {
                 title="Webinar"
               />
             )}
+
+            {/* Opt-in overlay: appears over the video after 60s and pauses it */}
+            {showOptin && (
+              <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/80 p-3 sm:p-5 overflow-y-auto">
+                <div className="relative bg-white text-gray-900 rounded-2xl p-5 sm:p-7 max-w-md w-full shadow-2xl my-auto">
+                  <button
+                    onClick={closeOptin}
+                    aria-label="Close"
+                    className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors"
+                  >
+                    <X size={20} />
+                  </button>
+                  {!optinDone ? (
+                    <form onSubmit={submitOptin} className="space-y-4">
+                      <div className="text-center space-y-1.5 pr-6">
+                        <h2 className="text-lg sm:text-2xl font-bold">
+                          Get Your Free Guide: 7 Costly Medicare Mistakes
+                        </h2>
+                        <p className="text-sm text-gray-600">
+                          Enter your details and we&apos;ll send you this free guide
+                          from Pontotoc Insurance Agency.
+                        </p>
+                      </div>
+                      <input
+                        type="tel"
+                        placeholder="Phone Number"
+                        value={form.phone}
+                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        required
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      />
+                      <input
+                        type="email"
+                        placeholder="Email Address"
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        required
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      />
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                      >
+                        {submitting ? 'Sending...' : 'Send Me the Free Guide'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={closeOptin}
+                        className="block w-full text-sm text-gray-500 hover:text-gray-700"
+                      >
+                        No thanks, keep watching
+                      </button>
+                    </form>
+                  ) : (
+                    <div className="space-y-4 text-center">
+                      <div className="flex items-center justify-center gap-2 text-green-600">
+                        <CheckCircle size={24} />
+                        <span className="font-semibold">You&apos;re all set!</span>
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        Click below to get your free &ldquo;7 Costly Medicare
+                        Mistakes&rdquo; guide.
+                      </p>
+                      <a
+                        href={FREE_PDF_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full inline-flex items-center justify-center gap-2 bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                      >
+                        <FileDown size={20} />
+                        Get the Free PDF
+                      </a>
+                      <button
+                        onClick={closeOptin}
+                        className="block w-full text-sm text-gray-500 hover:text-gray-700"
+                      >
+                        Continue watching
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Schedule a free 1-on-1 */}
@@ -214,76 +309,6 @@ export default function WebinarPlayer() {
           </div>
         </div>
       </div>
-
-      {/* Opt-in modal: appears after 60 seconds of watch time */}
-      {showOptin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="bg-white text-gray-900 rounded-2xl p-8 max-w-md w-full shadow-2xl">
-            {!optinDone ? (
-              <form onSubmit={submitOptin} className="space-y-4">
-                <div className="text-center space-y-2">
-                  <h2 className="text-2xl font-bold">
-                    Get Your Free Guide: 7 Costly Medicare Mistakes
-                  </h2>
-                  <p className="text-gray-600">
-                    Enter your details and we&apos;ll send you this free guide from
-                    Pontotoc Insurance Agency.
-                  </p>
-                </div>
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  required
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                />
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                >
-                  {submitting ? 'Sending...' : 'Send Me the Free Guide'}
-                </button>
-              </form>
-            ) : (
-              <div className="space-y-5 text-center">
-                <div className="flex items-center justify-center gap-2 text-green-600">
-                  <CheckCircle size={24} />
-                  <span className="font-semibold">You&apos;re all set!</span>
-                </div>
-                <p className="text-gray-600">
-                  Click below to get your free &ldquo;7 Costly Medicare
-                  Mistakes&rdquo; guide.
-                </p>
-                <a
-                  href={FREE_PDF_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                >
-                  <FileDown size={20} />
-                  Get the Free PDF
-                </a>
-                <button
-                  onClick={() => setShowOptin(false)}
-                  className="block w-full text-sm text-gray-500 hover:text-gray-700"
-                >
-                  Continue watching
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </section>
