@@ -234,28 +234,8 @@ export default function WebinarSignup() {
               </div>
             </div>
 
-            {/* Right: video preview + form */}
+            {/* Right: signup form */}
             <div className="space-y-5">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-video bg-gradient-to-br from-secondary-800 to-secondary-900 border border-white/10">
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                  <div className="w-20 h-20 rounded-full bg-primary-600 flex items-center justify-center shadow-lg">
-                    <Play size={34} fill="white" className="text-white ml-1" />
-                  </div>
-                  <Image
-                    src="/pia_logo.png"
-                    alt="Pontotoc Insurance Agency"
-                    width={180}
-                    height={48}
-                    className="h-9 w-auto object-contain opacity-90"
-                  />
-                </div>
-                <span className="absolute top-3 left-3 text-[11px] font-bold tracking-wide bg-primary-600 text-white px-2.5 py-1 rounded">
-                  ON-DEMAND
-                </span>
-                <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 text-[11px] font-medium bg-black/50 text-white px-2.5 py-1 rounded">
-                  <Clock size={12} /> Watch anytime
-                </span>
-              </div>
               <SignupCard />
             </div>
           </div>
