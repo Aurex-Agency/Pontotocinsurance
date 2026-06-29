@@ -16,7 +16,7 @@ import BookingModal from '@/components/BookingModal'
 // ---------------------------------------------------------------------------
 const WEBINAR_VIDEO_SRC =
   process.env.NEXT_PUBLIC_WEBINAR_VIDEO_URL ||
-  'https://docs.google.com/videos/d/1AH4v4cpNG9eCVFBK_f7sDXuT-0h_iEdYaDB4tfVK7gI/preview'
+  'https://hm3ncfw8f6t7bgwn.public.blob.vercel-storage.com/2026-06-15_Episode%201%20%281%29.mp4'
 const FREE_PDF_URL =
   process.env.NEXT_PUBLIC_WEBINAR_PDF_URL ||
   'https://drive.google.com/file/d/1fv2-zV29QXQ0iX1zIxr74hgJPceVmF1B/view'
