@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import WebinarSignup from '@/components/webinar/WebinarSignup'
 
 export const metadata: Metadata = {
-  title: 'Free On-Demand Webinar | Pontotoc Insurance Agency',
+  title: 'How Is Medicare Changing in 2026',
   description:
-    'Register to watch our free on-demand insurance and retirement webinar from Pontotoc Insurance Agency.',
+    'Free on-demand webinar: how Medicare is changing in 2026 and how to protect yourself, from Pontotoc Insurance Agency.',
   robots: { index: false, follow: false },
 }
 

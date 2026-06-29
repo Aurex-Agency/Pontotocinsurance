@@ -2,25 +2,30 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Volume2, FileDown, CheckCircle } from 'lucide-react'
+import { Volume2, FileDown, CheckCircle, CalendarCheck } from 'lucide-react'
+import BookingModal from '@/components/BookingModal'
 
 // ---------------------------------------------------------------------------
-// CONFIG — replace these with your real assets.
-//   • Video: drop an MP4 at public/webinar/webinar.mp4, OR set
-//     NEXT_PUBLIC_WEBINAR_VIDEO_URL to a direct video URL.
-//     (An MP4 / direct file is required so seeking can be disabled — a YouTube
-//      or Vimeo embed cannot block fast-forwarding.)
-//   • PDF: drop the file at public/webinar/free-guide.pdf, OR set
-//     NEXT_PUBLIC_WEBINAR_PDF_URL.
+// CONFIG
+//   Video: a direct file (.mp4/.webm) enables the locked-down player
+//   (no fast-forward/rewind + click-to-unmute). Any other URL (e.g. a Google
+//   Drive/Vids link) is shown via an embed, where Google's player provides its
+//   own controls and seeking cannot be blocked.
+//     Override with NEXT_PUBLIC_WEBINAR_VIDEO_URL.
+//   PDF: delivered after the 60s opt-in. Override with NEXT_PUBLIC_WEBINAR_PDF_URL.
 // ---------------------------------------------------------------------------
 const WEBINAR_VIDEO_SRC =
-  process.env.NEXT_PUBLIC_WEBINAR_VIDEO_URL || '/webinar/webinar.mp4'
+  process.env.NEXT_PUBLIC_WEBINAR_VIDEO_URL ||
+  'https://docs.google.com/videos/d/1AH4v4cpNG9eCVFBK_f7sDXuT-0h_iEdYaDB4tfVK7gI/preview'
 const FREE_PDF_URL =
-  process.env.NEXT_PUBLIC_WEBINAR_PDF_URL || '/webinar/free-guide.pdf'
+  process.env.NEXT_PUBLIC_WEBINAR_PDF_URL ||
+  'https://drive.google.com/file/d/1fv2-zV29QXQ0iX1zIxr74hgJPceVmF1B/view'
 const OPTIN_AFTER_SECONDS = 60
 
 const WEBHOOK_URL =
   'https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/3433cf41-731f-4a93-9074-2c37e3c9c0a2'
+
+const isFileVideo = /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/i.test(WEBINAR_VIDEO_SRC)
 
 export default function WebinarPlayer() {
   const router = useRouter()
@@ -35,7 +40,7 @@ export default function WebinarPlayer() {
   const [optinDone, setOptinDone] = useState(false)
   const [form, setForm] = useState({ phone: '', email: '' })
   const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState('')
+  const [bookingOpen, setBookingOpen] = useState(false)
 
   // Gate: must have registered on /webinarlink first.
   useEffect(() => {
@@ -52,42 +57,40 @@ export default function WebinarPlayer() {
     }
   }, [router])
 
-  // Playback control: autoplay muted, block seeking, track real watch time.
+  // Trigger the opt-in after enough watch time.
+  const tick = (seconds: { value: number }) => {
+    seconds.value += 0.5
+    if (seconds.value >= OPTIN_AFTER_SECONDS && !optinTriggeredRef.current) {
+      optinTriggeredRef.current = true
+      setShowOptin(true)
+    }
+  }
+
+  // File-video mode: autoplay muted, block seeking, count playback time.
   useEffect(() => {
-    if (!checked) return
+    if (!checked || !isFileVideo) return
     const v = videoRef.current
     if (!v) return
 
     v.muted = true
     v.play().catch(() => {})
 
-    let watched = 0
+    const watched = { value: 0 }
 
     const onTimeUpdate = () => {
-      // Block fast-forward beyond the furthest point actually watched.
       if (v.currentTime > maxWatchedRef.current + 1) {
         v.currentTime = maxWatchedRef.current
         return
       }
       maxWatchedRef.current = Math.max(maxWatchedRef.current, v.currentTime)
     }
-
     const onSeeking = () => {
-      // Snap any manual seek (forward or backward) back to where they were.
       if (Math.abs(v.currentTime - maxWatchedRef.current) > 1) {
         v.currentTime = maxWatchedRef.current
       }
     }
-
-    // Count only actual playback time toward the 60s opt-in trigger.
     const interval = setInterval(() => {
-      if (!v.paused && !v.ended) {
-        watched += 0.5
-        if (watched >= OPTIN_AFTER_SECONDS && !optinTriggeredRef.current) {
-          optinTriggeredRef.current = true
-          setShowOptin(true)
-        }
-      }
+      if (!v.paused && !v.ended) tick(watched)
     }, 500)
 
     v.addEventListener('timeupdate', onTimeUpdate)
@@ -97,6 +100,14 @@ export default function WebinarPlayer() {
       v.removeEventListener('timeupdate', onTimeUpdate)
       v.removeEventListener('seeking', onSeeking)
     }
+  }, [checked])
+
+  // Embed mode: we can't read the iframe's playback, so count from load.
+  useEffect(() => {
+    if (!checked || isFileVideo) return
+    const watched = { value: 0 }
+    const interval = setInterval(() => tick(watched), 500)
+    return () => clearInterval(interval)
   }, [checked])
 
   const enableSound = () => {
@@ -110,7 +121,6 @@ export default function WebinarPlayer() {
   const submitOptin = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
-    setError('')
     try {
       await fetch(WEBHOOK_URL, {
         method: 'POST',
@@ -120,17 +130,15 @@ export default function WebinarPlayer() {
           lastName: lead?.lastName,
           email: form.email,
           phone: form.phone,
-          source: 'Webinar: PDF Opt-in',
+          source: 'Webinar: PDF Opt-in (Medicare 2026)',
           timestamp: new Date().toISOString(),
         }),
       })
-      setOptinDone(true)
     } catch (err) {
       console.error('Webinar opt-in webhook failed:', err)
-      // Still deliver the PDF — the lead capture is best-effort.
-      setOptinDone(true)
     } finally {
       setSubmitting(false)
+      setOptinDone(true) // deliver the PDF regardless — capture is best-effort
     }
   }
 
@@ -148,109 +156,136 @@ export default function WebinarPlayer() {
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="text-center">
             <h1 className="text-2xl lg:text-3xl font-bold">
-              {lead?.firstName ? `Welcome, ${lead.firstName}! ` : ''}Your Webinar Is
-              Starting
+              How Is Medicare Changing in 2026 — and How to Protect Yourself
             </h1>
-            <p className="text-secondary-200 mt-1">
-              Watch through to the end for your free resource.
-            </p>
+            {lead?.firstName && (
+              <p className="text-secondary-200 mt-1">
+                Welcome, {lead.firstName}! Watch through to the end for your free
+                guide.
+              </p>
+            )}
           </div>
 
           {/* Video */}
           <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-black aspect-video">
-            <video
-              ref={videoRef}
-              src={WEBINAR_VIDEO_SRC}
-              playsInline
-              autoPlay
-              muted
-              onContextMenu={(e) => e.preventDefault()}
-              className="w-full h-full object-contain bg-black"
-            />
-
-            {/* Click-to-unmute notification */}
-            {muted && (
-              <button
-                onClick={enableSound}
-                className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/30 transition-colors cursor-pointer"
-              >
-                <span className="flex items-center gap-3 bg-primary-600 text-white font-semibold px-6 py-4 rounded-full shadow-lg animate-pulse">
-                  <Volume2 size={24} />
-                  Click to hear the audio
-                </span>
-              </button>
+            {isFileVideo ? (
+              <>
+                <video
+                  ref={videoRef}
+                  src={WEBINAR_VIDEO_SRC}
+                  playsInline
+                  autoPlay
+                  muted
+                  onContextMenu={(e) => e.preventDefault()}
+                  className="w-full h-full object-contain bg-black"
+                />
+                {muted && (
+                  <button
+                    onClick={enableSound}
+                    className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/30 transition-colors cursor-pointer"
+                  >
+                    <span className="flex items-center gap-3 bg-primary-600 text-white font-semibold px-6 py-4 rounded-full shadow-lg animate-pulse">
+                      <Volume2 size={24} />
+                      Click to hear the audio
+                    </span>
+                  </button>
+                )}
+              </>
+            ) : (
+              <iframe
+                src={WEBINAR_VIDEO_SRC}
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                className="w-full h-full"
+                title="Webinar"
+              />
             )}
           </div>
 
-          {/* Opt-in modal — appears after 60 seconds of watch time */}
-          {showOptin && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-              <div className="bg-white text-gray-900 rounded-2xl p-8 max-w-md w-full shadow-2xl">
-                {!optinDone ? (
-                  <form onSubmit={submitOptin} className="space-y-4">
-                    <div className="text-center space-y-2">
-                      <h2 className="text-2xl font-bold">Get Your Free PDF</h2>
-                      <p className="text-gray-600">
-                        Enter your details and we&apos;ll send you a free guide from
-                        Pontotoc Insurance Agency.
-                      </p>
-                    </div>
-                    <input
-                      type="tel"
-                      placeholder="Phone Number"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                    {error && <p className="text-sm text-red-600">{error}</p>}
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                    >
-                      {submitting ? 'Sending...' : 'Send Me the Free PDF'}
-                    </button>
-                  </form>
-                ) : (
-                  <div className="space-y-5 text-center">
-                    <div className="flex items-center justify-center gap-2 text-green-600">
-                      <CheckCircle size={24} />
-                      <span className="font-semibold">You&apos;re all set!</span>
-                    </div>
-                    <p className="text-gray-600">
-                      Click below to download your free guide.
-                    </p>
-                    <a
-                      href={FREE_PDF_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                    >
-                      <FileDown size={20} />
-                      Download Free PDF
-                    </a>
-                    <button
-                      onClick={() => setShowOptin(false)}
-                      className="text-sm text-gray-500 hover:text-gray-700"
-                    >
-                      Continue watching
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+          {/* Schedule a free 1-on-1 */}
+          <div className="text-center pt-2">
+            <button
+              onClick={() => setBookingOpen(true)}
+              className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-8 rounded-lg transition-colors text-lg shadow-lg"
+            >
+              <CalendarCheck size={22} />
+              Schedule a Free One-on-One
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Opt-in modal — appears after 60 seconds of watch time */}
+      {showOptin && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="bg-white text-gray-900 rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            {!optinDone ? (
+              <form onSubmit={submitOptin} className="space-y-4">
+                <div className="text-center space-y-2">
+                  <h2 className="text-2xl font-bold">
+                    Get Your Free Guide: 7 Costly Medicare Mistakes
+                  </h2>
+                  <p className="text-gray-600">
+                    Enter your details and we&apos;ll send you this free guide from
+                    Pontotoc Insurance Agency.
+                  </p>
+                </div>
+                <input
+                  type="tel"
+                  placeholder="Phone Number"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                />
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                >
+                  {submitting ? 'Sending...' : 'Send Me the Free Guide'}
+                </button>
+              </form>
+            ) : (
+              <div className="space-y-5 text-center">
+                <div className="flex items-center justify-center gap-2 text-green-600">
+                  <CheckCircle size={24} />
+                  <span className="font-semibold">You&apos;re all set!</span>
+                </div>
+                <p className="text-gray-600">
+                  Click below to get your free &ldquo;7 Costly Medicare
+                  Mistakes&rdquo; guide.
+                </p>
+                <a
+                  href={FREE_PDF_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-secondary-900 hover:bg-secondary-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                >
+                  <FileDown size={20} />
+                  Get the Free PDF
+                </a>
+                <button
+                  onClick={() => setShowOptin(false)}
+                  className="block w-full text-sm text-gray-500 hover:text-gray-700"
+                >
+                  Continue watching
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </section>
   )
 }

@@ -64,10 +64,10 @@ export default function WebinarSignup() {
               FREE ON-DEMAND WEBINAR
             </span>
             <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-              Watch Our Free Insurance &amp; Retirement Webinar
+              How Is Medicare Changing in 2026 — and How to Protect Yourself
             </h1>
             <p className="text-lg text-secondary-100">
-              Enter your name below to get instant access. No cost, no obligation —
+              Enter your name below for instant access. No cost, no obligation —
               just expert guidance from Pontotoc Insurance Agency.
             </p>
           </div>
