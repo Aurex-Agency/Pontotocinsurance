@@ -14,9 +14,10 @@ import {
   Lock,
 } from 'lucide-react'
 
-// Leads are sent to the same GoHighLevel webhook the homepage form uses.
+// Dedicated GoHighLevel inbound webhook for the webinar funnel. The PDF opt-in
+// on the watch page posts here too; branch on the `source` field in GHL.
 const WEBHOOK_URL =
-  'https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/3433cf41-731f-4a93-9074-2c37e3c9c0a2'
+  'https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/aae78893-8bba-4714-8832-37a509c39af1'
 
 const benefits = [
   'The key Medicare changes coming in 2026, and what they mean for you',

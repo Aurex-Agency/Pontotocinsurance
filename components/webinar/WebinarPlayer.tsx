@@ -23,7 +23,7 @@ const FREE_PDF_URL =
 const OPTIN_AFTER_SECONDS = 60
 
 const WEBHOOK_URL =
-  'https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/3433cf41-731f-4a93-9074-2c37e3c9c0a2'
+  'https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/aae78893-8bba-4714-8832-37a509c39af1'
 
 const isFileVideo = /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/i.test(WEBINAR_VIDEO_SRC)
 
