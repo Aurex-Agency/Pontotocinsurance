@@ -2,10 +2,11 @@
 
 import Script from 'next/script'
 
-// Meta (Facebook) Pixel. Set NEXT_PUBLIC_META_PIXEL_ID in the environment
-// (Vercel + .env.local) to enable it. Loads site-wide and tracks PageView;
-// the webinar watch page fires a separate "Lead" conversion event.
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID
+// Meta (Facebook) Pixel — used ONLY on the two webinar funnel pages
+// (/webinarlink and /webinarlink/watch), not site-wide. Tracks PageView; the
+// watch page fires a separate "Lead" conversion event.
+// Override the ID with NEXT_PUBLIC_META_PIXEL_ID if needed.
+const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '2113541802917501'
 
 export default function MetaPixel() {
   if (!PIXEL_ID) return null

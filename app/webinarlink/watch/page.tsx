@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import WebinarPlayer from '@/components/webinar/WebinarPlayer'
+import MetaPixel from '@/components/MetaPixel'
 
 export const metadata: Metadata = {
   title: 'Watch: How Is Medicare Changing in 2026',
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 }
 
 export default function WebinarWatchPage() {
-  return <WebinarPlayer />
+  return (
+    <>
+      <MetaPixel />
+      <WebinarPlayer />
+    </>
+  )
 }

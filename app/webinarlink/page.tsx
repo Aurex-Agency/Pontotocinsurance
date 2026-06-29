@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import WebinarSignup from '@/components/webinar/WebinarSignup'
+import MetaPixel from '@/components/MetaPixel'
 
 export const metadata: Metadata = {
   title: 'How Is Medicare Changing in 2026',
@@ -9,5 +10,10 @@ export const metadata: Metadata = {
 }
 
 export default function WebinarSignupPage() {
-  return <WebinarSignup />
+  return (
+    <>
+      <MetaPixel />
+      <WebinarSignup />
+    </>
+  )
 }
