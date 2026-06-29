@@ -177,7 +177,7 @@ export default function WebinarSignup() {
   return (
     <div className="bg-white">
       {/* Top bar */}
-      <header className="bg-secondary-900">
+      <header className="bg-white border-b border-gray-200">
         <div className="container-custom flex items-center justify-between py-4">
           <Image
             src="/pia_logo.png"
@@ -187,7 +187,7 @@ export default function WebinarSignup() {
             className="h-10 w-auto object-contain"
             priority
           />
-          <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-primary-200 bg-primary-500/15 px-3 py-1.5 rounded-full">
+          <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-primary-700 bg-primary-100 px-3 py-1.5 rounded-full">
             <ShieldCheck size={14} /> Licensed in Mississippi
           </span>
         </div>
