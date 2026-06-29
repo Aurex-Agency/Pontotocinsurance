@@ -33,12 +33,12 @@ export default function WebinarPlayer() {
   const maxWatchedRef = useRef(0) // furthest point reached (blocks seeking)
   const optinTriggeredRef = useRef(false)
 
-  const [lead, setLead] = useState<{ firstName: string; lastName: string } | null>(null)
+  const [lead, setLead] = useState<{ firstName: string; lastName: string; email?: string } | null>(null)
   const [checked, setChecked] = useState(false)
   const [muted, setMuted] = useState(true)
   const [showOptin, setShowOptin] = useState(false)
   const [optinDone, setOptinDone] = useState(false)
-  const [form, setForm] = useState({ phone: '', email: '' })
+  const [form, setForm] = useState({ phone: '', birthday: '' })
   const [submitting, setSubmitting] = useState(false)
   const [bookingOpen, setBookingOpen] = useState(false)
 
@@ -139,8 +139,9 @@ export default function WebinarPlayer() {
         body: JSON.stringify({
           firstName: lead?.firstName,
           lastName: lead?.lastName,
-          email: form.email,
+          email: lead?.email,
           phone: form.phone,
+          birthday: form.birthday,
           source: 'Webinar: PDF Opt-in (Medicare 2026)',
           timestamp: new Date().toISOString(),
         }),
@@ -242,14 +243,18 @@ export default function WebinarPlayer() {
                         required
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
                       />
-                      <input
-                        type="email"
-                        placeholder="Email Address"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        required
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                      />
+                      <div>
+                        <label className="block text-sm text-gray-600 mb-1">
+                          Date of Birth
+                        </label>
+                        <input
+                          type="date"
+                          value={form.birthday}
+                          onChange={(e) => setForm({ ...form, birthday: e.target.value })}
+                          required
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        />
+                      </div>
                       <button
                         type="submit"
                         disabled={submitting}

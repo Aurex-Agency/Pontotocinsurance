@@ -63,7 +63,7 @@ const team = [
 
 export default function WebinarSignup() {
   const router = useRouter()
-  const [form, setForm] = useState({ firstName: '', lastName: '' })
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '' })
   const [registered, setRegistered] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
@@ -97,6 +97,7 @@ export default function WebinarSignup() {
         body: JSON.stringify({
           firstName: form.firstName,
           lastName: form.lastName,
+          email: form.email,
           source: 'Webinar: Registration (Medicare 2026)',
           timestamp: new Date().toISOString(),
         }),
@@ -142,6 +143,15 @@ export default function WebinarSignup() {
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={form.email}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            />
             <button
               type="submit"
               disabled={submitting}
