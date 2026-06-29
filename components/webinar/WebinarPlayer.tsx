@@ -138,7 +138,7 @@ export default function WebinarPlayer() {
       console.error('Webinar opt-in webhook failed:', err)
     } finally {
       setSubmitting(false)
-      setOptinDone(true) // deliver the PDF regardless — capture is best-effort
+      setOptinDone(true) // deliver the PDF regardless; capture is best-effort
     }
   }
 
@@ -156,7 +156,7 @@ export default function WebinarPlayer() {
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="text-center">
             <h1 className="text-2xl lg:text-3xl font-bold">
-              How Is Medicare Changing in 2026 — and How to Protect Yourself
+              How Is Medicare Changing in 2026 and How to Protect Yourself
             </h1>
             {lead?.firstName && (
               <p className="text-secondary-200 mt-1">
@@ -215,7 +215,7 @@ export default function WebinarPlayer() {
         </div>
       </div>
 
-      {/* Opt-in modal — appears after 60 seconds of watch time */}
+      {/* Opt-in modal: appears after 60 seconds of watch time */}
       {showOptin && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
           <div className="bg-white text-gray-900 rounded-2xl p-8 max-w-md w-full shadow-2xl">

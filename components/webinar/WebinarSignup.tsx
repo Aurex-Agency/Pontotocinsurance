@@ -19,10 +19,10 @@ const WEBHOOK_URL =
   'https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/3433cf41-731f-4a93-9074-2c37e3c9c0a2'
 
 const benefits = [
-  'The key Medicare changes coming in 2026 — and what they mean for you',
+  'The key Medicare changes coming in 2026, and what they mean for you',
   '7 costly mistakes that could cost you thousands (and how to avoid them)',
   'How to protect your coverage and your retirement savings',
-  'Straight answers from licensed Mississippi advisors — no pressure',
+  'Straight answers from licensed Mississippi advisors, no pressure',
 ]
 
 const discover = [
@@ -44,7 +44,7 @@ const discover = [
   {
     icon: Clock,
     title: 'Watch On Your Time',
-    text: 'On-demand and to the point — watch the moment you register.',
+    text: 'On-demand and to the point. Watch the moment you register.',
   },
 ]
 
@@ -118,7 +118,7 @@ export default function WebinarSignup() {
           <div className="text-center mb-5">
             <h3 className="text-xl font-bold">Get Instant Free Access</h3>
             <p className="text-sm text-gray-500">
-              Just your name — start watching in seconds.
+              Just your name. Start watching in seconds.
             </p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -207,7 +207,7 @@ export default function WebinarSignup() {
                 FREE ON-DEMAND WEBINAR
               </span>
               <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-                How Is Medicare Changing in 2026 — and How to Protect Yourself
+                How Is Medicare Changing in 2026 and How to Protect Yourself
               </h1>
               <p className="text-lg text-secondary-100">
                 A free, plain-English training from Pontotoc Insurance Agency. Learn
@@ -305,7 +305,7 @@ export default function WebinarSignup() {
         </div>
       </section>
 
-      {/* Social proof — real client reviews */}
+      {/* Social proof: real client reviews */}
       <section className="section-padding bg-gradient-to-br from-primary-50 to-primary-100">
         <div className="container-custom">
           <div className="text-center mb-10">
