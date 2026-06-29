@@ -57,6 +57,21 @@ export default function WebinarPlayer() {
     }
   }, [router])
 
+  // Fire the Meta "Lead" conversion once a registered visitor reaches the watch
+  // page (used to optimize Facebook/Instagram paid ads).
+  useEffect(() => {
+    if (
+      checked &&
+      typeof window !== 'undefined' &&
+      typeof (window as any).fbq === 'function'
+    ) {
+      ;(window as any).fbq('track', 'Lead', {
+        content_name: 'Medicare 2026 Webinar',
+        content_category: 'Webinar',
+      })
+    }
+  }, [checked])
+
   // Trigger the opt-in after enough watch time.
   const tick = (seconds: { value: number }) => {
     seconds.value += 0.5

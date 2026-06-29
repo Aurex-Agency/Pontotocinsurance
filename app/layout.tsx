@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import LayoutChrome from '@/components/LayoutChrome'
+import MetaPixel from '@/components/MetaPixel'
 // import GoogleAnalytics from '@/components/GoogleAnalytics'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -247,6 +248,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <MetaPixel />
         {/* <GoogleAnalytics measurementId="G-XXXXXXXXXX" /> */}
         <LayoutChrome footerSettings={siteSettings}>
           {children}
