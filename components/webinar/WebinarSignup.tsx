@@ -113,7 +113,7 @@ export default function WebinarSignup() {
     setRegistered(true)
   }
 
-  const SignupCard = () => (
+  const signupCard = (
     <div id="register" className="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl text-gray-900 scroll-mt-8">
       {!registered ? (
         <>
@@ -247,7 +247,7 @@ export default function WebinarSignup() {
 
             {/* Right: signup form */}
             <div className="space-y-5">
-              <SignupCard />
+              {signupCard}
             </div>
           </div>
         </div>
