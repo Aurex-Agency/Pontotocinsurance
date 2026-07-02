@@ -32,7 +32,7 @@ const LifeInsuranceHero = () => {
             <div className="flex items-center space-x-3 mb-6">
               <Heart size={48} className="text-red-200" />
               <div>
-                <h1 className="text-5xl lg:text-6xl font-bold">Life Insurance</h1>
+                <h1 className="text-5xl lg:text-6xl font-bold">Life Insurance <span className="block text-2xl lg:text-3xl font-semibold text-primary-100 mt-2">in Pontotoc &amp; North Mississippi</span></h1>
                 <p className="text-xl text-red-100">Secure Your Family's Future</p>
               </div>
             </div>

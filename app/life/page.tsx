@@ -5,8 +5,8 @@ import WhyChooseUs from '@/components/services/WhyChooseUs'
 import QuoteForm from '@/components/services/QuoteForm'
 
 export const metadata: Metadata = {
-  title: 'Life Insurance Advisor | Term, Whole & Universal Life Insurance Mississippi',
-  description: 'Expert life insurance advisor in Pontotoc, MS specializing in term, whole, and universal life insurance. Estate planning, wealth transfer strategies, and high-net-worth life insurance solutions. Licensed professionals with 7+ years experience helping families protect their financial future.',
+  title: 'Life Insurance in Pontotoc, MS | Term, Whole & Universal',
+  description: 'Compare term, whole, and universal life insurance with a licensed local advisor in Pontotoc, MS. Protect your family across North Mississippi with the right policy at the right price. Free quotes: (662) 200-2249.',
   keywords: [
     'life insurance advisor Mississippi',
     'term life insurance Pontotoc',
@@ -30,15 +30,15 @@ export const metadata: Metadata = {
     'life insurance rates Pontotoc'
   ],
   openGraph: {
-    title: 'Life Insurance Advisor | Term, Whole & Universal Life Insurance Mississippi',
-    description: 'Expert life insurance advisor in Pontotoc, MS specializing in term, whole, and universal life insurance. Estate planning and wealth transfer strategies for high-net-worth individuals.',
-    url: 'https://www.pontotocinsuranceagency.com/life',
+    title: 'Life Insurance in Pontotoc, MS | Term, Whole & Universal',
+    description: 'Compare term, whole, and universal life insurance with a licensed local advisor in Pontotoc, MS. Serving families across North Mississippi.',
+    url: 'https://pontotocinsuranceagency.com/life',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Life Insurance Advisor | Term, Whole & Universal Life Insurance Mississippi',
-    description: 'Expert life insurance advisor in Pontotoc, MS specializing in term, whole, and universal life insurance. Estate planning and wealth transfer strategies.',
+    title: 'Life Insurance in Pontotoc, MS | Term, Whole & Universal',
+    description: 'Compare term, whole, and universal life insurance with a licensed local advisor in Pontotoc, MS. Serving families across North Mississippi.',
   },
   alternates: {
     canonical: '/life',
@@ -79,11 +79,20 @@ export default function LifeInsurance() {
     }
   }
 
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pontotocinsuranceagency.com" },
+      { "@type": "ListItem", "position": 2, "name": "Life Insurance", "item": "https://pontotocinsuranceagency.com/life" }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, breadcrumbData]) }}
       />
       <LifeInsuranceHero />
       <CoverageOptions 
