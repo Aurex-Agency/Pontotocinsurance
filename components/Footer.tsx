@@ -34,11 +34,15 @@ const Footer = ({ initialSettings }: FooterProps) => {
     { name: 'Health Insurance', href: '/health' },
     { name: 'Medicare', href: '/medicare' },
     { name: 'Retirement Planning', href: '/retirement' },
+    { name: 'Insurance in Tupelo', href: '/locations/tupelo' },
+    { name: 'Insurance in Oxford', href: '/locations/oxford' },
+    { name: 'Insurance in New Albany', href: '/locations/new-albany' },
   ]
 
   const company = [
     { name: 'About Us', href: '/about' },
     { name: 'Team', href: '/team' },
+    { name: 'Areas We Serve', href: '/locations' },
     { name: 'Contact', href: '/contact' },
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
