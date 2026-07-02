@@ -96,8 +96,8 @@ const HeroSection = () => {
                 Pontotoc Insurance Agency
               </h1>
               <p className="text-xl text-primary-100 leading-relaxed">
-                Expert financial guidance for life insurance, health insurance, Medicare, and retirement planning. 
-                Helping high-net-worth individuals and families build wealth and protect their financial future with personalized strategies.
+                Expert guidance for life insurance, health insurance, Medicare, and retirement planning.
+                Helping families in Pontotoc, Tupelo, Oxford, and across North Mississippi build wealth and protect their financial future with personalized strategies.
               </p>
             </div>
 

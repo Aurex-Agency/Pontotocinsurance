@@ -45,6 +45,9 @@ export default function MedicareHero() {
               >
                 Your Medicare
                 <span className="text-primary-600 block">Made Simple</span>
+                <span className="block text-xl lg:text-2xl font-semibold text-gray-500 mt-3">
+                  Licensed Medicare advisors in Pontotoc &amp; North Mississippi
+                </span>
               </motion.h1>
               
               <motion.p

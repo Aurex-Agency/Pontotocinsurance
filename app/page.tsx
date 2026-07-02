@@ -6,8 +6,10 @@ import Testimonials from '@/components/Testimonials'
 import ContactCTA from '@/components/ContactCTA'
 
 export const metadata: Metadata = {
-  title: 'Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning Mississippi',
-  description: 'Premier financial advisors in Pontotoc, MS specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families. Licensed professionals with 7+ years experience.',
+  title: {
+    absolute: 'Pontotoc Insurance Agency | Life, Health & Medicare in North Mississippi',
+  },
+  description: 'Your local insurance agency in Pontotoc, MS. Licensed advisors for life insurance, health insurance, Medicare, and retirement planning serving Tupelo, Oxford, and all of North Mississippi. Get a free quote today.',
   keywords: [
     'financial advisor Pontotoc MS',
     'life insurance advisor Pontotoc Mississippi',
@@ -33,15 +35,15 @@ export const metadata: Metadata = {
     'financial advisor Oxford MS'
   ],
   openGraph: {
-    title: 'Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning Mississippi',
-    description: 'Premier financial advisors in Pontotoc, MS specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management services.',
-    url: 'https://www.pontotocinsuranceagency.com',
+    title: 'Pontotoc Insurance Agency | Life, Health & Medicare in North Mississippi',
+    description: 'Your local insurance agency in Pontotoc, MS. Licensed advisors for life, health, Medicare, and retirement planning serving all of North Mississippi.',
+    url: 'https://pontotocinsuranceagency.com',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning Mississippi',
-    description: 'Premier financial advisors in Pontotoc, MS specializing in life insurance, health insurance, Medicare, and retirement planning.',
+    title: 'Pontotoc Insurance Agency | Life, Health & Medicare in North Mississippi',
+    description: 'Your local insurance agency in Pontotoc, MS. Licensed advisors for life, health, Medicare, and retirement planning serving all of North Mississippi.',
   },
   alternates: {
     canonical: '/',

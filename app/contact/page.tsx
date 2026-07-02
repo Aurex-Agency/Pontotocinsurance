@@ -5,7 +5,7 @@ import ContactInfo from '@/components/ContactInfo'
 import MapSection from '@/components/MapSection'
 
 export const metadata: Metadata = {
-  title: 'Contact Pontotoc Insurance Agency - Get Your Quote Today',
+  title: 'Contact Us | Free Insurance Quotes in Pontotoc, MS',
   description: 'Contact Pontotoc Insurance Agency for expert insurance guidance. Located at 158 MS-15, Suite D, Pontotoc, MS. Call (662) 200-2249 or email info@pontotocinsuranceagency.com.',
   keywords: [
     'contact Pontotoc Insurance Agency',
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     'insurance appointment Pontotoc'
   ],
   openGraph: {
-    title: 'Contact Pontotoc Insurance Agency - Get Your Quote Today',
+    title: 'Contact Us | Free Insurance Quotes in Pontotoc, MS',
     description: 'Contact Pontotoc Insurance Agency for expert insurance guidance. Located at 158 MS-15, Suite D, Pontotoc, MS.',
-    url: 'https://www.pontotocinsuranceagency.com/contact',
+    url: 'https://pontotocinsuranceagency.com/contact',
   },
   alternates: {
     canonical: '/contact',

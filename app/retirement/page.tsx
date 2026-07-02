@@ -6,8 +6,8 @@ import LeadMagnetSection from '@/components/retirement/LeadMagnetSection'
 import QuoteForm from '@/components/services/QuoteForm'
 
 export const metadata: Metadata = {
-  title: 'Annuities Pontotoc MS | Retirement Planning & Annuity Advisor Pontotoc Mississippi',
-  description: 'Expert annuity advisor and retirement planning specialist in Pontotoc, MS. Comprehensive annuities, 401(k) rollovers, IRA management, and wealth management services. Licensed financial advisors serving Pontotoc, Tupelo, Oxford, and all of Mississippi. Free annuity consultation in Pontotoc County.',
+  title: 'Retirement Planning & Annuities in Pontotoc, MS',
+  description: 'Plan your retirement with a licensed local advisor in Pontotoc, MS. Annuities, 401(k) rollovers, IRA management, and Social Security optimization for families across North Mississippi. Free consultation: (662) 200-2249.',
   keywords: [
     'annuities Pontotoc MS',
     'annuity advisor Pontotoc Mississippi',
@@ -43,15 +43,15 @@ export const metadata: Metadata = {
     'annuities Oxford MS'
   ],
   openGraph: {
-    title: 'Annuities Pontotoc MS | Retirement Planning & Annuity Advisor Pontotoc Mississippi',
-    description: 'Expert annuity advisor and retirement planning specialist in Pontotoc, MS. Comprehensive annuities, 401(k) rollovers, IRA management, and wealth management services. Serving Pontotoc, Tupelo, Oxford, and all of Mississippi.',
-    url: 'https://www.pontotocinsuranceagency.com/retirement',
+    title: 'Retirement Planning & Annuities in Pontotoc, MS',
+    description: 'Plan your retirement with a licensed local advisor in Pontotoc, MS. Annuities, 401(k) rollovers, and IRA management across North Mississippi.',
+    url: 'https://pontotocinsuranceagency.com/retirement',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Annuities Pontotoc MS | Retirement Planning & Annuity Advisor Pontotoc Mississippi',
-    description: 'Expert annuity advisor and retirement planning specialist in Pontotoc, MS. Comprehensive annuities, 401(k) rollovers, and IRA management. Serving Pontotoc County and all of Mississippi.',
+    title: 'Retirement Planning & Annuities in Pontotoc, MS',
+    description: 'Plan your retirement with a licensed local advisor in Pontotoc, MS. Annuities, 401(k) rollovers, and IRA management across North Mississippi.',
   },
   alternates: {
     canonical: '/retirement',
@@ -119,11 +119,20 @@ export default function RetirementPlanning() {
     }
   }
 
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pontotocinsuranceagency.com" },
+      { "@type": "ListItem", "position": 2, "name": "Retirement Planning", "item": "https://pontotocinsuranceagency.com/retirement" }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, breadcrumbData]) }}
       />
       <RetirementPlanningHero />
       <CoverageOptions 

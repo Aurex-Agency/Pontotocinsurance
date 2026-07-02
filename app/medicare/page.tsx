@@ -11,10 +11,11 @@ import MedicareEligibility from '@/components/medicare/MedicareEligibility';
 import MedicareCosts from '@/components/medicare/MedicareCosts';
 import MedicareEnrollment from '@/components/medicare/MedicareEnrollment';
 import MedicareFAQ from '@/components/medicare/MedicareFAQ';
+import { medicareFaqs } from '@/lib/medicare-faqs';
 
 export const metadata: Metadata = {
-  title: 'Medicare Insurance Plans Pontotoc MS | Medicare Advisor Pontotoc Mississippi',
-  description: 'Expert Medicare insurance advisor in Pontotoc, MS. Medicare Advantage, Medigap, Part D plans. Licensed Medicare agents serving Pontotoc, Tupelo, Oxford, and all of Mississippi. Free Medicare consultation. Compare Medicare plans in Pontotoc County.',
+  title: 'Medicare Advisors in Pontotoc, MS | Advantage, Medigap & Part D',
+  description: 'Free Medicare help from licensed local agents in Pontotoc, MS. Compare Medicare Advantage, Medicare Supplement (Medigap), and Part D plans across North Mississippi. No-cost consultation: (662) 200-2249.',
   keywords: [
     'Medicare Pontotoc MS',
     'Medicare insurance Pontotoc MS',
@@ -38,10 +39,15 @@ export const metadata: Metadata = {
     'Medicare quotes Pontotoc MS'
   ],
   openGraph: {
-    title: 'Medicare Insurance Plans Pontotoc MS | Medicare Advisor Pontotoc Mississippi',
-    description: 'Expert Medicare insurance advisor in Pontotoc, MS. Medicare Advantage, Medigap, Part D plans. Licensed Medicare agents serving Pontotoc, Tupelo, Oxford, and all of Mississippi.',
-    url: 'https://www.pontotocinsuranceagency.com/medicare',
+    title: 'Medicare Advisors in Pontotoc, MS | Advantage, Medigap & Part D',
+    description: 'Free Medicare help from licensed local agents in Pontotoc, MS. Compare Medicare Advantage, Medigap, and Part D plans across North Mississippi.',
+    url: 'https://pontotocinsuranceagency.com/medicare',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Medicare Advisors in Pontotoc, MS | Advantage, Medigap & Part D',
+    description: 'Free Medicare help from licensed local agents in Pontotoc, MS. Compare Medicare Advantage, Medigap, and Part D plans across North Mississippi.',
   },
   alternates: {
     canonical: '/medicare',
@@ -109,11 +115,31 @@ export default function MedicarePage() {
     }
   }
 
+  // FAQ rich-result schema, generated from the same data the visible FAQ uses.
+  const faqData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": medicareFaqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+    }))
+  }
+
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pontotocinsuranceagency.com" },
+      { "@type": "ListItem", "position": 2, "name": "Medicare", "item": "https://pontotocinsuranceagency.com/medicare" }
+    ]
+  }
+
   return (
     <div className="min-h-screen">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqData, breadcrumbData]) }}
       />
       <MedicareHero />
       

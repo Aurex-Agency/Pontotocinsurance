@@ -29,7 +29,7 @@ const RetirementPlanningHero = () => {
             <div className="flex items-center space-x-3 mb-6">
               <PiggyBank size={48} className="text-yellow-200" />
               <div>
-                <h1 className="text-5xl lg:text-6xl font-bold">Retirement Planning</h1>
+                <h1 className="text-5xl lg:text-6xl font-bold">Retirement Planning <span className="block text-2xl lg:text-3xl font-semibold text-primary-100 mt-2">in Pontotoc &amp; North Mississippi</span></h1>
                 <p className="text-xl text-yellow-100">Secure Your Golden Years</p>
               </div>
             </div>

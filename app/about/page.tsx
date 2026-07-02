@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Shield, Users, Award, Heart, TrendingUp, CheckCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About Us - Pontotoc Insurance Agency | Expert Financial Advisors Mississippi',
+  title: 'About Our Agency | Local Insurance Advisors in Pontotoc, MS',
   description: 'Learn about Pontotoc Insurance Agency - expert financial advisors with 7+ years of experience. Specializing in life insurance, health insurance, Medicare, and retirement planning in Pontotoc, MS.',
   keywords: [
     'about Pontotoc Insurance Agency',
@@ -15,9 +15,9 @@ export const metadata: Metadata = {
     'insurance advisors Mississippi'
   ],
   openGraph: {
-    title: 'About Us - Pontotoc Insurance Agency | Expert Financial Advisors Mississippi',
+    title: 'About Our Agency | Local Insurance Advisors in Pontotoc, MS',
     description: 'Learn about Pontotoc Insurance Agency - expert financial advisors with 7+ years of experience. Specializing in life insurance, health insurance, Medicare, and retirement planning.',
-    url: 'https://www.pontotocinsuranceagency.com/about',
+    url: 'https://pontotocinsuranceagency.com/about',
     type: 'website',
   },
   twitter: {
@@ -36,8 +36,8 @@ export default function About() {
     "@type": "InsuranceAgency",
     "name": "Pontotoc Insurance Agency",
     "description": "Expert financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Licensed professionals with 7+ years of experience serving Pontotoc, MS and surrounding areas.",
-    "url": "https://www.pontotocinsuranceagency.com",
-    "logo": "https://www.pontotocinsuranceagency.com/pia_logo.png",
+    "url": "https://pontotocinsuranceagency.com",
+    "logo": "https://pontotocinsuranceagency.com/pia_logo.png",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "158 MS-15, Suite D",

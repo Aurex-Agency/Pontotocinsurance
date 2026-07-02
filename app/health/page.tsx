@@ -5,8 +5,8 @@ import WhyChooseUs from '@/components/services/WhyChooseUs'
 import QuoteForm from '@/components/services/QuoteForm'
 
 export const metadata: Metadata = {
-  title: 'Health Insurance Pontotoc MS | Health Insurance Broker Pontotoc Mississippi',
-  description: 'Expert health insurance broker in Pontotoc, MS. Find affordable individual, family, and group health insurance plans. HSA options, short-term coverage, and comprehensive marketplace guidance. Licensed health insurance advisors serving Pontotoc, Tupelo, Oxford, and all of Mississippi. Free health insurance quotes in Pontotoc County.',
+  title: 'Health Insurance in Pontotoc, MS | Individual, Family & Group',
+  description: 'Find affordable health insurance in Pontotoc, MS with a licensed local broker. Individual, family, and group plans plus HSA options and marketplace help across North Mississippi. Free quotes: (662) 200-2249.',
   keywords: [
     'health insurance Pontotoc MS',
     'health insurance broker Pontotoc Mississippi',
@@ -32,15 +32,15 @@ export const metadata: Metadata = {
     'health insurance Oxford MS'
   ],
   openGraph: {
-    title: 'Health Insurance Pontotoc MS | Health Insurance Broker Pontotoc Mississippi',
-    description: 'Expert health insurance broker in Pontotoc, MS. Find affordable individual, family, and group health insurance plans. Serving Pontotoc, Tupelo, Oxford, and all of Mississippi.',
-    url: 'https://www.pontotocinsuranceagency.com/health',
+    title: 'Health Insurance in Pontotoc, MS | Individual, Family & Group',
+    description: 'Find affordable health insurance in Pontotoc, MS with a licensed local broker. Individual, family, and group plans across North Mississippi.',
+    url: 'https://pontotocinsuranceagency.com/health',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Health Insurance Pontotoc MS | Health Insurance Broker Pontotoc Mississippi',
-    description: 'Expert health insurance broker in Pontotoc, MS. Find affordable individual, family, and group health insurance plans. Serving Pontotoc County and all of Mississippi.',
+    title: 'Health Insurance in Pontotoc, MS | Individual, Family & Group',
+    description: 'Find affordable health insurance in Pontotoc, MS with a licensed local broker. Individual, family, and group plans across North Mississippi.',
   },
   alternates: {
     canonical: '/health',
@@ -108,11 +108,20 @@ export default function HealthInsurance() {
     }
   }
 
+  const breadcrumbData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pontotocinsuranceagency.com" },
+      { "@type": "ListItem", "position": 2, "name": "Health Insurance", "item": "https://pontotocinsuranceagency.com/health" }
+    ]
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, breadcrumbData]) }}
       />
       <HealthInsuranceHero />
       <CoverageOptions 

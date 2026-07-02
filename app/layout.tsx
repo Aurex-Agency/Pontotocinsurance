@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Pontotoc Insurance Agency - Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning',
+    default: 'Pontotoc Insurance Agency | Life, Health & Medicare in North Mississippi',
     template: '%s | Pontotoc Insurance Agency'
   },
-  description: 'Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Mississippi. Licensed professionals with 7+ years experience.',
+  description: 'Local, licensed insurance advisors in Pontotoc, MS helping families across North Mississippi with life insurance, health insurance, Medicare, and retirement planning. Free quotes and one-on-one guidance. Call (662) 200-2249.',
   keywords: [
     'financial advisor Pontotoc MS',
     'life insurance advisor Pontotoc Mississippi',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://www.pontotocinsuranceagency.com'),
+  metadataBase: new URL('https://pontotocinsuranceagency.com'),
   alternates: {
     canonical: '/',
   },
@@ -70,9 +70,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.pontotocinsuranceagency.com',
-    title: 'Pontotoc Insurance Agency - Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning',
-    description: 'Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Mississippi.',
+    url: 'https://pontotocinsuranceagency.com',
+    title: 'Pontotoc Insurance Agency | Life, Health & Medicare in North Mississippi',
+    description: 'Local, licensed insurance advisors in Pontotoc, MS helping families across North Mississippi with life insurance, health insurance, Medicare, and retirement planning.',
     siteName: 'Pontotoc Insurance Agency',
     images: [
       {
@@ -85,8 +85,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pontotoc Insurance Agency - Expert Financial Advisors | Life Insurance, Health Insurance & Retirement Planning',
-    description: 'Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Mississippi.',
+    title: 'Pontotoc Insurance Agency | Life, Health & Medicare in North Mississippi',
+    description: 'Local, licensed insurance advisors in Pontotoc, MS helping families across North Mississippi with life, health, Medicare, and retirement planning.',
     images: ['/pia_logo.png'],
   },
   robots: {
@@ -99,9 +99,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-verification-code', // Replace with actual verification code
   },
 }
 
@@ -119,9 +116,9 @@ export default async function RootLayout({
     "name": "Pontotoc Insurance Agency",
     "alternateName": "PIA",
     "description": "Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Pontotoc, Mississippi.",
-    "url": "https://www.pontotocinsuranceagency.com",
-    "logo": "https://www.pontotocinsuranceagency.com/pia_logo.png",
-    "image": "https://www.pontotocinsuranceagency.com/pia_logo.png",
+    "url": "https://pontotocinsuranceagency.com",
+    "logo": "https://pontotocinsuranceagency.com/pia_logo.png",
+    "image": "https://pontotocinsuranceagency.com/pia_logo.png",
     "telephone": "+1-662-200-2249",
     "email": "info@pontotocinsuranceagency.com",
     "address": {
@@ -160,11 +157,23 @@ export default async function RootLayout({
       },
       {
         "@type": "City",
-        "name": "Oxford", 
+        "name": "Oxford",
         "containedInPlace": {
           "@type": "State",
           "name": "Mississippi"
         }
+      },
+      {
+        "@type": "City",
+        "name": "New Albany",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Mississippi"
+        }
+      },
+      {
+        "@type": "Place",
+        "name": "North Mississippi"
       }
     ],
     "serviceType": [

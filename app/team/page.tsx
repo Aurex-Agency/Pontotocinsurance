@@ -9,7 +9,7 @@ import { getTeamMembers } from '@/lib/database'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Our Team - Expert Insurance Professionals',
+  title: 'Meet Our Licensed Insurance Team in Pontotoc, MS',
   description: 'Meet our experienced team of insurance professionals at Pontotoc Insurance Agency. Licensed agents with 5+ years of experience dedicated to finding the best coverage for you.',
   keywords: [
     'insurance team Pontotoc',
@@ -20,15 +20,15 @@ export const metadata: Metadata = {
     'insurance specialists Mississippi'
   ],
   openGraph: {
-    title: 'Our Team - Expert Insurance Professionals',
+    title: 'Meet Our Licensed Insurance Team in Pontotoc, MS',
     description: 'Meet our experienced team of insurance professionals at Pontotoc Insurance Agency. Licensed agents with 5+ years of experience dedicated to finding the best coverage for you.',
-    url: 'https://www.pontotocinsuranceagency.com/team',
+    url: 'https://pontotocinsuranceagency.com/team',
     type: 'website',
     images: ['/pia_logo.png'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Our Team - Expert Insurance Professionals',
+    title: 'Meet Our Licensed Insurance Team in Pontotoc, MS',
     description: 'Meet our experienced team of insurance professionals at Pontotoc Insurance Agency. Licensed agents with 5+ years of experience.',
   },
   alternates: {

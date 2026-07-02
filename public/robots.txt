@@ -1,22 +1,9 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://www.pontotocinsuranceagency.com/sitemap.xml
-
-# Disallow admin or private areas (if any)
+# Keep private and funnel areas out of the index
 Disallow: /api/
-Disallow: /_next/
 Disallow: /admin/
+Disallow: /webinarlink
 
-# Allow all main pages
-Allow: /
-Allow: /life
-Allow: /health
-Allow: /medicare
-Allow: /retirement
-Allow: /contact
-Allow: /team
-
-# Crawl delay (optional - helps prevent overloading server)
-Crawl-delay: 1
+Sitemap: https://pontotocinsuranceagency.com/sitemap.xml
