@@ -4,14 +4,14 @@ import { MapPin, ArrowRight, Phone } from 'lucide-react'
 import { locations } from '@/lib/locations'
 
 export const metadata: Metadata = {
-  title: 'Areas We Serve | Insurance Advisors Across North Mississippi',
+  title: 'Areas We Serve | Insurance Advisors Across Mississippi',
   description:
-    'Pontotoc Insurance Agency serves families across North Mississippi, including Pontotoc, Tupelo, Oxford, and New Albany, with life, health, Medicare, and retirement planning. Call (662) 200-2249.',
+    'Pontotoc Insurance Agency serves families across Mississippi, including Pontotoc, Tupelo, Oxford, New Albany, Southaven, Corinth, Amory, Columbus, and Ocean Springs, with life, health, Medicare, and retirement planning. Call (662) 200-2249.',
   alternates: { canonical: '/locations' },
   openGraph: {
-    title: 'Areas We Serve | Insurance Advisors Across North Mississippi',
+    title: 'Areas We Serve | Insurance Advisors Across Mississippi',
     description:
-      'Serving Pontotoc, Tupelo, Oxford, New Albany, and all of North Mississippi with life, health, Medicare, and retirement planning.',
+      'Serving Pontotoc, Tupelo, Oxford, New Albany, Southaven, Corinth, Amory, Columbus, Ocean Springs, and all of Mississippi with life, health, Medicare, and retirement planning.',
     url: 'https://pontotocinsuranceagency.com/locations',
     type: 'website',
   },
@@ -57,21 +57,33 @@ export default function LocationsPage() {
                   Our Office
                 </span>
               </div>
-              <h2 className="text-2xl font-bold mb-2">Pontotoc, MS</h2>
+              <h2 className="text-2xl font-bold mb-2">
+                <Link href="/locations/pontotoc" className="hover:underline">
+                  Pontotoc, MS
+                </Link>
+              </h2>
               <p className="text-primary-100 mb-4">
                 158 MS-15, Suite D, Pontotoc, MS 38863. Walk-ins and appointments
                 welcome.
               </p>
-              <a
-                href="tel:6622002249"
-                className="inline-flex items-center gap-2 bg-white text-primary-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-primary-50 transition-colors"
-              >
-                <Phone size={16} />
-                (662) 200-2249
-              </a>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="tel:6622002249"
+                  className="inline-flex items-center gap-2 bg-white text-primary-700 font-semibold py-2.5 px-5 rounded-lg hover:bg-primary-50 transition-colors"
+                >
+                  <Phone size={16} />
+                  (662) 200-2249
+                </a>
+                <Link
+                  href="/locations/pontotoc"
+                  className="inline-flex items-center gap-1.5 border-2 border-white/70 text-white font-semibold py-2 px-5 rounded-lg hover:bg-white/10 transition-colors"
+                >
+                  Insurance in Pontotoc <ArrowRight size={16} />
+                </Link>
+              </div>
             </div>
 
-            {locations.map((city) => (
+            {locations.filter((city) => city.slug !== 'pontotoc').map((city) => (
               <Link
                 key={city.slug}
                 href={`/locations/${city.slug}`}
@@ -95,9 +107,9 @@ export default function LocationsPage() {
           </div>
 
           <p className="text-center text-gray-600 mt-10 max-w-2xl mx-auto">
-            Don&apos;t see your town? We serve all of North Mississippi, including
-            Pontotoc County, Lee County, Lafayette County, Union County, and the
-            surrounding areas. <Link href="/contact" className="text-primary-600 font-semibold hover:underline">Reach out</Link> and
+            Don&apos;t see your town? We&apos;re licensed across Mississippi and
+            serve every county in the state by phone and video.{' '}
+            <Link href="/contact" className="text-primary-600 font-semibold hover:underline">Reach out</Link> and
             we&apos;ll take care of you.
           </p>
         </div>
