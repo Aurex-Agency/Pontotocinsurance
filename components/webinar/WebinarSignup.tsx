@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import {
@@ -51,7 +51,7 @@ const discover = [
 
 const stats = [
   { value: '500+', label: 'Families Helped' },
-  { value: '98%', label: 'Satisfaction Rate' },
+  { value: '5.0★', label: '75 Google Reviews' },
   { value: '7+', label: 'Years Experience' },
   { value: 'MS', label: 'Locally Licensed' },
 ]
@@ -62,25 +62,26 @@ const team = [
   { name: 'Jake Wingo', title: 'Medicare & Annuity Specialist', img: '/team/jake-wingo.jpg' },
 ]
 
-// TODO: replace with real testimonials (pull from your Google/GHL reviews)
+// Real 5-star Google reviews, pulled from the agency's review feed (authors
+// shown by their public initials).
 const testimonials = [
   {
-    name: 'Sarah J.',
-    location: 'Pontotoc, MS',
+    name: 'J.B.',
+    location: 'Google review',
     quote:
-      'They compared every Medicare plan for my county and explained the differences in plain English. I finally felt confident about my choice.',
+      'Justin Stark and team were very helpful in finding a health plan to fit my needs. Very knowledgeable guy and easy to talk with. Thanks Justin!!!',
   },
   {
-    name: 'Michael D.',
-    location: 'Tupelo, MS',
+    name: 'B.M.',
+    location: 'Google review',
     quote:
-      'I thought I had the right plan until they reviewed it for free and found one that covered my prescriptions for less. Saved me real money.',
+      'I was totally impressed with their knowledge. They handled my questions and made phone calls for me. I call that full service!! This was as professional as it gets!',
   },
   {
-    name: 'Jennifer W.',
-    location: 'Oxford, MS',
+    name: 'S.W.',
+    location: 'Google review',
     quote:
-      'No pressure, no runaround. They answered every question I had about turning 65 and handled the paperwork with me.',
+      'My husband and I spent the afternoon with Brandon and he was so patient and knowledgeable. We will definitely turn to him for our healthcare insurance from now on!!',
   },
 ]
 
@@ -89,6 +90,25 @@ export default function WebinarSignup() {
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' })
   const [registered, setRegistered] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [showStickyCta, setShowStickyCta] = useState(false)
+  const formCardRef = useRef<HTMLDivElement>(null)
+
+  // Mobile sticky CTA: appears once the visitor scrolls past the form so the
+  // action is never more than one tap away.
+  useEffect(() => {
+    const el = formCardRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyCta(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+      { threshold: 0 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  const scrollToForm = () => {
+    formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -119,12 +139,21 @@ export default function WebinarSignup() {
     try {
       localStorage.setItem('webinar_lead', JSON.stringify(form))
     } catch {}
+    // Give Meta a conversion signal at the actual opt-in moment (the Lead
+    // event on the watch page still fires as the primary conversion).
+    try {
+      if (typeof (window as any).fbq === 'function') {
+        ;(window as any).fbq('track', 'CompleteRegistration', {
+          content_name: 'Medicare 2026 Webinar',
+        })
+      }
+    } catch {}
     setSubmitting(false)
     setRegistered(true)
   }
 
   const signupCard = (
-    <div id="register" className="bg-white rounded-2xl p-5 sm:p-8 shadow-2xl text-gray-900 scroll-mt-8">
+    <div ref={formCardRef} id="register" className="bg-white rounded-2xl p-5 sm:p-8 shadow-2xl text-gray-900 scroll-mt-8">
       {!registered ? (
         <>
           <div className="text-center mb-4">
@@ -161,6 +190,10 @@ export default function WebinarSignup() {
             </button>
             <p className="flex items-center justify-center gap-1.5 text-xs text-gray-500">
               <Lock size={12} /> 100% free. No obligation. Instant access.
+            </p>
+            <p className="flex items-center justify-center gap-1 text-xs text-gray-600 font-medium">
+              <Star size={12} fill="currentColor" className="text-primary-500" />
+              5.0 rated · 75 Google reviews
             </p>
           </form>
         </>
@@ -227,8 +260,24 @@ export default function WebinarSignup() {
             </div>
 
             {/* Signup form: second on mobile (above the fold), right column on desktop */}
-            <div className="order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+            <div className="order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 space-y-4">
               {signupCard}
+              {/* Host credibility strip */}
+              <div className="flex items-center justify-center gap-3">
+                <div className="flex -space-x-2.5">
+                  {team.map((m) => (
+                    <div
+                      key={m.name}
+                      className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-secondary-800"
+                    >
+                      <Image src={m.img} alt={m.name} fill className="object-cover" />
+                    </div>
+                  ))}
+                </div>
+                <span className="text-xs text-secondary-200">
+                  Hosted by licensed Mississippi advisors
+                </span>
+              </div>
             </div>
 
             {/* Benefits: below the form on mobile, under the headline on desktop */}
@@ -248,7 +297,7 @@ export default function WebinarSignup() {
                   ))}
                 </div>
                 <span className="text-sm text-secondary-100">
-                  Trusted by 500+ families across North Mississippi
+                  5.0 stars across 75 Google reviews
                 </span>
               </div>
             </div>
@@ -386,14 +435,31 @@ export default function WebinarSignup() {
           Pontotoc Insurance Agency is not affiliated with or endorsed by the
           federal Medicare program or any government agency.
         </p>
-        {/* TPMO disclaimer. TODO: replace [X] and [Y] with your real counts. */}
+        {/* TPMO disclaimer. TODO: current CMS guidance expects carrier/product
+            counts ("we represent X organizations which offer Y products in your
+            area"). Get the counts from your FMO/upline and swap this wording. */}
         <p className="max-w-3xl mx-auto">
-          We do not offer every plan available in your area. Currently we represent
-          [X] organizations which offer [Y] products in your area. Please contact
-          Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance
-          Program (SHIP) to get information on all of your options.
+          We do not offer every plan available in your area. Any information we
+          provide is limited to those plans we do offer in your area. Please
+          contact Medicare.gov, 1-800-MEDICARE, or your local State Health
+          Insurance Program (SHIP) to get information on all of your options.
         </p>
       </footer>
+
+      {/* Sticky mobile CTA: shows after scrolling past the form */}
+      {showStickyCta && (
+        <div className="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-white border-t border-gray-200 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] p-3">
+          <button
+            onClick={() =>
+              registered ? router.push('/webinarlink/watch') : scrollToForm()
+            }
+            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3.5 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+          >
+            <Play size={18} fill="currentColor" />
+            {registered ? 'Watch the Webinar Now' : 'Watch the Free Training'}
+          </button>
+        </div>
+      )}
     </div>
   )
 }
