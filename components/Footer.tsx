@@ -43,6 +43,7 @@ const Footer = ({ initialSettings }: FooterProps) => {
     { name: 'About Us', href: '/about' },
     { name: 'Team', href: '/team' },
     { name: 'Areas We Serve', href: '/locations' },
+    { name: 'Resources', href: '/resources' },
     { name: 'Contact', href: '/contact' },
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
