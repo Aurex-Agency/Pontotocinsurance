@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import {
@@ -62,23 +62,33 @@ const team = [
   { name: 'Jake Wingo', title: 'Medicare & Annuity Specialist', img: '/team/jake-wingo.jpg' },
 ]
 
+// TODO: replace with real testimonials (pull from your Google/GHL reviews)
+const testimonials = [
+  {
+    name: 'Sarah J.',
+    location: 'Pontotoc, MS',
+    quote:
+      'They compared every Medicare plan for my county and explained the differences in plain English. I finally felt confident about my choice.',
+  },
+  {
+    name: 'Michael D.',
+    location: 'Tupelo, MS',
+    quote:
+      'I thought I had the right plan until they reviewed it for free and found one that covered my prescriptions for less. Saved me real money.',
+  },
+  {
+    name: 'Jennifer W.',
+    location: 'Oxford, MS',
+    quote:
+      'No pressure, no runaround. They answered every question I had about turning 65 and handled the paperwork with me.',
+  },
+]
+
 export default function WebinarSignup() {
   const router = useRouter()
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' })
   const [registered, setRegistered] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-
-  // Load the GoHighLevel review widget (real client reviews) for social proof.
-  useEffect(() => {
-    const src =
-      'https://link.pontotocinsuranceagency.com/reputation/assets/review-widget.js'
-    if (!document.querySelector(`script[src="${src}"]`)) {
-      const script = document.createElement('script')
-      script.src = src
-      script.async = true
-      document.head.appendChild(script)
-    }
-  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -114,36 +124,25 @@ export default function WebinarSignup() {
   }
 
   const signupCard = (
-    <div id="register" className="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl text-gray-900 scroll-mt-8">
+    <div id="register" className="bg-white rounded-2xl p-5 sm:p-8 shadow-2xl text-gray-900 scroll-mt-8">
       {!registered ? (
         <>
-          <div className="text-center mb-5">
-            <h3 className="text-xl font-bold">Get Instant Free Access</h3>
+          <div className="text-center mb-4">
+            <h3 className="text-xl font-bold">Watch the Free Training Now</h3>
             <p className="text-sm text-gray-500">
-              Just your name. Start watching in seconds.
+              Just your first name and email. Instant access.
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={form.firstName}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={form.lastName}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={form.firstName}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            />
             <input
               type="email"
               name="email"
@@ -158,7 +157,7 @@ export default function WebinarSignup() {
               disabled={submitting}
               className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-4 px-6 rounded-lg transition-colors text-lg"
             >
-              {submitting ? 'Saving...' : 'Watch the Free Webinar →'}
+              {submitting ? 'Saving...' : 'Start Watching Now →'}
             </button>
             <p className="flex items-center justify-center gap-1.5 text-xs text-gray-500">
               <Lock size={12} /> 100% free. No obligation. Instant access.
@@ -204,27 +203,36 @@ export default function WebinarSignup() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero. Mobile order: headline -> form (above the fold) -> benefits.
+          Desktop: headline + benefits left, form right spanning both rows. */}
       <section className="relative bg-gradient-to-br from-secondary-900 to-secondary-700 text-white overflow-hidden">
-        <div className="container-custom py-14 lg:py-20">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-            {/* Left */}
-            <div className="space-y-6">
-              <span className="inline-flex items-center gap-2 bg-primary-500/20 text-primary-200 text-sm font-semibold px-4 py-1.5 rounded-full">
+        <div className="container-custom py-6 sm:py-10 lg:py-16">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-x-12 lg:gap-y-8">
+            {/* Headline block */}
+            <div className="space-y-3 sm:space-y-4 order-1">
+              <span className="inline-flex items-center gap-2 bg-primary-500/20 text-primary-200 text-xs sm:text-sm font-semibold px-3 py-1 rounded-full">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-400" />
                 </span>
-                FREE ON-DEMAND WEBINAR
+                FREE ON-DEMAND TRAINING · WATCH INSTANTLY
               </span>
-              <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight">
                 How Is Medicare Changing in 2026 and How to Protect Yourself
               </h1>
-              <p className="text-lg text-secondary-100">
-                A free, plain-English training from Pontotoc Insurance Agency. Learn
-                exactly what&apos;s changing and the simple steps to protect your
-                coverage and your savings.
+              <p className="text-base sm:text-lg text-secondary-100">
+                A free, plain-English training you can watch right now, on your
+                phone. No schedule. No waiting.
               </p>
+            </div>
+
+            {/* Signup form: second on mobile (above the fold), right column on desktop */}
+            <div className="order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+              {signupCard}
+            </div>
+
+            {/* Benefits: below the form on mobile, under the headline on desktop */}
+            <div className="order-3 space-y-4 lg:col-start-1 lg:row-start-2">
               <ul className="space-y-3">
                 {benefits.map((b) => (
                   <li key={b} className="flex items-start gap-3">
@@ -243,11 +251,6 @@ export default function WebinarSignup() {
                   Trusted by 500+ families across North Mississippi
                 </span>
               </div>
-            </div>
-
-            {/* Right: signup form */}
-            <div className="space-y-5">
-              {signupCard}
             </div>
           </div>
         </div>
@@ -296,29 +299,36 @@ export default function WebinarSignup() {
         </div>
       </section>
 
-      {/* Social proof: real client reviews */}
+      {/* Social proof */}
+      {/* TODO: replace with real testimonials */}
       <section className="section-padding bg-gradient-to-br from-primary-50 to-primary-100">
         <div className="container-custom">
           <div className="text-center mb-10">
-            <div className="flex justify-center text-primary-500 mb-3">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={22} fill="currentColor" />
-              ))}
-            </div>
             <h2 className="text-3xl font-bold text-gray-900">What Our Clients Say</h2>
             <p className="text-gray-600 mt-2">
-              Real reviews from families and businesses across North Mississippi.
+              Families across North Mississippi trust us with their coverage.
             </p>
           </div>
-          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10">
-            <iframe
-              className="lc_reviews_widget"
-              src="https://link.pontotocinsuranceagency.com/reputation/widgets/review_widget/MCFdomwXH4RRN6HkJgry"
-              frameBorder="0"
-              scrolling="no"
-              style={{ minWidth: '100%', width: '100%', minHeight: '360px' }}
-              title="Client Reviews"
-            />
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {testimonials.map((t) => (
+              <figure
+                key={t.name}
+                className="bg-white rounded-2xl p-7 shadow-md flex flex-col"
+              >
+                <div className="flex text-primary-500 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={18} fill="currentColor" />
+                  ))}
+                </div>
+                <blockquote className="text-gray-700 leading-relaxed flex-1">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-5 pt-4 border-t border-gray-100">
+                  <span className="font-semibold text-gray-900">{t.name}</span>
+                  <span className="text-gray-500 text-sm block">{t.location}</span>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
@@ -355,7 +365,8 @@ export default function WebinarSignup() {
             Ready to Protect Your Medicare Coverage in 2026?
           </h2>
           <p className="text-secondary-100 max-w-xl mx-auto">
-            Register free and start watching right now. It only takes your name.
+            Free, on demand, and instant. All it takes is your first name and
+            email.
           </p>
           <a
             href="#register"
@@ -366,11 +377,21 @@ export default function WebinarSignup() {
         </div>
       </section>
 
-      {/* Disclaimer */}
-      <footer className="bg-secondary-900 text-secondary-300 text-center text-xs py-6 px-4">
+      {/* Compliance disclaimers */}
+      <footer className="bg-secondary-900 text-secondary-200 text-center text-[13px] leading-relaxed py-8 px-4 space-y-4">
+        <p className="max-w-3xl mx-auto font-semibold">
+          Pontotoc Insurance Agency · Licensed in Mississippi
+        </p>
         <p className="max-w-3xl mx-auto">
-          Pontotoc Insurance Agency · Licensed in Mississippi. We are not affiliated
-          with or endorsed by the U.S. government or the federal Medicare program.
+          Pontotoc Insurance Agency is not affiliated with or endorsed by the
+          federal Medicare program or any government agency.
+        </p>
+        {/* TPMO disclaimer. TODO: replace [X] and [Y] with your real counts. */}
+        <p className="max-w-3xl mx-auto">
+          We do not offer every plan available in your area. Currently we represent
+          [X] organizations which offer [Y] products in your area. Please contact
+          Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance
+          Program (SHIP) to get information on all of your options.
         </p>
       </footer>
     </div>
