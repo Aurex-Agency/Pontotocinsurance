@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   Loader2,
   CalendarDays,
+  Download,
 } from 'lucide-react'
 
 // -----------------------------------------------------------------------------
@@ -29,6 +30,10 @@ const CALENDAR_EMBED_URL =
 const AGENT_NAME = 'Justin Stark'
 const AGENT_TITLE = 'Licensed Insurance Agent'
 const AGENT_PHOTO = '/team/default-avatar.jpg'
+
+// The lead magnet delivered on the result page and in the GHL follow-up email.
+// Hosted on our own domain so the download is fast, branded, and reliable.
+const CHECKLIST_URL = '/guides/glp1-eligibility-checklist.pdf'
 
 type Answers = Record<string, string>
 
@@ -301,11 +306,12 @@ export default function GLP1Quiz() {
           {step === 7 && (
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold leading-snug mb-3">
-                Almost done. Where should we send your 2026 GLP-1 Coverage Guide?
+                Almost done. Where should we send your 2026 GLP-1 Eligibility
+                Checklist?
               </h2>
               <p className="text-lg text-gray-700 mb-8">
-                Enter your details and we will send the guide. A local agent can
-                walk you through it.
+                Enter your details and we will send your checklist. A local agent
+                can walk you through it.
               </p>
               <form onSubmit={handleLeadSubmit} noValidate className="space-y-5">
                 <div>
@@ -399,7 +405,7 @@ export default function GLP1Quiz() {
                       <Loader2 size={24} className="animate-spin" /> Sending...
                     </>
                   ) : (
-                    'Send My Coverage Guide'
+                    'Send My Eligibility Checklist'
                   )}
                 </button>
 
@@ -421,6 +427,23 @@ export default function GLP1Quiz() {
                 <span className="text-xl font-bold">
                   You&apos;re all set{lead.firstName ? `, ${lead.firstName}` : ''}.
                 </span>
+              </div>
+
+              {/* Instant checklist download */}
+              <div className="bg-primary-100 border-2 border-primary-300 rounded-2xl p-5 sm:p-6 mb-8">
+                <p className="text-lg font-semibold mb-3">
+                  Your 2026 GLP-1 Eligibility Checklist is ready. We also sent a
+                  copy to your email.
+                </p>
+                <a
+                  href={CHECKLIST_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => firePixel('trackCustom', 'GuideDownload')}
+                  className="w-full min-h-[64px] bg-secondary-900 hover:bg-secondary-800 active:bg-secondary-700 text-white text-xl font-bold rounded-xl transition-colors shadow flex items-center justify-center gap-3"
+                >
+                  <Download size={24} /> Get the Eligibility Checklist
+                </a>
               </div>
 
               {/* Educational summary */}
