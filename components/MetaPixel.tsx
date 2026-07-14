@@ -2,9 +2,9 @@
 
 import Script from 'next/script'
 
-// Meta (Facebook) Pixel — used ONLY on the two webinar funnel pages
-// (/webinarlink and /webinarlink/watch), not site-wide. Tracks PageView; the
-// watch page fires a separate "Lead" conversion event.
+// Meta (Facebook) Pixel — used on the funnel pages (/webinarlink,
+// /webinarlink/watch, and /glp1-quiz), not site-wide. Tracks PageView; the
+// funnels fire their own conversion events (Lead, ScheduleView).
 // Override the ID with NEXT_PUBLIC_META_PIXEL_ID if needed.
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '2113541802917501'
 
@@ -23,8 +23,14 @@ export default function MetaPixel() {
           t.src=v;s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '${PIXEL_ID}');
-          fbq('track', 'PageView');
+          // Guard so init + PageView fire exactly once per page load, even if
+          // this script runs twice (React Strict Mode double-mount in dev, or
+          // any client-side remount). Without this, PageView double-fires.
+          if (!window._piaPixelLoaded) {
+            window._piaPixelLoaded = true;
+            fbq('init', '${PIXEL_ID}');
+            fbq('track', 'PageView');
+          }
         `}
       </Script>
       <noscript>
