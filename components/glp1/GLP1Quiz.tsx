@@ -20,11 +20,11 @@ import {
 const PHONE_DISPLAY = '662-200-2249'
 const PHONE_TEL = '+16622002249'
 
-// GoHighLevel booking calendar embed. Replace with the real embed URL, or set
-// NEXT_PUBLIC_GHL_CALENDAR_URL in the environment.
+// GoHighLevel booking calendar for this funnel. Override with
+// NEXT_PUBLIC_GHL_CALENDAR_URL in the environment if it ever changes.
 const CALENDAR_EMBED_URL =
   process.env.NEXT_PUBLIC_GHL_CALENDAR_URL ||
-  'https://link.pontotocinsuranceagency.com/widget/booking/PLACEHOLDER'
+  'https://link.pontotocinsuranceagency.com/widget/bookings/justin-stark'
 
 // Agent shown on the result page. Replace image + name with the real agent.
 const AGENT_NAME = 'Justin Stark'
