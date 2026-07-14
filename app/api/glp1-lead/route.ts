@@ -3,9 +3,11 @@ import { NextRequest, NextResponse } from 'next/server'
 // Inbound lead handler for the /glp1-quiz funnel.
 //
 // Forwards the captured lead (name, phone, email) plus every quiz answer to a
-// GoHighLevel inbound webhook. The webhook URL is kept server side in the
-// GHL_WEBHOOK_URL environment variable so it is never exposed in the browser.
-// Set it in Vercel (Project Settings > Environment Variables) before go-live.
+// GoHighLevel inbound webhook. Defaults to the GLP-1 funnel webhook below; set
+// GHL_WEBHOOK_URL in the environment to override it without a code change.
+const DEFAULT_GHL_WEBHOOK_URL =
+  'https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/2e8e1a33-8676-465f-99ca-04de9957a4e9'
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -20,7 +22,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const webhookUrl = process.env.GHL_WEBHOOK_URL
+    const webhookUrl = process.env.GHL_WEBHOOK_URL || DEFAULT_GHL_WEBHOOK_URL
 
     const payload = {
       ...body,

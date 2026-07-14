@@ -16,9 +16,9 @@ import {
 // Config. Swap these placeholders for the real values before go-live.
 // -----------------------------------------------------------------------------
 
-// Agency phone (placeholder). tel: link uses the digits only.
-const PHONE_DISPLAY = '662-200-2459'
-const PHONE_TEL = '+16622002459'
+// Agency phone. tel: link uses the digits only.
+const PHONE_DISPLAY = '662-200-2249'
+const PHONE_TEL = '+16622002249'
 
 // GoHighLevel booking calendar embed. Replace with the real embed URL, or set
 // NEXT_PUBLIC_GHL_CALENDAR_URL in the environment.
@@ -352,7 +352,7 @@ export default function GLP1Quiz() {
                     type="tel"
                     inputMode="tel"
                     autoComplete="tel"
-                    placeholder="(662) 200-2459"
+                    placeholder="(662) 200-2249"
                     value={lead.phone}
                     onChange={(e) =>
                       setLead((p) => ({ ...p, phone: formatPhone(e.target.value) }))
