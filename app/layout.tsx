@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import LayoutChrome from '@/components/LayoutChrome'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import GHLTracking from '@/components/GHLTracking'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -257,6 +258,7 @@ export default async function RootLayout({
       </head>
       <body className={inter.className}>
         <GoogleAnalytics measurementId="G-E8MB7HL2TR" />
+        <GHLTracking />
         <LayoutChrome footerSettings={siteSettings}>
           {children}
         </LayoutChrome>
