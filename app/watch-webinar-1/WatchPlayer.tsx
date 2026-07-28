@@ -176,8 +176,8 @@ export default function WatchPlayer() {
               You now know more about how Medicare actually works than most
               people ever will. Medicare&rsquo;s Annual Enrollment Period runs
               October 15 through December 7 — if you want help before you
-              decide, pick a time below and Justin will walk through your plan
-              with you.
+              decide, pick a time below and Chris, our Medicare agent, will
+              walk through your plan with you.
             </p>
           </div>
           <div className="mt-8">
@@ -328,9 +328,9 @@ export default function WatchPlayer() {
               Want a second set of eyes on your plan?
             </h2>
             <p className="mt-3 max-w-3xl text-lg leading-relaxed text-gray-800">
-              Pick a time below for a free plan review with Justin — about 15
-              minutes, by phone or at the office in Pontotoc. No cost, no
-              pressure, and you keep watching where you left off.
+              Pick a time below for a free plan review with Chris, our Medicare
+              agent — about 15 minutes, by phone or at the office in Pontotoc.
+              No cost, no pressure, and you keep watching where you left off.
             </p>
           </div>
           <div className="mt-6">
@@ -344,7 +344,7 @@ export default function WatchPlayer() {
         <div className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-primary-500 bg-secondary-900 shadow-2xl">
           <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 py-4 sm:flex-row">
             <p className="text-lg font-semibold text-white">
-              Ready to talk it through? Book a free plan review with Justin.
+              Ready to talk it through? Book a free plan review with Chris.
             </p>
             <button
               type="button"
