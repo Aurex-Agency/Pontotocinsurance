@@ -4,13 +4,11 @@ import { useEffect, useRef, useState } from 'react'
 import { Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react'
 import { AGENCY_PHONE_DISPLAY, AGENCY_PHONE_TEL } from '@/lib/webinar-1'
 
-// Direct-stream URL for the presentation video (Google Drive file
-// 1huCWZk0JvTTsjJlAwF1oEKreqcSUO6MZ, shared as "anyone with the link").
-// drive.usercontent.google.com serves the raw MP4 with range-request support,
-// which the custom player needs for rewind. If the file is ever replaced,
-// update the id here.
-const VIDEO_SRC =
-  'https://drive.usercontent.google.com/download?id=1huCWZk0JvTTsjJlAwF1oEKreqcSUO6MZ&export=download'
+// The presentation video, served same-origin from public/webinar/. Google
+// Drive cannot be used as the source here: it returns 403 to browser video
+// fetches (Sec-Fetch-Dest: video), so the file is committed to the repo and
+// served by Vercel's CDN instead.
+const VIDEO_SRC = '/webinar/presentation-1.mp4'
 
 const FALLBACK_DURATION = 2880 // ~48 min; replaced by the file's real metadata once loaded
 const OFFER_AT = 1200 // 20 min in — booking offer reveal
