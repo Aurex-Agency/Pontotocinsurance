@@ -13,7 +13,5 @@ export const WEBINAR_SOURCE = 'Medicare On-Demand Training'
 export const AGENCY_PHONE_DISPLAY = '(662) 200-2249'
 export const AGENCY_PHONE_TEL = '+16622002249'
 
-// TPMO disclosure placeholder. Replace [X] and [Y] with the agency's real
-// counts before running traffic — CMS requires the actual numbers.
 export const TPMO_DISCLAIMER =
-  'We do not offer every plan available in your area. Currently we represent [X] organizations which offer [Y] products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Program to get information on all of your options.'
+  'We do not offer every plan available in your area. Currently we represent 54 organizations which offer 121 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Program to get information on all of your options.'

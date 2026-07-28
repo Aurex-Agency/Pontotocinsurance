@@ -15,8 +15,6 @@
     {{contact.webinar_watch_url}} - custom field mapped from the webhook's watchUrl
     {{unsubscribe_link}}          - GHL unsubscribe link
 
-  Before sending: replace [X] and [Y] in the TPMO disclaimer with the agency's
-  real organization/product counts (same note as the site footer).
 -->
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -174,11 +172,10 @@
           <a href="{{unsubscribe_link}}" style="color:#211D19; text-decoration:underline;">Unsubscribe</a>
         </p>
 
-        <!-- TPMO DISCLAIMER — required if Medicare Advantage / Part D.
-             Replace [X] and [Y] with the agency's real counts (ask the FMO).
-             Delete this paragraph entirely if Medicare Supplement only. -->
+        <!-- TPMO disclaimer. Update the counts if the agency's contracted
+             organizations/products change. -->
         <p style="margin:0 0 12px 0;">
-          We do not offer every plan available in your area. Currently we represent [X] organizations which offer [Y] products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Program to get information on all of your options.
+          We do not offer every plan available in your area. Currently we represent 54 organizations which offer 121 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Program to get information on all of your options.
         </p>
 
         <p style="margin:0;">
