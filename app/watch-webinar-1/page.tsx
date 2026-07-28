@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import MetaPixel from '@/components/MetaPixel'
+import WatchPlayer from './WatchPlayer'
 import {
   TPMO_DISCLAIMER,
   AGENCY_PHONE_DISPLAY,
@@ -14,18 +14,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-const VIDEO_SRC =
-  process.env.NEXT_PUBLIC_WEBINAR_VIDEO_URL ||
-  'https://hm3ncfw8f6t7bgwn.public.blob.vercel-storage.com/2026-06-15_Episode%201%20%281%29.mp4'
-
 const linkClass =
   'font-semibold underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2'
 
 export default function WatchWebinarPage() {
   return (
     <div className="min-h-screen bg-white text-secondary-900">
-      <MetaPixel />
-
       {/* Top bar */}
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -50,32 +44,20 @@ export default function WatchWebinarPage() {
             You are in. Press play.
           </h1>
           <p className="mt-4 max-w-3xl text-xl leading-relaxed text-secondary-100">
-            This is the full 48-minute presentation with Justin Stark. Watch it
-            straight through, or pause and come back — this page is yours to
-            keep. We also sent the link to your email.
+            This is the full 48-minute presentation with Justin Stark. You can
+            pause anytime and pick back up — this page is yours to keep. We
+            also sent the link to your email.
           </p>
         </div>
       </section>
 
-      {/* Video */}
+      {/* Player, offer panel, end card */}
       <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-xl bg-secondary-900 shadow-2xl">
-          <video
-            src={VIDEO_SRC}
-            controls
-            preload="metadata"
-            playsInline
-            className="block w-full"
-          >
-            Your browser cannot play this video. Call us at{' '}
-            {AGENCY_PHONE_DISPLAY} and we will help another way.
-          </video>
-        </div>
+        <WatchPlayer />
 
-        <div className="mt-8 rounded-xl border border-primary-200 bg-primary-50 p-6">
+        <div className="mt-10 rounded-xl border border-primary-200 bg-primary-50 p-6">
           <p className="text-lg leading-relaxed text-gray-800">
-            Have a question while you watch, or want a second set of eyes on
-            your current plan? Call the office at{' '}
+            Have a question while you watch? Call the office at{' '}
             <a
               href={`tel:${AGENCY_PHONE_TEL}`}
               className={`${linkClass} text-secondary-800 focus-visible:outline-secondary-700`}
