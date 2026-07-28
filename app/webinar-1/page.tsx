@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { Archivo, Atkinson_Hyperlegible } from 'next/font/google'
 import RegistrationCard from './RegistrationCard'
 import MetaPixel from '@/components/MetaPixel'
 import {
@@ -8,18 +7,6 @@ import {
   AGENCY_PHONE_DISPLAY,
   AGENCY_PHONE_TEL,
 } from '@/lib/webinar-1'
-
-const archivo = Archivo({
-  subsets: ['latin'],
-  weight: ['700', '800', '900'],
-  variable: '--font-display',
-})
-
-const atkinson = Atkinson_Hyperlegible({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-body',
-})
 
 export const metadata: Metadata = {
   title: 'Free Medicare Presentation for Pontotoc County',
@@ -29,9 +16,18 @@ export const metadata: Metadata = {
 }
 
 const learnBullets = [
-  'How to check whether your current plan will still cover your doctors and your prescriptions in 2026 — and what to do before December 7 if it will not.',
-  'What a Medicare Advantage plan and a Medicare Supplement each actually cost over a full year, side by side, so you can compare with real numbers instead of ads.',
-  'The one-page checklist Justin uses to review any Medicare plan in about 15 minutes, so nothing important gets missed.',
+  {
+    title: 'Will your plan still work in 2026?',
+    text: 'How to check whether your current plan will still cover your doctors and your prescriptions in 2026 — and what to do before December 7 if it will not.',
+  },
+  {
+    title: 'Real numbers, side by side',
+    text: 'What a Medicare Advantage plan and a Medicare Supplement each actually cost over a full year, so you can compare with real numbers instead of ads.',
+  },
+  {
+    title: 'The 15-minute plan review',
+    text: 'The one-page checklist Justin uses to review any Medicare plan in about 15 minutes, so nothing important gets missed.',
+  },
 ]
 
 const testimonials = [
@@ -55,75 +51,100 @@ const testimonials = [
   },
 ]
 
-function Rule({ thick = false }: { thick?: boolean }) {
-  return (
-    <hr
-      className={`border-0 bg-ink ${thick ? 'h-[5px]' : 'h-[2px]'}`}
-      aria-hidden="true"
-    />
-  )
-}
+const linkClass =
+  'font-semibold underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2'
 
 export default function WebinarLandingPage() {
   return (
-    <div
-      className={`${archivo.variable} ${atkinson.variable} min-h-screen bg-paper font-body text-ink`}
-    >
+    <div className="min-h-screen bg-white text-secondary-900">
       <MetaPixel />
-      <div className="mx-auto max-w-[720px] px-5 pb-16 pt-8 sm:px-8">
-        {/* Masthead */}
-        <header>
-          <Rule thick />
-          <div className="mt-[6px]">
-            <Rule />
+
+      {/* Top bar */}
+      <header className="border-b border-gray-200 bg-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+          <Image
+            src="/pia_logo.png"
+            alt="Pontotoc Insurance Agency"
+            width={170}
+            height={48}
+            className="h-10 w-auto object-contain sm:h-12"
+            priority
+          />
+          <span className="hidden items-center gap-2 rounded-full bg-primary-100 px-4 py-2 text-base font-semibold text-primary-800 sm:inline-flex">
+            Licensed in Mississippi
+          </span>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-secondary-900 to-secondary-700 text-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+          <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-12">
+            {/* Left: message + VSL */}
+            <div>
+              <p className="inline-block rounded-full bg-primary-500/20 px-4 py-2 text-base font-bold uppercase tracking-wide text-primary-200">
+                Free Medicare presentation
+              </p>
+              <h1 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl xl:text-[3.4rem]">
+                Medicare, explained in plain English for Pontotoc County
+              </h1>
+              <p className="mt-5 max-w-2xl text-xl leading-relaxed text-secondary-100">
+                A free 48-minute presentation with Justin Stark of Pontotoc
+                Insurance Agency. No cost, no obligation, no appointment to
+                keep — you watch it right here, right now, as soon as you
+                register.
+              </p>
+
+              {/* VSL placeholder — replace this block with the uploaded video */}
+              <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-xl border-2 border-secondary-500 bg-secondary-800 shadow-xl">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-500">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="ml-1 h-9 w-9 fill-secondary-900"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                  <p className="text-xl font-semibold text-white">
+                    A short preview of the presentation will play here
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8 rounded-lg border-l-4 border-primary-500 bg-secondary-800/60 p-5">
+                <p className="text-lg font-semibold leading-relaxed text-white">
+                  Mark your calendar: Medicare&rsquo;s Annual Enrollment Period
+                  runs October 15 through December 7. Decisions you make in that
+                  window set your coverage for all of 2026.
+                </p>
+              </div>
+            </div>
+
+            {/* Right: registration card */}
+            <div className="lg:sticky lg:top-6">
+              <RegistrationCard />
+            </div>
           </div>
-          <p className="mt-5 text-[1rem] font-bold uppercase tracking-[0.18em]">
-            Pontotoc Insurance Agency &middot; Pontotoc, Mississippi
-          </p>
-        </header>
+        </div>
+      </section>
 
-        {/* Hero */}
-        <section className="mt-8">
-          <h1 className="font-display text-[2.5rem] font-black leading-[1.05] sm:text-[3.25rem]">
-            Medicare, explained in plain English for Pontotoc County
-          </h1>
-          <p className="mt-6 text-[1.25rem] leading-relaxed">
-            A free 48-minute presentation with Justin Stark of Pontotoc
-            Insurance Agency. No cost, no obligation, no appointment to keep —
-            you watch it right here, right now, as soon as you register below.
-          </p>
-
-          <div className="mt-8">
-            <Rule />
-            <p className="py-4 text-[1.125rem] font-bold leading-relaxed">
-              Mark your calendar: Medicare&rsquo;s Annual Enrollment Period runs
-              October 15 through December 7. Decisions you make in that window
-              set your coverage for all of 2026.
-            </p>
-            <Rule />
-          </div>
-        </section>
-
-        {/* Registration card — the signature element */}
-        <section className="mt-10" aria-label="Registration">
-          <RegistrationCard />
-        </section>
-
-        {/* About Justin */}
-        <section className="mt-14">
-          <Rule thick />
-          <h2 className="mt-6 font-display text-[1.75rem] font-extrabold leading-tight">
+      {/* About Justin */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-secondary-900 sm:text-4xl">
             Who is teaching this
           </h2>
-          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
+          <div className="mt-8 flex flex-col items-start gap-8 md:flex-row">
             <Image
               src="/team/justin-stark.jpg"
               alt="Justin Stark, owner of Pontotoc Insurance Agency"
               width={900}
               height={600}
-              className="h-auto w-full flex-none border-2 border-ink sm:w-[280px]"
+              className="w-full rounded-xl shadow-lg md:w-[340px]"
             />
-            <div className="text-[1.125rem] leading-relaxed">
+            <div className="text-lg leading-relaxed text-gray-800">
               <p>
                 Justin Stark owns Pontotoc Insurance Agency, an independent
                 agency on Highway 15 here in Pontotoc — not a call center in
@@ -137,88 +158,93 @@ export default function WebinarLandingPage() {
               </p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* What you'll learn */}
-        <section className="mt-14">
-          <Rule thick />
-          <h2 className="mt-6 font-display text-[1.75rem] font-extrabold leading-tight">
+      {/* What you'll learn */}
+      <section className="bg-primary-50">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-secondary-900 sm:text-4xl">
             What you will walk away knowing
           </h2>
-          <ul className="mt-6 space-y-5">
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
             {learnBullets.map((item) => (
-              <li key={item} className="flex gap-4 text-[1.125rem] leading-relaxed">
-                <span
-                  aria-hidden="true"
-                  className="mt-[10px] h-3 w-3 flex-none bg-ink"
-                />
-                <span>{item}</span>
-              </li>
+              <div
+                key={item.title}
+                className="rounded-xl border border-primary-200 bg-white p-6 shadow-sm"
+              >
+                <h3 className="text-xl font-bold text-secondary-900">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-lg leading-relaxed text-gray-800">
+                  {item.text}
+                </p>
+              </div>
             ))}
-          </ul>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        {/* Testimonials */}
-        <section className="mt-14">
-          <Rule thick />
-          <h2 className="mt-6 font-display text-[1.75rem] font-extrabold leading-tight">
+      {/* Testimonials */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-secondary-900 sm:text-4xl">
             From your neighbors
           </h2>
-          <div className="mt-6 space-y-8">
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
             {testimonials.map((t) => (
-              <figure key={t.name} className="border-l-4 border-ink pl-5">
-                <blockquote className="text-[1.125rem] leading-relaxed">
+              <figure
+                key={t.name}
+                className="flex h-full flex-col justify-between rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+              >
+                <blockquote className="text-lg leading-relaxed text-gray-800">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
-                <figcaption className="mt-3 text-[1.125rem] font-bold">
+                <figcaption className="mt-4 text-lg font-bold text-secondary-900">
                   &mdash; {t.name}, {t.town}
                 </figcaption>
               </figure>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Footer */}
-        <footer className="mt-14">
-          <Rule thick />
-          <div className="mt-[6px]">
-            <Rule />
-          </div>
-          <div className="mt-6 space-y-4 text-[1rem] leading-relaxed">
-            <p>{TPMO_DISCLAIMER}</p>
-            <p>
-              Pontotoc Insurance Agency is a private insurance agency licensed
-              in Mississippi. We are not affiliated with or endorsed by the
-              United States government or the federal Medicare program.
-            </p>
-            <p>
-              Pontotoc Insurance Agency &middot; 158 MS-15, Suite D, Pontotoc,
-              MS 38863 &middot;{' '}
-              <a
-                href={`tel:${AGENCY_PHONE_TEL}`}
-                className="inline-block py-1 font-bold text-pine underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine"
-              >
-                {AGENCY_PHONE_DISPLAY}
-              </a>
-            </p>
-            <p>
-              <a
-                href="/privacy"
-                className="inline-block py-1 font-bold text-pine underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine"
-              >
-                Privacy Policy
-              </a>{' '}
-              &middot;{' '}
-              <a
-                href="/terms"
-                className="inline-block py-1 font-bold text-pine underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine"
-              >
-                Terms
-              </a>
-            </p>
-          </div>
-        </footer>
-      </div>
+      {/* Footer */}
+      <footer className="bg-secondary-900 text-secondary-200">
+        <div className="mx-auto max-w-5xl space-y-4 px-4 py-10 text-base leading-relaxed sm:px-6 lg:px-8">
+          <p>{TPMO_DISCLAIMER}</p>
+          <p>
+            Pontotoc Insurance Agency is a private insurance agency licensed in
+            Mississippi. We are not affiliated with or endorsed by the United
+            States government or the federal Medicare program.
+          </p>
+          <p>
+            Pontotoc Insurance Agency &middot; 158 MS-15, Suite D, Pontotoc, MS
+            38863 &middot;{' '}
+            <a
+              href={`tel:${AGENCY_PHONE_TEL}`}
+              className={`${linkClass} text-white focus-visible:outline-white`}
+            >
+              {AGENCY_PHONE_DISPLAY}
+            </a>
+          </p>
+          <p>
+            <a
+              href="/privacy"
+              className={`${linkClass} text-white focus-visible:outline-white`}
+            >
+              Privacy Policy
+            </a>{' '}
+            &middot;{' '}
+            <a
+              href="/terms"
+              className={`${linkClass} text-white focus-visible:outline-white`}
+            >
+              Terms
+            </a>
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }

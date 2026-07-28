@@ -34,8 +34,8 @@ function validateField(name: FieldName, value: string): string | null {
 }
 
 const inputClass =
-  'block w-full min-h-[56px] rounded-[2px] border-2 bg-white px-4 text-[1.1875rem] text-ink placeholder:text-neutral-500 ' +
-  'focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine'
+  'block w-full min-h-[56px] rounded-lg border-2 bg-white px-4 text-[1.1875rem] text-secondary-900 placeholder:text-gray-500 ' +
+  'focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-secondary-700'
 
 export default function RegistrationCard() {
   const [values, setValues] = useState<Record<FieldName, string>>({
@@ -135,12 +135,12 @@ export default function RegistrationCard() {
   ]
 
   return (
-    <div className="border-[3px] border-ink bg-white" id="register">
-      <div className="border-b-[3px] border-ink bg-ink px-5 py-4 sm:px-7">
-        <h2 className="font-display text-[1.5rem] font-extrabold leading-tight text-paper">
+    <div className="overflow-hidden rounded-xl bg-white shadow-2xl" id="register">
+      <div className="bg-secondary-900 px-5 py-5 sm:px-7">
+        <h2 className="text-[1.5rem] font-bold leading-tight text-white">
           Watch the presentation now
         </h2>
-        <p className="mt-1 text-[1.125rem] text-paper">
+        <p className="mt-1 text-[1.125rem] text-secondary-100">
           Free. It starts the moment you register.
         </p>
       </div>
@@ -154,7 +154,7 @@ export default function RegistrationCard() {
               <div key={f.name} className={wide ? 'sm:col-span-2' : undefined}>
                 <label
                   htmlFor={`reg-${f.name}`}
-                  className="mb-2 block text-[1.25rem] font-bold leading-snug text-ink"
+                  className="mb-2 block text-[1.25rem] font-semibold leading-snug text-secondary-900"
                 >
                   {f.label}
                 </label>
@@ -170,12 +170,12 @@ export default function RegistrationCard() {
                   aria-invalid={error ? true : undefined}
                   data-invalid={error ? 'true' : undefined}
                   aria-describedby={error ? `reg-${f.name}-error` : undefined}
-                  className={`${inputClass} ${error ? 'border-brick' : 'border-ink'}`}
+                  className={`${inputClass} ${error ? 'border-red-700' : 'border-gray-500'}`}
                 />
                 {error && (
                   <p
                     id={`reg-${f.name}-error`}
-                    className="mt-2 text-[1.0625rem] font-bold leading-snug text-brick"
+                    className="mt-2 text-[1.0625rem] font-semibold leading-snug text-red-700"
                   >
                     {error}
                   </p>
@@ -185,7 +185,7 @@ export default function RegistrationCard() {
           })}
         </div>
 
-        <div className="mt-6 border-2 border-ink p-4 sm:p-5">
+        <div className="mt-6 rounded-lg border-2 border-gray-400 bg-gray-50 p-4 sm:p-5">
           <label htmlFor="reg-consent" className="flex cursor-pointer items-start gap-4">
             <span className="relative mt-1 flex h-8 w-8 flex-none items-center justify-center">
               <input
@@ -200,36 +200,36 @@ export default function RegistrationCard() {
                 aria-invalid={consentError ? true : undefined}
                 data-invalid={consentError ? 'true' : undefined}
                 aria-describedby={consentError ? 'reg-consent-error' : 'reg-consent-legal'}
-                className="peer h-8 w-8 flex-none cursor-pointer appearance-none rounded-[2px] border-2 border-ink bg-white checked:bg-ink focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine"
+                className="peer h-8 w-8 flex-none cursor-pointer appearance-none rounded-md border-2 border-gray-500 bg-white checked:border-secondary-900 checked:bg-secondary-900 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-secondary-700"
               />
               <svg
                 aria-hidden="true"
                 viewBox="0 0 24 24"
                 className="pointer-events-none absolute h-6 w-6 opacity-0 peer-checked:opacity-100"
                 fill="none"
-                stroke="#F2F1ED"
+                stroke="#FFFFFF"
                 strokeWidth="3.5"
                 strokeLinecap="square"
               >
                 <path d="M4 12.5l5 5L20 6.5" />
               </svg>
             </span>
-            <span id="reg-consent-legal" className="text-[1rem] leading-relaxed text-ink">
+            <span id="reg-consent-legal" className="text-[1rem] leading-relaxed text-gray-800">
               {CONSENT_TEXT}
             </span>
           </label>
-          <p className="mt-3 pl-12 text-[1rem] leading-relaxed text-ink">
+          <p className="mt-3 pl-12 text-[1rem] leading-relaxed text-gray-800">
             See our{' '}
             <a
               href="/privacy"
-              className="font-bold text-pine underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine"
+              className="font-semibold text-secondary-800 underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-secondary-700"
             >
               Privacy Policy
             </a>{' '}
             and{' '}
             <a
               href="/terms"
-              className="font-bold text-pine underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine"
+              className="font-semibold text-secondary-800 underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-secondary-700"
             >
               Terms
             </a>
@@ -238,7 +238,7 @@ export default function RegistrationCard() {
           {consentError && (
             <p
               id="reg-consent-error"
-              className="mt-3 pl-12 text-[1.0625rem] font-bold leading-snug text-brick"
+              className="mt-3 pl-12 text-[1.0625rem] font-semibold leading-snug text-red-700"
             >
               {consentError}
             </p>
@@ -248,7 +248,7 @@ export default function RegistrationCard() {
         <button
           type="submit"
           disabled={submitting}
-          className="mt-6 flex min-h-[64px] w-full items-center justify-center gap-3 rounded-[2px] bg-pine px-6 text-[1.5rem] font-extrabold text-white font-display disabled:opacity-80 hover:bg-pine-dark focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-ink"
+          className="mt-6 flex min-h-[64px] w-full items-center justify-center gap-3 rounded-lg bg-primary-600 px-6 text-[1.5rem] font-bold text-white shadow-lg transition-colors hover:bg-primary-700 disabled:opacity-80 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-secondary-700"
         >
           {submitting && (
             <span
@@ -261,16 +261,16 @@ export default function RegistrationCard() {
 
         <div aria-live="assertive">
           {submitError && (
-            <div className="mt-5 border-2 border-brick bg-white p-4 sm:p-5">
-              <p className="text-[1.125rem] font-bold leading-relaxed text-brick">
+            <div className="mt-5 rounded-lg border-2 border-red-700 bg-red-50 p-4 sm:p-5">
+              <p className="text-[1.125rem] font-bold leading-relaxed text-red-700">
                 Something went wrong on our end and your registration did not go
                 through.
               </p>
-              <p className="mt-2 text-[1.125rem] leading-relaxed text-ink">
+              <p className="mt-2 text-[1.125rem] leading-relaxed text-gray-800">
                 Please try again in a minute. Or call us at{' '}
                 <a
                   href={`tel:${AGENCY_PHONE_TEL}`}
-                  className="inline-block py-1 font-bold text-pine underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine"
+                  className="inline-block py-1 font-bold text-secondary-800 underline underline-offset-2 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-secondary-700"
                 >
                   {AGENCY_PHONE_DISPLAY}
                 </a>{' '}
