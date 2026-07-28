@@ -1,0 +1,198 @@
+<!--
+  PONTOTOC INSURANCE — WEBINAR REGISTRATION CONFIRMATION EMAIL (/webinar-1 funnel)
+  Paste into GHL: Marketing > Emails > New > Blank > add a "Custom HTML" / "Code" element
+
+  Matches the /webinar-1 landing page: Ink #211D19, Paper #F2F1ED, Pine #1A5632,
+  white card with a 3px ink frame, double-rule masthead, sharp corners.
+
+  Subject line options (A/B these):
+    1. Your Medicare training is ready
+    2. {{contact.first_name}}, here's your training link
+    3. Ready when you are — your Medicare training
+
+  Merge fields used:
+    {{contact.first_name}}        - first name
+    {{contact.webinar_watch_url}} - custom field mapped from the webhook's watchUrl
+    {{unsubscribe_link}}          - GHL unsubscribe link
+
+  Before sending: replace [X] and [Y] in the TPMO disclaimer with the agency's
+  real organization/product counts (same note as the site footer).
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Your Medicare training is ready</title>
+<style>
+  /* Only media queries live here. Everything critical is inlined below. */
+  @media screen and (max-width: 600px) {
+    .container { width: 100% !important; }
+    .px { padding-left: 24px !important; padding-right: 24px !important; }
+    .h1 { font-size: 28px !important; line-height: 34px !important; }
+    .btn-a { font-size: 20px !important; padding: 20px 28px !important; }
+  }
+  a { color: #1A5632; }
+</style>
+</head>
+
+<body style="margin:0; padding:0; background-color:#F2F1ED; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;">
+
+<!-- Preheader: shows in the inbox preview, hidden in the email body -->
+<div style="display:none; font-size:1px; color:#F2F1ED; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden;">
+  Your link is inside. It takes less than an hour — watch whenever works for you.
+  &#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F2F1ED;">
+<tr>
+<td align="center" style="padding:32px 12px;">
+
+  <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background-color:#FFFFFF; border:3px solid #211D19;">
+
+    <!-- ===== HEADER: double-rule masthead, like the landing page ===== -->
+    <tr>
+      <td class="px" style="padding:28px 40px 0 40px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr><td style="height:5px; background-color:#211D19; font-size:0; line-height:0;">&nbsp;</td></tr>
+          <tr><td style="height:6px; font-size:0; line-height:0;">&nbsp;</td></tr>
+          <tr><td style="height:2px; background-color:#211D19; font-size:0; line-height:0;">&nbsp;</td></tr>
+          <tr>
+            <td style="padding-top:16px; font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:22px; font-weight:bold; color:#211D19; letter-spacing:1.5px; text-transform:uppercase;">
+              Pontotoc Insurance Agency &nbsp;&middot;&nbsp; Pontotoc, Mississippi
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- ===== HEADLINE ===== -->
+    <tr>
+      <td class="px" style="padding:32px 40px 0 40px;">
+        <h1 class="h1" style="margin:0; font-family:Arial,Helvetica,sans-serif; font-size:34px; line-height:40px; font-weight:bold; color:#211D19;">
+          You're in, {{contact.first_name}}.
+        </h1>
+      </td>
+    </tr>
+
+    <!-- ===== BODY ===== -->
+    <tr>
+      <td class="px" style="padding:20px 40px 0 40px; font-family:Arial,Helvetica,sans-serif; font-size:19px; line-height:29px; color:#211D19;">
+        <p style="margin:0 0 18px 0;">
+          Your Medicare training is ready to watch right now. It takes less than
+          an hour, and you can start it whenever works for you.
+        </p>
+        <p style="margin:0;">
+          Click the button below to begin.
+        </p>
+      </td>
+    </tr>
+
+    <!-- ===== BUTTON ===== -->
+    <tr>
+      <td class="px" align="center" style="padding:32px 40px 0 40px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+          <tr>
+            <td class="btn-a" align="center" bgcolor="#1A5632"
+                style="background-color:#1A5632; border-radius:2px; font-family:Arial,Helvetica,sans-serif; font-size:22px; line-height:24px; font-weight:bold; padding:22px 44px;">
+              <a href="{{contact.webinar_watch_url}}"
+                 style="color:#FFFFFF; text-decoration:none; display:block;">
+                Watch the Training
+              </a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- ===== PLAIN LINK FALLBACK ===== -->
+    <tr>
+      <td class="px" align="center" style="padding:22px 40px 0 40px; font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:24px; color:#211D19;">
+        Button not working? Copy and paste this into your browser:<br>
+        <a href="{{contact.webinar_watch_url}}" style="color:#1A5632; word-break:break-all;">{{contact.webinar_watch_url}}</a>
+      </td>
+    </tr>
+
+    <!-- ===== DIVIDER ===== -->
+    <tr>
+      <td class="px" style="padding:34px 40px 0 40px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr><td style="height:2px; background-color:#211D19; font-size:0; line-height:0;">&nbsp;</td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- ===== BEFORE YOU START ===== -->
+    <tr>
+      <td class="px" style="padding:28px 40px 0 40px;">
+        <p style="margin:0 0 16px 0; font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:20px; font-weight:bold; color:#211D19; letter-spacing:1.5px; text-transform:uppercase;">
+          Before you start
+        </p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif; font-size:18px; line-height:27px; color:#211D19;">
+          <tr>
+            <td width="20" valign="top" style="padding-bottom:12px; color:#1A5632; font-weight:bold;">&#9632;</td>
+            <td valign="top" style="padding-bottom:12px;">Watch on a computer or tablet if you can &mdash; it's easier to follow.</td>
+          </tr>
+          <tr>
+            <td width="20" valign="top" style="padding-bottom:12px; color:#1A5632; font-weight:bold;">&#9632;</td>
+            <td valign="top" style="padding-bottom:12px;">Have a pen handy for the one-page plan checklist Justin walks through.</td>
+          </tr>
+          <tr>
+            <td width="20" valign="top" style="color:#1A5632; font-weight:bold;">&#9632;</td>
+            <td valign="top">You can pause anytime and come back to this same link later.</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- ===== SIGNATURE ===== -->
+    <tr>
+      <td class="px" style="padding:32px 40px 0 40px; font-family:Arial,Helvetica,sans-serif; font-size:19px; line-height:29px; color:#211D19;">
+        <p style="margin:0 0 6px 0;">See you in there,</p>
+        <p style="margin:0; font-weight:bold; color:#211D19;">Justin Stark</p>
+        <p style="margin:0; font-size:17px; color:#211D19;">Pontotoc Insurance Agency &nbsp;&middot;&nbsp; (662) 200-2249</p>
+      </td>
+    </tr>
+
+    <tr><td style="padding-bottom:40px;">&nbsp;</td></tr>
+  </table>
+
+  <!-- ===== FOOTER ===== -->
+  <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px;">
+    <tr>
+      <td class="px" style="padding:24px 40px 0 40px; font-family:Arial,Helvetica,sans-serif; font-size:16px; line-height:24px; color:#211D19; text-align:center;">
+
+        <p style="margin:0 0 12px 0;">
+          Pontotoc Insurance Agency &nbsp;&middot;&nbsp; 158 MS-15, Suite D, Pontotoc, MS 38863
+        </p>
+
+        <p style="margin:0 0 12px 0;">
+          You're receiving this because you registered for our Medicare training.<br>
+          <a href="{{unsubscribe_link}}" style="color:#211D19; text-decoration:underline;">Unsubscribe</a>
+        </p>
+
+        <!-- TPMO DISCLAIMER — required if Medicare Advantage / Part D.
+             Replace [X] and [Y] with the agency's real counts (ask the FMO).
+             Delete this paragraph entirely if Medicare Supplement only. -->
+        <p style="margin:0 0 12px 0;">
+          We do not offer every plan available in your area. Currently we represent [X] organizations which offer [Y] products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Program to get information on all of your options.
+        </p>
+
+        <p style="margin:0;">
+          Pontotoc Insurance Agency is a private insurance agency licensed in Mississippi. We are not affiliated with or endorsed by the United States government or the federal Medicare program.
+        </p>
+
+      </td>
+    </tr>
+    <tr><td style="padding-bottom:32px;">&nbsp;</td></tr>
+  </table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
