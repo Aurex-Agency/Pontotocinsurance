@@ -20,6 +20,14 @@ module.exports = {
           800: '#845c39',
           900: '#6a4a2b',
         },
+        // Webinar funnel palette (/webinar-1, /watch-webinar-1)
+        ink: '#211D19',
+        paper: '#F2F1ED',
+        pine: {
+          DEFAULT: '#1A5632',
+          dark: '#134427',
+        },
+        brick: '#9A1B1B',
         secondary: {
           50: '#f0f4f8',
           100: '#d9e2ec',
@@ -35,6 +43,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'Arial Black', 'sans-serif'],
+        body: ['var(--font-body)', 'Verdana', 'sans-serif'],
       },
     },
   },

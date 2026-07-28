@@ -7,7 +7,7 @@ import type { SiteSettingsData } from '@/lib/getSiteSettings'
 
 // Hides the site header/footer on distraction-free funnel routes (e.g. the
 // webinar funnel), while keeping them everywhere else.
-const BARE_PREFIXES = ['/webinarlink']
+const BARE_PREFIXES = ['/webinarlink', '/webinar-1', '/watch-webinar-1']
 
 export default function LayoutChrome({
   children,
