@@ -3,6 +3,13 @@ import { CONSENT_TEXT, WEBINAR_SOURCE } from '@/lib/webinar-1'
 
 export const dynamic = 'force-dynamic'
 
+// Dedicated GHL inbound webhook for the /webinar-1 funnel. GHL_WEBHOOK_URL
+// overrides it if the endpoint ever needs to be rotated without a deploy.
+const DEFAULT_WEBHOOK_URL =
+  'https://services.leadconnectorhq.com/hooks/MCFdomwXH4RRN6HkJgry/webhook-trigger/6f22d4b6-fb7d-4609-ba6f-8de75ef8d08d'
+
+const SITE_URL = 'https://pontotocinsuranceagency.com'
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 // Accepts a US phone in any common format and returns +1XXXXXXXXXX, or null.
@@ -50,20 +57,10 @@ export async function POST(request: Request) {
     )
   }
 
-  const webhookUrl = process.env.GHL_WEBHOOK_URL
-  if (!webhookUrl) {
-    console.error('/api/register: GHL_WEBHOOK_URL is not set')
-    return NextResponse.json(
-      { ok: false, error: 'Registration is not configured.' },
-      { status: 500 }
-    )
-  }
+  const webhookUrl = process.env.GHL_WEBHOOK_URL || DEFAULT_WEBHOOK_URL
 
-  const siteUrl = (
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://pontotocinsuranceagency.com'
-  ).replace(/\/+$/, '')
   const watchPath = `/watch-webinar-1?e=${encodeURIComponent(email)}`
-  const watchUrl = `${siteUrl}${watchPath}`
+  const watchUrl = `${SITE_URL}${watchPath}`
 
   // Await the webhook and verify it accepted the lead. A fire-and-forget here
   // would silently drop registrations with no way to notice.
