@@ -314,8 +314,9 @@ export default function WatchPlayer() {
         </div>
       )}
 
-      {/* Offer panel — unlocks at OFFER_AT and stays */}
-      {offerUnlocked && phase !== 'ended' && (
+      {/* Booking panel — always below the video; OFFER_AT only gates the
+          sticky reminder bar */}
+      {phase !== 'ended' && (
         <section
           ref={offerPanelRef}
           aria-label="Book a plan review"
