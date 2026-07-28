@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Archivo, Atkinson_Hyperlegible } from 'next/font/google'
 import RegistrationCard from './RegistrationCard'
+import MetaPixel from '@/components/MetaPixel'
 import {
   TPMO_DISCLAIMER,
   AGENCY_PHONE_DISPLAY,
@@ -68,6 +69,7 @@ export default function WebinarLandingPage() {
     <div
       className={`${archivo.variable} ${atkinson.variable} min-h-screen bg-paper font-body text-ink`}
     >
+      <MetaPixel />
       <div className="mx-auto max-w-[720px] px-5 pb-16 pt-8 sm:px-8">
         {/* Masthead */}
         <header>

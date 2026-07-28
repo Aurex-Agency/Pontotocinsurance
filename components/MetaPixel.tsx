@@ -2,9 +2,11 @@
 
 import Script from 'next/script'
 
-// Meta (Facebook) Pixel — used ONLY on the two webinar funnel pages
-// (/webinarlink and /webinarlink/watch), not site-wide. Tracks PageView; the
-// watch page fires a separate "Lead" conversion event.
+// Meta (Facebook) Pixel — used ONLY on the webinar funnel pages
+// (/webinarlink, /webinarlink/watch, /webinar-1, /watch-webinar-1), not
+// site-wide. Tracks PageView; each funnel fires its own "Lead" conversion
+// event (on registration for /webinar-1, on reaching the watch page for
+// /webinarlink).
 // Override the ID with NEXT_PUBLIC_META_PIXEL_ID if needed.
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '2113541802917501'
 

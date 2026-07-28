@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { CONSENT_TEXT, AGENCY_PHONE_DISPLAY, AGENCY_PHONE_TEL } from '@/lib/webinar-1'
+import { CONSENT_TEXT, AGENCY_PHONE_DISPLAY, AGENCY_PHONE_TEL, WEBINAR_SOURCE } from '@/lib/webinar-1'
 
 type FieldName = 'firstName' | 'lastName' | 'email' | 'phone'
 
@@ -39,7 +38,6 @@ const inputClass =
   'focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-pine'
 
 export default function RegistrationCard() {
-  const router = useRouter()
   const [values, setValues] = useState<Record<FieldName, string>>({
     firstName: '',
     lastName: '',
@@ -100,7 +98,19 @@ export default function RegistrationCard() {
       })
       const data = await res.json().catch(() => null)
       if (res.ok && data?.ok && data.redirect) {
-        router.push(data.redirect)
+        // Meta "Lead" conversion on successful registration. The short delay
+        // lets the pixel request leave before the full-page navigation; the
+        // watch page's own pixel then fires PageView on arrival.
+        const fbq = (window as unknown as { fbq?: Function }).fbq
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+            content_name: WEBINAR_SOURCE,
+            content_category: 'Webinar',
+          })
+        }
+        setTimeout(() => {
+          window.location.assign(data.redirect)
+        }, 300)
         return
       }
       setSubmitError(true)

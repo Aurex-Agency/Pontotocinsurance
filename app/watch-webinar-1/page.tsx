@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Archivo, Atkinson_Hyperlegible } from 'next/font/google'
+import MetaPixel from '@/components/MetaPixel'
 import {
   TPMO_DISCLAIMER,
   AGENCY_PHONE_DISPLAY,
@@ -34,6 +35,7 @@ export default function WatchWebinarPage() {
     <div
       className={`${archivo.variable} ${atkinson.variable} min-h-screen bg-paper font-body text-ink`}
     >
+      <MetaPixel />
       <div className="mx-auto max-w-[880px] px-5 pb-16 pt-8 sm:px-8">
         <header>
           <hr className="h-[5px] border-0 bg-ink" aria-hidden="true" />
