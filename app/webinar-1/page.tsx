@@ -30,24 +30,23 @@ const learnBullets = [
   },
 ]
 
+// Verbatim reviews from the agency's Google Business Profile (via the GHL
+// reputation widget). Do not edit the quote text.
 const testimonials = [
   {
     quote:
-      'Justin sat with us until we understood every line of our coverage. Nobody had ever done that for us before.',
-    name: 'Linda',
-    town: 'Pontotoc',
+      'After retiring, Justin was very helpful in helping me find the right insurance coverage for me and the most affordable price. I highly recommend him to help you find the best insurance that meets your needs.',
+    name: 'Gala Duff',
   },
   {
     quote:
-      'I brought him the stack of Medicare mail I had been ignoring all fall. He sorted it out in one afternoon, and my plan costs me less now than it did.',
-    name: 'Charles',
-    town: 'Ecru',
+      'Justin Stark and team were very helpful in finding a health plan to fit my needs. Very knowledgeable guy and easy to talk with. Thanks Justin!!!',
+    name: 'Jerry Barnes',
   },
   {
     quote:
-      'He looked at my plan and told me it was fine and not to change a thing. That is when I knew he was honest.',
-    name: 'Peggy',
-    town: 'Tupelo',
+      'I was totally impressed with their knowledge. They handled my questions and made phone calls for me. I call that full service!! This was as professional as it gets! Thank you for your help and support!',
+    name: 'Bernay McGee',
   },
 ]
 
@@ -191,6 +190,9 @@ export default function WebinarLandingPage() {
           <h2 className="text-3xl font-bold text-secondary-900 sm:text-4xl">
             From your neighbors
           </h2>
+          <p className="mt-3 text-lg text-gray-800">
+            Rated 5.0 stars across 75 Google reviews.
+          </p>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {testimonials.map((t) => (
               <figure
@@ -201,7 +203,10 @@ export default function WebinarLandingPage() {
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <figcaption className="mt-4 text-lg font-bold text-secondary-900">
-                  &mdash; {t.name}, {t.town}
+                  &mdash; {t.name} &middot;{' '}
+                  <span className="font-semibold text-gray-800">
+                    Google review
+                  </span>
                 </figcaption>
               </figure>
             ))}
