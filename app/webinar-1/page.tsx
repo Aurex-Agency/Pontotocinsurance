@@ -94,22 +94,18 @@ export default function WebinarLandingPage() {
                 register.
               </p>
 
-              {/* VSL placeholder — replace this block with the uploaded video */}
-              <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-xl border-2 border-secondary-500 bg-secondary-800 shadow-xl">
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-500">
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                      className="ml-1 h-9 w-9 fill-secondary-900"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  <p className="text-xl font-semibold text-white">
-                    A short preview of the presentation will play here
-                  </p>
-                </div>
+              {/* Hero VSL — short preview of the presentation */}
+              <div className="mt-8 overflow-hidden rounded-xl border-2 border-secondary-500 bg-secondary-800 shadow-xl">
+                <video
+                  src="/webinar/vsl-1.mp4"
+                  poster="/webinar/vsl-poster.jpg"
+                  controls
+                  preload="none"
+                  playsInline
+                  className="block aspect-video w-full bg-black"
+                >
+                  Your browser cannot play this video.
+                </video>
               </div>
 
               <div className="mt-8 rounded-lg border-l-4 border-primary-500 bg-secondary-800/60 p-5">
