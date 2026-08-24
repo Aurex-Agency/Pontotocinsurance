@@ -13,5 +13,10 @@ export const WEBINAR_SOURCE = 'Medicare On-Demand Training'
 export const AGENCY_PHONE_DISPLAY = '(662) 200-2249'
 export const AGENCY_PHONE_TEL = '+16622002249'
 
+// 42 CFR 422.2267(e)(35): accommodations disclaimer for event/appointment
+// invitations.
+export const ACCOMMODATIONS_DISCLAIMER =
+  'For accommodations of persons with special needs at meetings, call (662) 200-2249, TTY 711.'
+
 export const TPMO_DISCLAIMER =
   'We do not offer every plan available in your area. Currently we represent 54 organizations which offer 121 products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Program to get information on all of your options.'

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import WatchPlayer from './WatchPlayer'
+import MetaPixel from '@/components/MetaPixel'
 import {
+  ACCOMMODATIONS_DISCLAIMER,
   TPMO_DISCLAIMER,
   AGENCY_PHONE_DISPLAY,
   AGENCY_PHONE_TEL,
@@ -20,6 +22,8 @@ const linkClass =
 export default function WatchWebinarPage() {
   return (
     <div className="min-h-screen bg-white text-secondary-900">
+      <MetaPixel />
+
       {/* Top bar */}
       <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -73,6 +77,7 @@ export default function WatchWebinarPage() {
       <footer className="bg-secondary-900 text-secondary-200">
         <div className="mx-auto max-w-5xl space-y-4 px-4 py-10 text-base leading-relaxed sm:px-6 lg:px-8">
           <p>{TPMO_DISCLAIMER}</p>
+          <p>{ACCOMMODATIONS_DISCLAIMER}</p>
           <p>
             Pontotoc Insurance Agency is a private insurance agency licensed in
             Mississippi. We are not affiliated with or endorsed by the United

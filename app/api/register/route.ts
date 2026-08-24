@@ -59,8 +59,27 @@ export async function POST(request: Request) {
 
   const webhookUrl = process.env.GHL_WEBHOOK_URL || DEFAULT_WEBHOOK_URL
 
-  const watchPath = `/watch-webinar-1?e=${encodeURIComponent(email)}`
+  // No PII in the URL — the watch page is not gated and GHL already has the
+  // contact, so the link carries nothing.
+  const watchPath = '/watch-webinar-1'
   const watchUrl = `${SITE_URL}${watchPath}`
+
+  // Ad attribution passed through from the landing page, allowlisted.
+  const UTM_KEYS = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'fbclid',
+  ] as const
+  const attribution: Record<string, string> = {}
+  for (const key of UTM_KEYS) {
+    const value = body[key]
+    if (typeof value === 'string' && value.trim()) {
+      attribution[key] = value.trim().slice(0, 250)
+    }
+  }
 
   // Await the webhook and verify it accepted the lead. A fire-and-forget here
   // would silently drop registrations with no way to notice.
@@ -78,6 +97,7 @@ export async function POST(request: Request) {
         consentText: CONSENT_TEXT,
         consentAt: new Date().toISOString(),
         source: WEBINAR_SOURCE,
+        ...attribution,
       }),
     })
   } catch (err) {

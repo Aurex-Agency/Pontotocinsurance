@@ -16,6 +16,11 @@ const OFFER_AT = 1200 // 20 min in — booking offer reveal
 const CALENDAR_URL =
   'https://link.pontotocinsuranceagency.com/widget/bookings/chis-parman-calendar'
 
+function fbq(...args: unknown[]) {
+  const f = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq
+  if (typeof f === 'function') f(...args)
+}
+
 function formatTime(seconds: number) {
   const s = Math.max(0, Math.floor(seconds))
   const m = Math.floor(s / 60)
@@ -26,10 +31,27 @@ const controlButtonClass =
   'flex min-h-[48px] min-w-[48px] items-center justify-center gap-2 rounded-lg bg-white/10 px-3 text-white transition-colors hover:bg-white/25 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-primary-400'
 
 function BookingCalendar() {
+  // Prefill from the registration saved on this device — a registrant should
+  // never have to retype the four fields they just gave us.
+  const [src, setSrc] = useState(CALENDAR_URL)
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('webinar1_lead')
+      if (!raw) return
+      const lead = JSON.parse(raw)
+      const params = new URLSearchParams()
+      if (lead.firstName) params.set('first_name', lead.firstName)
+      if (lead.lastName) params.set('last_name', lead.lastName)
+      if (lead.email) params.set('email', lead.email)
+      if (lead.phone) params.set('phone', lead.phone)
+      const query = params.toString()
+      if (query) setSrc(`${CALENDAR_URL}?${query}`)
+    } catch {}
+  }, [])
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
       <iframe
-        src={CALENDAR_URL}
+        src={src}
         title="Book a free plan review with Pontotoc Insurance Agency"
         className="block h-[720px] w-full border-0"
       />
@@ -53,6 +75,9 @@ export default function WatchPlayer() {
   const [volume, setVolume] = useState(1)
   const [offerUnlocked, setOfferUnlocked] = useState(false)
   const [offerPanelInView, setOfferPanelInView] = useState(false)
+  const startFiredRef = useRef(false)
+  const progressFiredRef = useRef<Set<number>>(new Set())
+  const scheduleFiredRef = useRef(false)
 
   const onTimeUpdate = () => {
     const v = videoRef.current
@@ -67,6 +92,15 @@ export default function WatchPlayer() {
     // so keep the duration honest here too (same-value sets are free).
     if (Number.isFinite(v.duration) && v.duration > 0) setDuration(v.duration)
     if (maxProgress.current >= OFFER_AT) setOfferUnlocked(true)
+    if (Number.isFinite(v.duration) && v.duration > 0) {
+      const pct = (maxProgress.current / v.duration) * 100
+      for (const mark of [25, 50, 75]) {
+        if (pct >= mark && !progressFiredRef.current.has(mark)) {
+          progressFiredRef.current.add(mark)
+          fbq('trackCustom', 'WebinarProgress', { percent: mark })
+        }
+      }
+    }
   }
 
   const togglePlay = () => {
@@ -85,7 +119,13 @@ export default function WatchPlayer() {
     v.muted = false
     setMuted(false)
     v.play()
-      .then(() => setPhase('started'))
+      .then(() => {
+        setPhase('started')
+        if (!startFiredRef.current) {
+          startFiredRef.current = true
+          fbq('trackCustom', 'WebinarStarted')
+        }
+      })
       .catch((err: unknown) => {
         // A user-gesture play() that fails because the source is unplayable
         // must not leave a dead overlay button.
@@ -133,6 +173,27 @@ export default function WatchPlayer() {
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
+  }, [])
+
+  // Fire the Meta Schedule event when the GHL booking widget confirms an
+  // appointment. GHL posts messages to the parent window; match booking
+  // confirmations from its origin only, once.
+  useEffect(() => {
+    const onMessage = (e: MessageEvent) => {
+      if (scheduleFiredRef.current) return
+      if (!e.origin.endsWith('pontotocinsuranceagency.com')) return
+      let raw = ''
+      try {
+        raw = typeof e.data === 'string' ? e.data : JSON.stringify(e.data)
+      } catch {
+        return
+      }
+      if (!/appointment|booked|booking[-_ ]?(confirmed|success)/i.test(raw)) return
+      scheduleFiredRef.current = true
+      fbq('track', 'Schedule')
+    }
+    window.addEventListener('message', onMessage)
+    return () => window.removeEventListener('message', onMessage)
   }, [])
 
   // Sticky bottom bar shows while the unlocked offer panel is off-screen.
@@ -221,7 +282,13 @@ export default function WatchPlayer() {
               }}
               onPlay={() => setPlaying(true)}
               onPause={() => setPlaying(false)}
-              onEnded={() => setPhase('ended')}
+              onEnded={() => {
+                if (!progressFiredRef.current.has(100)) {
+                  progressFiredRef.current.add(100)
+                  fbq('trackCustom', 'WebinarProgress', { percent: 100 })
+                }
+                setPhase('ended')
+              }}
               onError={() => setPhase('error')}
               className="block aspect-video w-full bg-black"
             />
@@ -327,9 +394,11 @@ export default function WatchPlayer() {
               Want a second set of eyes on your plan?
             </h2>
             <p className="mt-3 max-w-3xl text-lg leading-relaxed text-gray-800">
-              Pick a time below for a free plan review with Chris, our Medicare
-              agent — about 15 minutes, by phone or at the office in Pontotoc.
-              No cost, no pressure, and you keep watching where you left off.
+              Pick a time below for a free plan review with Chris Parman, our
+              Medicare agent — about 30 minutes, by phone or at the office in
+              Pontotoc. Chris handles plan reviews for the agency, and he is
+              who Justin sends his own family to. No cost, no pressure, and
+              you keep watching where you left off.
             </p>
           </div>
           <div className="mt-6">

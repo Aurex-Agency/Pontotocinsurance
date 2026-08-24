@@ -86,18 +86,32 @@ export default function RegistrationCard() {
     setSubmitting(true)
     setSubmitError(false)
     try {
+      // Ad attribution: forward any UTM/fbclid params on the landing URL so
+      // each GHL contact records which ad produced it.
+      const params = new URLSearchParams(window.location.search)
+      const attribution: Record<string, string> = {}
+      for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid']) {
+        const value = params.get(key)
+        if (value) attribution[key] = value
+      }
+      const lead = {
+        firstName: values.firstName.trim(),
+        lastName: values.lastName.trim(),
+        email: values.email.trim(),
+        phone: values.phone.trim(),
+      }
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: values.firstName.trim(),
-          lastName: values.lastName.trim(),
-          email: values.email.trim(),
-          phone: values.phone.trim(),
-        }),
+        body: JSON.stringify({ ...lead, ...attribution }),
       })
       const data = await res.json().catch(() => null)
       if (res.ok && data?.ok && data.redirect) {
+        // Saved so the watch page can prefill the booking calendar without
+        // putting PII in the URL. Same-device only, which covers the redirect.
+        try {
+          localStorage.setItem('webinar1_lead', JSON.stringify(lead))
+        } catch {}
         // Meta "Lead" conversion on successful registration. The short delay
         // lets the pixel request leave before the full-page navigation; the
         // watch page's own pixel then fires PageView on arrival.
@@ -165,6 +179,8 @@ export default function RegistrationCard() {
                   autoComplete={f.autoComplete}
                   inputMode={f.inputMode}
                   value={values[f.name]}
+                  required
+                  aria-required="true"
                   onChange={(e) => handleChange(f.name, e.target.value)}
                   onBlur={() => handleBlur(f.name)}
                   aria-invalid={error ? true : undefined}

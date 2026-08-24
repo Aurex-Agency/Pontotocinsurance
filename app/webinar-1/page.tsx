@@ -3,6 +3,7 @@ import Image from 'next/image'
 import RegistrationCard from './RegistrationCard'
 import MetaPixel from '@/components/MetaPixel'
 import {
+  ACCOMMODATIONS_DISCLAIMER,
   TPMO_DISCLAIMER,
   AGENCY_PHONE_DISPLAY,
   AGENCY_PHONE_TEL,
@@ -13,12 +14,23 @@ export const metadata: Metadata = {
   description:
     'A free 48-minute Medicare presentation with Justin Stark of Pontotoc Insurance Agency. Register and watch immediately. No cost, no obligation.',
   robots: { index: false, follow: false },
+  openGraph: {
+    title: 'Free Medicare Presentation for Pontotoc County',
+    description:
+      'A free 48-minute presentation with Justin Stark of Pontotoc Insurance Agency. Register and watch immediately. No cost, no obligation.',
+    url: 'https://pontotocinsuranceagency.com/webinar-1',
+    siteName: 'Pontotoc Insurance Agency',
+    type: 'website',
+    images: [
+      { url: '/webinar/vsl-poster.jpg', width: 1280, height: 720, alt: 'Justin Stark presenting Medicare basics' },
+    ],
+  },
 }
 
 const learnBullets = [
   {
-    title: 'Will your plan still work in 2026?',
-    text: 'How to check whether your current plan will still cover your doctors and your prescriptions in 2026 — and what to do before December 7 if it will not.',
+    title: 'Will your plan still work in 2027?',
+    text: 'How to check whether your current plan will still cover your doctors and your prescriptions in 2027 — and what to do before December 7 if it will not.',
   },
   {
     title: 'Real numbers, side by side',
@@ -112,7 +124,7 @@ export default function WebinarLandingPage() {
                 <p className="text-lg font-semibold leading-relaxed text-white">
                   Mark your calendar: Medicare&rsquo;s Annual Enrollment Period
                   runs October 15 through December 7. Decisions you make in that
-                  window set your coverage for all of 2026.
+                  window set your coverage for all of 2027.
                 </p>
               </div>
             </div>
@@ -214,6 +226,7 @@ export default function WebinarLandingPage() {
       <footer className="bg-secondary-900 text-secondary-200">
         <div className="mx-auto max-w-5xl space-y-4 px-4 py-10 text-base leading-relaxed sm:px-6 lg:px-8">
           <p>{TPMO_DISCLAIMER}</p>
+          <p>{ACCOMMODATIONS_DISCLAIMER}</p>
           <p>
             Pontotoc Insurance Agency is a private insurance agency licensed in
             Mississippi. We are not affiliated with or endorsed by the United
@@ -246,6 +259,17 @@ export default function WebinarLandingPage() {
           </p>
         </div>
       </footer>
+
+      {/* Mobile-only persistent tap-to-call bar */}
+      <div aria-hidden="true" className="h-24 sm:hidden" />
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t-2 border-primary-500 bg-secondary-900 p-3 sm:hidden">
+        <a
+          href={`tel:${AGENCY_PHONE_TEL}`}
+          className="flex min-h-[56px] items-center justify-center rounded-lg bg-primary-600 text-xl font-bold text-white focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          Call us: {AGENCY_PHONE_DISPLAY}
+        </a>
+      </div>
     </div>
   )
 }
