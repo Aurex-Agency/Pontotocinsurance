@@ -120,7 +120,7 @@ export default function WatchWebinarPage() {
             Book a free 15-minute Medicare Checkup with our local team.
           </p>
           <a
-            href="#book"
+            href="#calendar"
             className="mt-8 inline-flex min-h-[64px] items-center justify-center rounded-lg bg-primary-600 px-10 text-[1.375rem] font-bold text-white shadow-lg transition-colors hover:bg-primary-700 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-white"
           >
             Choose a Time

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Script from 'next/script'
 import { Pause, Play, RotateCcw, Volume2, VolumeX } from 'lucide-react'
 import { AGENCY_PHONE_DISPLAY, AGENCY_PHONE_TEL } from '@/lib/webinar-1'
 
@@ -14,7 +15,7 @@ const FALLBACK_DURATION = 2880 // ~48 min; replaced by the file's real metadata 
 const OFFER_AT = 1200 // 20 min in — booking offer reveal
 
 const CALENDAR_URL =
-  'https://link.pontotocinsuranceagency.com/widget/bookings/chis-parman-calendar'
+  'https://link.pontotocinsuranceagency.com/widget/booking/oijXPVj9znK5XWudtyjv'
 
 function fbq(...args: unknown[]) {
   const f = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq
@@ -49,11 +50,25 @@ function BookingCalendar() {
     } catch {}
   }, [])
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+    <div
+      id="calendar"
+      className="scroll-mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg"
+    >
+      {/* GHL's embed script resizes the iframe to fit the widget, which
+          keeps the calendar fully visible on phones; minHeight is the
+          fallback if the script is blocked. */}
       <iframe
         src={src}
-        title="Book a free plan review with Pontotoc Insurance Agency"
-        className="block h-[720px] w-full border-0"
+        id="oijXPVj9znK5XWudtyjv_watch"
+        title="Book your free 15-minute Medicare Checkup"
+        allow="payment"
+        scrolling="no"
+        className="block w-full border-0"
+        style={{ minHeight: '700px', overflow: 'hidden' }}
+      />
+      <Script
+        src="https://link.pontotocinsuranceagency.com/js/form_embed.js"
+        strategy="lazyOnload"
       />
     </div>
   )
@@ -214,7 +229,8 @@ export default function WatchPlayer() {
 
   const scrollToOffer = () => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    offerPanelRef.current?.scrollIntoView({
+    const target = document.getElementById('calendar') || offerPanelRef.current
+    target?.scrollIntoView({
       behavior: reduced ? 'auto' : 'smooth',
       block: 'start',
     })
@@ -405,6 +421,12 @@ export default function WatchPlayer() {
               so you know what questions to ask about your own Medicare
               situation.
             </p>
+            <a
+              href="#calendar"
+              className="mt-5 flex min-h-[56px] w-full items-center justify-center rounded-lg bg-primary-600 px-6 text-xl font-bold text-white shadow transition-colors hover:bg-primary-700 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-secondary-700 sm:hidden"
+            >
+              See open times
+            </a>
             <ul className="mt-5 grid max-w-2xl gap-2 sm:grid-cols-2">
               {['Doctors', 'Prescriptions', 'Current coverage', 'Potential costs', 'Questions to consider'].map(
                 (item) => (
