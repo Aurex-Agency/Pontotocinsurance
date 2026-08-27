@@ -69,18 +69,18 @@ export default function WatchWebinarPage() {
             Meet the team helping with your review
           </h2>
           <div className="mt-8 flex flex-col items-start gap-8 md:flex-row">
-            {/* ADD VERIFIED CHRIS PHOTO / BIO / TITLE BEFORE LAUNCH.
-                default-avatar.jpg is a placeholder, and the bio below is the
-                minimum verified statement. Do not launch ads to this page
-                until Chris's real photo, title, and licensing line are in. */}
-            <Image
-              src="/team/default-avatar.jpg"
-              alt="Chris Parman of Pontotoc Insurance Agency"
-              width={400}
-              height={400}
-              sizes="220px"
-              className="h-[220px] w-[220px] flex-none rounded-xl object-cover shadow-lg"
-            />
+            {/* ADD VERIFIED CHRIS PHOTO BEFORE LAUNCH: no real photo of
+                Chris exists in the repo, the team database, or the GHL
+                calendar assets. This branded initials block stands in until
+                one is provided. To swap: save it as
+                public/team/chris-parman.jpg and replace this div with the
+                same next/image markup used for Justin above. */}
+            <div
+              aria-hidden="true"
+              className="flex h-[220px] w-[220px] flex-none items-center justify-center rounded-xl bg-secondary-900 shadow-lg"
+            >
+              <span className="text-7xl font-bold text-primary-500">CP</span>
+            </div>
             <div className="text-lg leading-relaxed text-gray-800">
               <h3 className="text-2xl font-bold text-secondary-900">
                 Chris Parman
