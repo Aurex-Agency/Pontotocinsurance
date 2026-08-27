@@ -78,6 +78,7 @@ export default function WatchWebinarPage() {
               alt="Chris Parman of Pontotoc Insurance Agency"
               width={400}
               height={400}
+              sizes="220px"
               className="h-[220px] w-[220px] flex-none rounded-xl object-cover shadow-lg"
             />
             <div className="text-lg leading-relaxed text-gray-800">

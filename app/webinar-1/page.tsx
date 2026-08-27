@@ -109,21 +109,34 @@ export default function WebinarLandingPage() {
 
       {/* SECTION 1: Hero + registration */}
       <section className="bg-gradient-to-br from-secondary-900 to-secondary-700 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
           <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-12">
             <div>
               <p className="inline-block rounded-full bg-primary-500/20 px-4 py-2 text-base font-bold uppercase tracking-wide text-primary-200">
                 Free On-Demand Medicare Class
               </p>
-              <h1 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl xl:text-[3.4rem]">
+              <h1 className="mt-4 text-4xl font-bold leading-tight sm:mt-5 sm:text-5xl xl:text-[3.4rem]">
                 Know What to Check Before Medicare Open Enrollment
               </h1>
-              <p className="mt-5 max-w-2xl text-xl leading-relaxed text-secondary-100">
+              <p className="mt-4 max-w-2xl text-xl leading-relaxed text-secondary-100 sm:mt-5">
                 Justin Stark with Pontotoc Insurance Agency explains Medicare in
                 plain English so you know what to review about your doctors,
                 prescriptions, costs, coverage, and enrollment options.
               </p>
-              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-secondary-100">
+              {/* Mobile-only jump to the form: on phones the registration
+                  card sits below the preview video, so the first screen needs
+                  its own CTA. Hidden on lg where the card is beside the hero. */}
+              <a
+                href="#register"
+                className="mt-5 flex min-h-[60px] w-full items-center justify-center rounded-lg bg-primary-600 px-6 text-center text-xl font-bold text-white shadow-lg transition-colors hover:bg-primary-700 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-white lg:hidden"
+              >
+                Watch the Free Medicare Class
+              </a>
+              <p className="mt-3 text-center text-lg font-semibold text-secondary-100 lg:hidden">
+                Free &bull; On-Demand &bull; Watch From Home
+              </p>
+
+              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-secondary-100 sm:mt-4">
                 Watch at your own pace. Pause anytime and come back whenever
                 you&rsquo;d like.
               </p>
@@ -221,6 +234,7 @@ export default function WebinarLandingPage() {
               alt="Justin Stark, owner of Pontotoc Insurance Agency"
               width={900}
               height={600}
+              sizes="(min-width: 768px) 340px, 100vw"
               className="w-full rounded-xl shadow-lg md:w-[340px]"
             />
             <div className="text-lg leading-relaxed text-gray-800">
