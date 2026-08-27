@@ -226,9 +226,6 @@ export default function WebinarLandingPage() {
             Who is teaching this
           </h2>
           <div className="mt-8 flex flex-col items-start gap-8 md:flex-row">
-            {/* VERIFY BEFORE LAUNCH: replace with a photo of Justin at the
-                office or with a client. The current photo is from an industry
-                conference stage and undercuts the local, kitchen-table copy. */}
             <Image
               src="/team/justin-stark.jpg"
               alt="Justin Stark, owner of Pontotoc Insurance Agency"
