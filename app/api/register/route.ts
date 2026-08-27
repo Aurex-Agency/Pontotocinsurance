@@ -37,9 +37,12 @@ export async function POST(request: Request) {
   const email = typeof body.email === 'string' ? body.email.trim() : ''
   const phoneRaw = typeof body.phone === 'string' ? body.phone.trim() : ''
 
-  if (!firstName || !lastName || !email || !phoneRaw) {
+  // Only first name and email are required to watch. Last name is optional;
+  // phone arrives only when the registrant asked for the link by text, and is
+  // validated only when present.
+  if (!firstName || !email) {
     return NextResponse.json(
-      { ok: false, error: 'All four fields are required.' },
+      { ok: false, error: 'First name and email are required.' },
       { status: 400 }
     )
   }
@@ -49,12 +52,16 @@ export async function POST(request: Request) {
       { status: 400 }
     )
   }
-  const phone = toE164(phoneRaw)
-  if (!phone) {
-    return NextResponse.json(
-      { ok: false, error: 'That phone number needs 10 digits.' },
-      { status: 400 }
-    )
+  let phone = ''
+  if (phoneRaw) {
+    const normalized = toE164(phoneRaw)
+    if (!normalized) {
+      return NextResponse.json(
+        { ok: false, error: 'That phone number needs 10 digits.' },
+        { status: 400 }
+      )
+    }
+    phone = normalized
   }
 
   const webhookUrl = process.env.GHL_WEBHOOK_URL || DEFAULT_WEBHOOK_URL

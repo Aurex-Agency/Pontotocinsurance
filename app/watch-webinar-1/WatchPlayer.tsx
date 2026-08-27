@@ -78,6 +78,7 @@ export default function WatchPlayer() {
   const startFiredRef = useRef(false)
   const progressFiredRef = useRef<Set<number>>(new Set())
   const scheduleFiredRef = useRef(false)
+  const [barDismissed, setBarDismissed] = useState(false)
 
   const onTimeUpdate = () => {
     const v = videoRef.current
@@ -219,7 +220,8 @@ export default function WatchPlayer() {
     })
   }
 
-  const showStickyBar = offerUnlocked && phase === 'started' && !offerPanelInView
+  const showStickyBar =
+    offerUnlocked && phase === 'started' && !offerPanelInView && !barDismissed
   const progressPercent = Math.min(100, (currentTime / (duration || 1)) * 100)
 
   return (
@@ -229,14 +231,14 @@ export default function WatchPlayer() {
         <section aria-label="Presentation finished">
           <div className="rounded-xl bg-secondary-900 p-6 text-white shadow-2xl sm:p-10">
             <h2 className="text-3xl font-bold sm:text-4xl">
-              That is the full presentation.
+              That&rsquo;s the whole class.
             </h2>
             <p className="mt-4 max-w-3xl text-xl leading-relaxed text-secondary-100">
-              You now know more about how Medicare actually works than most
-              people ever will. Medicare&rsquo;s Annual Enrollment Period runs
-              October 15 through December 7 — if you want help before you
-              decide, pick a time below and Chris, our Medicare agent, will
-              walk through your plan with you.
+              You now know what to check about your own coverage.
+              Medicare&rsquo;s Annual Enrollment Period runs October 15
+              through December 7, 2026, and changes generally apply to 2027
+              coverage. If you&rsquo;d like a second set of eyes before then,
+              book a free 15-minute Medicare Checkup below.
             </p>
           </div>
           <div className="mt-8">
@@ -382,23 +384,65 @@ export default function WatchPlayer() {
       )}
 
       {/* Booking panel — always below the video; OFFER_AT only gates the
-          sticky reminder bar */}
+          sticky reminder bar. VERIFY BEFORE LAUNCH: set the GHL calendar
+          event to 15 minutes so it matches the 15-Minute Checkup offer. */}
       {phase !== 'ended' && (
         <section
+          id="book"
           ref={offerPanelRef}
-          aria-label="Book a plan review"
-          className="mt-10"
+          aria-label="Book your free Medicare Checkup"
+          className="mt-10 scroll-mt-6"
         >
           <div className="rounded-xl border-l-4 border-primary-500 bg-primary-50 p-6 sm:p-8">
-            <h2 className="text-3xl font-bold text-secondary-900">
-              Want a second set of eyes on your plan?
+            <h2 className="text-3xl font-bold text-secondary-900 sm:text-4xl">
+              Want us to check yours?
             </h2>
+            <p className="mt-2 text-xl font-bold text-primary-800">
+              Free 15-Minute Medicare Checkup
+            </p>
             <p className="mt-3 max-w-3xl text-lg leading-relaxed text-gray-800">
-              Pick a time below for a free plan review with Chris Parman, our
-              Medicare agent — about 30 minutes, by phone or at the office in
-              Pontotoc. Chris handles plan reviews for the agency, and he is
-              who Justin sends his own family to. No cost, no pressure, and
-              you keep watching where you left off.
+              We&rsquo;ll help you review the same areas covered in the class
+              so you know what questions to ask about your own Medicare
+              situation.
+            </p>
+            <ul className="mt-5 grid max-w-2xl gap-2 sm:grid-cols-2">
+              {['Doctors', 'Prescriptions', 'Current coverage', 'Potential costs', 'Questions to consider'].map(
+                (item) => (
+                  <li key={item} className="flex items-center gap-3 text-lg text-gray-800">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-6 w-6 flex-none text-primary-700"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M4 12.5l5 5L20 6.5" />
+                    </svg>
+                    {item}
+                  </li>
+                )
+              )}
+            </ul>
+            <div className="mt-6 max-w-3xl rounded-lg bg-white p-5">
+              <h3 className="text-xl font-bold text-secondary-900">
+                What happens during the 15-minute review?
+              </h3>
+              <ol className="mt-3 list-decimal space-y-2 pl-6 text-lg leading-relaxed text-gray-800">
+                <li>Tell us what coverage you currently have</li>
+                <li>Review your doctors and prescriptions</li>
+                <li>Identify questions or areas worth checking</li>
+                <li>Decide whether you need any additional help</li>
+              </ol>
+              <p className="mt-4 text-lg leading-relaxed text-gray-800">
+                Sometimes the answer may simply be that what you already have
+                still makes sense.
+              </p>
+            </div>
+            <p className="mt-5 text-lg font-semibold text-gray-800">
+              No cost &bull; No obligation &bull; Local licensed agent
             </p>
           </div>
           <div className="mt-6">
@@ -409,18 +453,28 @@ export default function WatchPlayer() {
 
       {/* Sticky bottom bar while the offer panel is off-screen */}
       {showStickyBar && (
-        <div className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-primary-500 bg-secondary-900 shadow-2xl">
-          <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 py-4 sm:flex-row">
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t-4 border-primary-500 bg-secondary-900 pb-[env(safe-area-inset-bottom)] shadow-2xl">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4">
             <p className="text-lg font-semibold text-white">
-              Ready to talk it through? Book a free plan review with Chris.
+              Free 15-Minute Medicare Checkup
             </p>
-            <button
-              type="button"
-              onClick={scrollToOffer}
-              className="flex min-h-[56px] items-center justify-center rounded-lg bg-primary-600 px-6 text-xl font-bold text-white transition-colors hover:bg-primary-700 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-white"
-            >
-              See open times
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={scrollToOffer}
+                className="flex min-h-[56px] items-center justify-center rounded-lg bg-primary-600 px-6 text-xl font-bold text-white transition-colors hover:bg-primary-700 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Book a Time
+              </button>
+              <button
+                type="button"
+                onClick={() => setBarDismissed(true)}
+                aria-label="Dismiss this reminder"
+                className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-lg text-2xl font-bold text-secondary-200 hover:bg-white/10 focus:outline-none focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                &#10005;
+              </button>
+            </div>
           </div>
         </div>
       )}
