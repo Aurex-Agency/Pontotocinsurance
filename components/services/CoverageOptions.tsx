@@ -186,16 +186,16 @@ const CoverageOptions = ({ service, title, description }: CoverageOptionsProps) 
               <h4 className="text-lg font-semibold text-gray-900 mb-4">Quick Facts</h4>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Average Savings</span>
-                  <span className="font-semibold text-gray-900">$300+/year</span>
+                  <span className="text-gray-600">Quote approach</span>
+                  <span className="font-semibold text-gray-900">Individual review</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Coverage Options</span>
                   <span className="font-semibold text-gray-900">Multiple Carriers</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Claims Support</span>
-                  <span className="font-semibold text-gray-900">24/7 Available</span>
+                  <span className="text-gray-600">Questions about a claim</span>
+                  <span className="font-semibold text-gray-900">Contact the insurer</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Local Service</span>

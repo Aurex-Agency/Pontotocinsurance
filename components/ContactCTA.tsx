@@ -1,5 +1,7 @@
 'use client'
 
+import { trackLead } from '@/lib/analytics'
+
 import { useState } from 'react'
 import { Phone, Mail, MapPin, Clock, MessageCircle, Calendar } from 'lucide-react'
 import { useSiteSettings } from '@/lib/useSiteSettings'
@@ -42,6 +44,7 @@ const ContactCTA = () => {
 
       if (response.ok) {
         setSubmitStatus('success')
+        trackLead('ContactCTA')
         // Reset form
         setFormData({
           firstName: '',
@@ -226,7 +229,7 @@ const ContactCTA = () => {
 
               {submitStatus === 'success' && (
                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
-                  <p className="text-sm font-medium">Thank you! Your quote request has been sent successfully. We'll get back to you within 2 hours.</p>
+                  <p className="text-sm font-medium">Thank you! Your quote request has been sent successfully. Our team will follow up with you.</p>
                 </div>
               )}
 

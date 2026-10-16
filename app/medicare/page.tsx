@@ -169,6 +169,7 @@ export default function MedicarePage() {
       
       <MedicareFAQ />
       
+      <section className="container-custom px-4 sm:px-6 py-12"><h2 className="text-3xl font-bold mb-4">Bring your questions to a Medicare review</h2><p className="mb-5">Prepare your provider and prescription lists, existing coverage notices and questions about total costs. Confirm the coverage year and enrollment period before making a change. Do not send Medicare numbers or health records through an ordinary website message.</p><a className="text-primary-700 underline mr-6" href="/resources">Read our insurance resources</a><a className="text-primary-700 underline" href="/team">Meet the team</a></section>
       <QuoteForm 
         service="medicare"
         title="Get Your Medicare Quote Today"

@@ -134,6 +134,7 @@ export default function HealthInsurance() {
         title="Why Choose Us for Health Insurance"
         description="Expert guidance through complex health insurance options with personalized service."
       />
+      <section className="container-custom px-4 sm:px-6 py-12"><h2 className="text-3xl font-bold mb-4">Prepare for a health coverage conversation</h2><p className="mb-5">List your doctors, prescriptions, county of residence and the date you need coverage. Ask about networks, total costs, enrollment eligibility and the effective date. Coverage availability and financial assistance depend on your circumstances and current rules.</p><a className="text-primary-700 underline mr-6" href="/resources">Read our insurance resources</a><a className="text-primary-700 underline" href="/team">Meet the team</a></section>
       <QuoteForm 
         service="health"
         title="Get Your Health Insurance Quote"

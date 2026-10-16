@@ -1,5 +1,7 @@
 'use client'
 
+import { trackLead } from '@/lib/analytics'
+
 import { useState } from 'react'
 import { Heart, Users, PiggyBank, Pill } from 'lucide-react'
 import BookingModal from './BookingModal'
@@ -41,6 +43,7 @@ const HeroSection = () => {
 
       if (response.ok) {
         setSubmitStatus('success')
+        trackLead('HeroSection')
         // Reset form
         setFormData({
           firstName: '',
@@ -97,12 +100,12 @@ const HeroSection = () => {
               </h1>
               <p className="text-xl text-primary-100 leading-relaxed">
                 Expert guidance for life insurance, health insurance, Medicare, and retirement planning.
-                Helping families in Pontotoc, Tupelo, Oxford, and across North Mississippi build wealth and protect their financial future with personalized strategies.
+                Discuss life insurance, health coverage and Medicare with our Pontotoc office. Serving residents in Tupelo, Oxford and across North Mississippi.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+              <button onClick={() => document.getElementById('quote-form')?.scrollIntoView({ behavior: 'smooth' })} className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
                 Get Free Quote
               </button>
               <button 
@@ -113,21 +116,7 @@ const HeroSection = () => {
               </button>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-primary-400/30">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-200">500+</div>
-                <div className="text-sm text-primary-100">Happy Clients</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-200">7+</div>
-                <div className="text-sm text-primary-100">Years Experience</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-200">24/7</div>
-                <div className="text-sm text-primary-100">Support</div>
-              </div>
-            </div>
+            <p className="pt-8 text-primary-100">Visit our Pontotoc office at 158 MS-15, Suite D. <a href="/team" className="underline">Meet the team</a> and bring your questions about coverage.</p>
           </div>
 
           {/* Right Content - Quote Form */}
@@ -211,7 +200,7 @@ const HeroSection = () => {
 
               {submitStatus === 'success' && (
                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
-                  <p className="text-sm font-medium">Thank you! Your quote request has been sent successfully. We'll get back to you within 2 hours.</p>
+                  <p className="text-sm font-medium">Thank you! Your quote request has been sent successfully. Our team will follow up with you.</p>
                 </div>
               )}
 

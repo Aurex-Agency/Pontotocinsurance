@@ -16,6 +16,7 @@ export function generateMetadata({ params }: ArticlePageProps): Metadata {
   const article = getArticle(params.slug)
   if (!article) return {}
   return {
+    robots: article.reviewStatus === 'pending' ? { index: false, follow: false } : undefined,
     title: article.metaTitle,
     description: article.metaDescription,
     alternates: { canonical: `/resources/${article.slug}` },
@@ -101,6 +102,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <>
+      {article.reviewStatus === 'pending' && <div role="status" className="bg-amber-100 p-5 text-center">Review draft. Licensed review and publication approval pending.</div>}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([articleData, breadcrumbData]) }}
@@ -108,7 +110,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
       {/* Article header */}
       <section className="bg-gradient-to-br from-secondary-900 to-secondary-700 text-white">
-        <div className="container-custom py-14 lg:py-16">
+        <div className="container-custom px-4 sm:px-6 py-14 lg:py-16">
           <div className="max-w-3xl mx-auto">
             <Link
               href="/resources"
@@ -151,6 +153,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
               <Block key={i} block={block} />
             ))}
 
+            {article.sources && <aside className="border-t pt-6 mt-8"><h2 className="text-xl font-bold">Sources and review</h2><p>General education, not an individual coverage recommendation. {article.reviewStatus === 'approved' ? `Reviewed by ${article.reviewer} on ${article.reviewedAt}.` : 'Licensed review pending.'}</p><ul>{article.sources.map(source => <li key={source.href}><a className="text-primary-700 underline" href={source.href}>{source.label}</a></li>)}</ul></aside>}
             {/* Related links */}
             <div className="mt-12 border-t border-gray-200 pt-8">
               <h2 className="text-lg font-bold text-gray-900 mb-4">Keep going</h2>
@@ -173,7 +176,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
       {/* CTA */}
       <section className="bg-secondary-900 text-white">
-        <div className="container-custom py-14 text-center space-y-5">
+        <div className="container-custom px-4 sm:px-6 py-14 text-center space-y-5">
           <h2 className="text-3xl font-bold">Questions about your own situation?</h2>
           <p className="text-secondary-100 max-w-xl mx-auto">
             Talk it through with a licensed Mississippi advisor. Free, local, and

@@ -16,17 +16,14 @@ function AdminContent({ children }: { children: React.ReactNode }) {
   // Skip authentication check for login page
   const isLoginPage = pathname === '/admin/login'
 
-  // For login page, render children directly without admin layout
-  if (isLoginPage) {
-    return <>{children}</>
-  }
-
   // Redirect to login if not authenticated
   useEffect(() => {
-    if (!loading && !isAuthenticated) {
+    if (!isLoginPage && !loading && !isAuthenticated) {
       router.push('/admin/login')
     }
-  }, [loading, isAuthenticated, router])
+  }, [loading, isAuthenticated, router, isLoginPage])
+
+  if (isLoginPage) return <>{children}</>
 
   const handleLogout = async () => {
     await signOut()

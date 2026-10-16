@@ -177,6 +177,7 @@ export default function CityPage({ params }: CityPageProps) {
         </div>
       </section>
 
+      <section className="container-custom px-4 sm:px-6 py-10"><h2 className="text-2xl font-bold mb-3">Contact our Pontotoc office</h2><p className="mb-4">Our listed office is at 158 MS-15, Suite D, Pontotoc, MS 38863. This page describes service for {city.name}; it does not identify a separate branch office. Confirm appointment arrangements before travelling.</p><Link className="text-primary-700 underline" href="/contact">Request an appointment</Link></section>
       {/* FAQs */}
       <section className="section-padding">
         <div className="container-custom">

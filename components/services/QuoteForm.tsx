@@ -1,5 +1,7 @@
 'use client'
 
+import { trackLead } from '@/lib/analytics'
+
 import { useState } from 'react'
 import { Heart, Users, PiggyBank, Send, Pill } from 'lucide-react'
 import { useSiteSettings } from '@/lib/useSiteSettings'
@@ -49,6 +51,7 @@ const QuoteForm = ({ service, title, description }: QuoteFormProps) => {
 
       if (response.ok) {
         setSubmitStatus('success')
+        trackLead('QuoteForm')
         // Reset form
         setFormData({
           firstName: '',
@@ -215,7 +218,7 @@ const QuoteForm = ({ service, title, description }: QuoteFormProps) => {
 
                 {submitStatus === 'success' && (
                   <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
-                    <p className="text-sm font-medium">Thank you! Your quote request has been sent successfully. We'll get back to you within 24 hours.</p>
+                    <p className="text-sm font-medium">Thank you! Your quote request has been sent successfully. Our team will follow up with you.</p>
                   </div>
                 )}
 

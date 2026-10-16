@@ -31,34 +31,6 @@ const WhyChooseUs = () => {
     }
   ]
 
-  const stats = [
-    { number: '500+', label: 'Happy Clients' },
-    { number: '7+', label: 'Years Experience' },
-    { number: '98%', label: 'Customer Satisfaction' },
-    { number: '24/7', label: 'Claims Support' }
-  ]
-
-  const testimonials = [
-    {
-      name: 'Sarah Johnson',
-      location: 'Pontotoc, MS',
-      rating: 5,
-      text: 'Pontotoc Insurance Agency made finding the right insurance so easy. Their personalized service and local expertise really made a difference.'
-    },
-    {
-      name: 'Michael Davis',
-      location: 'Tupelo, MS',
-      rating: 5,
-      text: 'I\'ve been with them for over 10 years. They always find me the best rates and are there when I need them.'
-    },
-    {
-      name: 'Jennifer Wilson',
-      location: 'Oxford, MS',
-      rating: 5,
-      text: 'When I had a claim, they handled everything professionally and quickly. I couldn\'t be happier with their service.'
-    }
-  ]
-
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
@@ -84,41 +56,6 @@ const WhyChooseUs = () => {
               <p className="text-gray-600">{reason.description}</p>
             </div>
           ))}
-        </div>
-
-        {/* Stats Section */}
-        <div className="bg-gradient-to-r from-primary-600 to-primary-800 rounded-2xl p-8 mb-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
-            {stats.map((stat, index) => (
-              <div key={index}>
-                <div className="text-4xl font-bold mb-2">{stat.number}</div>
-                <div className="text-primary-100">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Testimonials */}
-        <div className="mb-16">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            What Our Clients Say
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-gray-50 rounded-xl p-6">
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} size={20} className="text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                <div>
-                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                  <div className="text-sm text-gray-600">{testimonial.location}</div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Benefits List */}

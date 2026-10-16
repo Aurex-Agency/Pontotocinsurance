@@ -12,7 +12,7 @@ const ServicesOverview = () => {
       icon: Heart,
       title: 'Life Insurance',
       description: 'Secure your family\'s financial future with comprehensive life insurance solutions. Protect your loved ones with term, whole, and universal life policies tailored to your needs.',
-      features: ['Term Life Insurance', 'Whole Life Insurance', 'Universal Life Insurance', 'Final Expense Coverage', 'Estate Planning'],
+      features: ['Term Life Insurance', 'Whole Life Insurance', 'Universal Life Insurance', 'Final Expense Coverage', 'Beneficiary Questions'],
       href: '/life',
       color: 'from-red-500 to-red-600'
     },
@@ -27,8 +27,8 @@ const ServicesOverview = () => {
     {
       icon: PiggyBank,
       title: 'Retirement Planning',
-      description: 'Build wealth and secure your retirement with comprehensive financial planning. Expert guidance on 401(k), IRAs, annuities, and investment strategies for long-term financial security.',
-      features: ['401(k) Planning & Rollovers', 'IRA Management', 'Annuities', 'Social Security Optimization', 'Investment Strategies'],
+      description: 'Discuss insurance considerations for retirement and ask which services and professional qualifications apply to your needs.',
+      features: ['Insurance in Retirement', 'Annuity Questions', 'Coverage Review'],
       href: '/retirement',
       color: 'from-yellow-500 to-yellow-600'
     },
@@ -47,10 +47,10 @@ const ServicesOverview = () => {
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Comprehensive Financial & Insurance Solutions
+            Life, Health and Medicare Insurance Questions
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Expert guidance for your most important financial decisions. From protecting your family's future with life insurance to securing your health coverage and building wealth through retirement planning, we're your trusted financial partners.
+            Explore coverage options with our Pontotoc office. Start with the type of coverage you need, then ask which products and insurers are available for your circumstances.
           </p>
         </div>
 
@@ -101,13 +101,13 @@ const ServicesOverview = () => {
               Need Multiple Types of Coverage?
             </h3>
             <p className="text-gray-600 mb-6">
-              Bundle your insurance policies and save money while simplifying your coverage management.
+              Review your coverage questions together and ask about the options available to you.
             </p>
               <button
                 onClick={() => setIsQuoteModalOpen(true)}
                 className="btn-primary"
               >
-                Get Bundle Quote
+                Request a Coverage Review
               </button>
           </div>
         </div>

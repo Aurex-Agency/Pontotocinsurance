@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: AgentPageProps) {
   
   return {
     title: `${member.name} - Insurance Agent | Pontotoc Insurance Agency`,
+    alternates: { canonical: `/agent/${params.slug}` },
     description: member.bio,
     openGraph: {
       title: `${member.name} - Insurance Agent`,
