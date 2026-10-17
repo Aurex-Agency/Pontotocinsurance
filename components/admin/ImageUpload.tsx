@@ -94,7 +94,7 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
       {displayImage && (
         <div className="relative w-32 h-32 mx-auto">
           <img
-            src={displayImage}
+            src={encodeURI(displayImage).replace(/%25([0-9a-f]{2})/gi, '%$1')}
             alt="Preview"
             className="w-full h-full object-cover rounded-lg border border-gray-300"
           />
