@@ -23,9 +23,11 @@ export async function generateMetadata({ params }: AgentPageProps) {
   if (!member) return {}
   
   return {
-    title: `${member.name} - Insurance Agent | Pontotoc Insurance Agency`,
+    title: `${member.name} - Insurance Agent`,
+    alternates: { canonical: `/agent/${params.slug}` },
     description: member.bio,
     openGraph: {
+      url: `https://pontotocinsuranceagency.com/agent/${params.slug}`,
       title: `${member.name} - Insurance Agent`,
       description: member.bio,
       images: [member.image_url || '/team/default-avatar.jpg'],

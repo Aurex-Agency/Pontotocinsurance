@@ -113,6 +113,7 @@ export default async function RootLayout({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "InsuranceAgency",
+    "@id": "https://pontotocinsuranceagency.com/#agency",
     "name": "Pontotoc Insurance Agency",
     "alternateName": "PIA",
     "description": "Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Pontotoc, Mississippi.",
@@ -175,15 +176,6 @@ export default async function RootLayout({
         "@type": "Place",
         "name": "North Mississippi"
       }
-    ],
-    "serviceType": [
-      "Life Insurance",
-      "Health Insurance",
-      "Medicare Insurance",
-      "Retirement Planning",
-      "Wealth Management",
-      "Estate Planning",
-      "Financial Planning"
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -252,7 +244,7 @@ export default async function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
         />
       </head>
       <body className={inter.className}>

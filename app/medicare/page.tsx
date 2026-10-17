@@ -61,6 +61,7 @@ export default function MedicarePage() {
     "serviceType": "Medicare Insurance Advisory",
     "provider": {
       "@type": "InsuranceAgency",
+      "@id": "https://pontotocinsuranceagency.com/#agency",
       "name": "Pontotoc Insurance Agency",
       "address": {
         "@type": "PostalAddress",
@@ -139,7 +140,7 @@ export default function MedicarePage() {
     <div className="min-h-screen">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqData, breadcrumbData]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, faqData, breadcrumbData]).replace(/</g, "\\u003c") }}
       />
       <MedicareHero />
       

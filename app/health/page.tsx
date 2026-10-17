@@ -54,6 +54,7 @@ export default function HealthInsurance() {
     "serviceType": "Health Insurance Brokerage",
     "provider": {
       "@type": "InsuranceAgency",
+      "@id": "https://pontotocinsuranceagency.com/#agency",
       "name": "Pontotoc Insurance Agency",
       "address": {
         "@type": "PostalAddress",
@@ -92,11 +93,6 @@ export default function HealthInsurance() {
         }
       }
     ],
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "34.2479",
-      "longitude": "-89.0067"
-    },
     "description": "Expert health insurance broker in Pontotoc, MS. Find affordable individual, family, and group health insurance plans. Serving Pontotoc, Tupelo, Oxford, and all of Mississippi with comprehensive coverage options.",
     "offers": {
       "@type": "Offer",
@@ -121,7 +117,7 @@ export default function HealthInsurance() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, breadcrumbData]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, breadcrumbData]).replace(/</g, "\\u003c") }}
       />
       <HealthInsuranceHero />
       <CoverageOptions 

@@ -103,7 +103,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([articleData, breadcrumbData]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([articleData, breadcrumbData]).replace(/</g, "\\u003c") }}
       />
 
       {/* Article header */}

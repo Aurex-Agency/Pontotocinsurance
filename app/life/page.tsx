@@ -52,6 +52,7 @@ export default function LifeInsurance() {
     "serviceType": "Life Insurance Advisory",
     "provider": {
       "@type": "InsuranceAgency",
+      "@id": "https://pontotocinsuranceagency.com/#agency",
       "name": "Pontotoc Insurance Agency",
       "address": {
         "@type": "PostalAddress",
@@ -92,7 +93,7 @@ export default function LifeInsurance() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, breadcrumbData]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([structuredData, breadcrumbData]).replace(/</g, "\\u003c") }}
       />
       <LifeInsuranceHero />
       <CoverageOptions 

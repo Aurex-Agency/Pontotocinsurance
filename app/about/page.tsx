@@ -34,6 +34,7 @@ export default function About() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "InsuranceAgency",
+    "@id": "https://pontotocinsuranceagency.com/#agency",
     "name": "Pontotoc Insurance Agency",
     "description": "Expert financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Licensed professionals with 7+ years of experience serving Pontotoc, MS and surrounding areas.",
     "url": "https://pontotocinsuranceagency.com",
@@ -49,10 +50,6 @@ export default function About() {
     "telephone": "+1-662-200-2249",
     "email": "info@pontotocinsuranceagency.com",
     "foundingDate": "2017",
-    "numberOfEmployees": {
-      "@type": "QuantitativeValue",
-      "value": "5-10"
-    },
     "areaServed": [
       {
         "@type": "City",
@@ -118,7 +115,7 @@ export default function About() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
       />
       <section className="relative bg-gradient-to-br from-primary-600 to-primary-800 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/10">
