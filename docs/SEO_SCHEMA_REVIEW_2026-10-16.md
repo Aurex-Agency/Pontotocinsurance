@@ -9,3 +9,5 @@ Validation: Next.js production build; rendered schema validation; Google Rich Re
 Remaining dependencies: Existing PR #6 remains a separate release dependency: database RLS/public lead-read review, admin authorization configuration, intake verification and licensed review of insurance copy. This narrow change does not resolve those holds.
 
 This PR is independently reviewable. After release, recrawl production and recheck Search Console; local validation does not guarantee Google indexing or rich-result display.
+
+Also redirect the confirmed legacy /home 404 to the homepage. The source URLs returned 404 in a live check on 2026-10-16; all replacement destinations returned 200.
