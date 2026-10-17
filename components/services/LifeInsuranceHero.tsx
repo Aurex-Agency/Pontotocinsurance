@@ -8,11 +8,11 @@ const LifeInsuranceHero = () => {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const benefits = [
     'Financial protection for your family',
-    'Tax-free death benefits',
-    'Cash value accumulation',
-    'Flexible premium options',
-    'Convertible term policies',
-    'Guaranteed insurability'
+    'Beneficiary and benefit questions',
+    'Cash value features on eligible policies',
+    'Premium choices depend on the policy',
+    'Ask about term conversion options',
+    'Underwriting and eligibility review'
   ]
 
   return (
@@ -49,7 +49,7 @@ const LifeInsuranceHero = () => {
                   <span className="font-semibold">Term Life</span>
                 </div>
                 <p className="text-red-100 text-sm">
-                  Affordable coverage for a specific period, perfect for young families.
+                  Affordable coverage for a specific period, subject to the policy terms and your circumstances.
                 </p>
               </div>
 
@@ -90,9 +90,9 @@ const LifeInsuranceHero = () => {
 
             <div className="mt-8 pt-6 border-t border-red-400/30">
               <div className="text-center">
-                <div className="text-3xl font-bold text-red-200 mb-2">Starting At</div>
-                <div className="text-5xl font-bold text-white mb-2">$15</div>
-                <div className="text-red-100">Per Month</div>
+                <div className="text-3xl font-bold text-red-200 mb-2">Individual Quotes</div>
+                <div className="text-5xl font-bold text-white mb-2">Your Needs</div>
+                <div className="text-red-100">Premiums and approval depend on the insurer and your application.</div>
               </div>
             </div>
           </div>

@@ -1,3 +1,5 @@
+import { safeImageSource } from '@/lib/image-source'
+import { requireAdmin } from '@/lib/require-admin'
 import { NextRequest, NextResponse } from 'next/server'
 import { getTeamMembers, createTeamMember, updateTeamMember, deleteTeamMember } from '../../../lib/database'
 
@@ -8,7 +10,7 @@ function convertTeamMemberToFrontend(dbMember: any) {
     name: dbMember.name,
     title: dbMember.title,
     bio: dbMember.bio,
-    image: dbMember.image_url || '/team/default-avatar.jpg',
+    image: (typeof dbMember.image_url === 'string' && safeImageSource(dbMember.image_url)) || '/team/default-avatar.jpg',
     email: dbMember.email || '',
     phone: dbMember.phone || '',
     specialties: dbMember.specialties || [],
@@ -75,8 +77,17 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const denied = await requireAdmin(request)
+  if (denied) return denied
   try {
     const { action, member, memberId } = await request.json()
+    if ((action === 'create' || action === 'update') && member) {
+      const rawImage = member.image
+      if (rawImage != null && rawImage !== '' && (typeof rawImage !== 'string' || !safeImageSource(rawImage))) {
+        return NextResponse.json({ error: 'Use an HTTPS image URL, local image path, or supported raster upload.' }, { status: 400 })
+      }
+      member.image = typeof rawImage === 'string' ? safeImageSource(rawImage) || '' : ''
+    }
     
     switch (action) {
       case 'create':

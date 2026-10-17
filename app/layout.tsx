@@ -12,41 +12,7 @@ export const metadata: Metadata = {
     template: '%s | Pontotoc Insurance Agency'
   },
   description: 'Local, licensed insurance advisors in Pontotoc, MS helping families across North Mississippi with life insurance, health insurance, Medicare, and retirement planning. Free quotes and one-on-one guidance. Call (662) 200-2249.',
-  keywords: [
-    'financial advisor Pontotoc MS',
-    'life insurance advisor Pontotoc Mississippi',
-    'health insurance Pontotoc MS',
-    'health insurance broker Pontotoc Mississippi',
-    'Medicare Pontotoc MS',
-    'Medicare advisor Pontotoc Mississippi',
-    'annuities Pontotoc MS',
-    'annuity advisor Pontotoc Mississippi',
-    'retirement planning Pontotoc MS',
-    'retirement planning advisor Pontotoc Mississippi',
-    'wealth management Pontotoc MS',
-    'estate planning Pontotoc Mississippi',
-    'high net worth financial advisor Pontotoc',
-    'life insurance quotes Pontotoc MS',
-    'health insurance plans Pontotoc Mississippi',
-    'Medicare Advantage Pontotoc MS',
-    'Medigap insurance Pontotoc Mississippi',
-    '401k rollover advisor Pontotoc MS',
-    'IRA management Pontotoc Mississippi',
-    'annuity Pontotoc MS',
-    'term life insurance Pontotoc Mississippi',
-    'whole life insurance Pontotoc MS',
-    'universal life insurance Pontotoc',
-    'financial planning services Pontotoc MS',
-    'investment advisor Pontotoc Mississippi',
-    'tax planning advisor Pontotoc MS',
-    'financial consultant Pontotoc Mississippi',
-    'insurance agent Pontotoc MS',
-    'licensed financial advisor Pontotoc',
-    'Pontotoc insurance agency',
-    'insurance Pontotoc County',
-    'financial advisor Tupelo MS',
-    'financial advisor Oxford MS'
-  ],
+  keywords: ['life insurance Pontotoc', 'health insurance Pontotoc', 'Medicare Pontotoc', 'Pontotoc Insurance Agency'],
   authors: [{ name: 'Pontotoc Insurance Agency' }],
   creator: 'Pontotoc Insurance Agency',
   publisher: 'Pontotoc Insurance Agency',
@@ -111,140 +77,13 @@ export default async function RootLayout({
   const { getSiteSettingsData } = await import('@/lib/getSiteSettings')
   const siteSettings = await getSiteSettingsData()
   const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "InsuranceAgency",
-    "name": "Pontotoc Insurance Agency",
-    "alternateName": "PIA",
-    "description": "Premier financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. Expert wealth management and estate planning services for high-net-worth individuals and families in Pontotoc, Mississippi.",
-    "url": "https://pontotocinsuranceagency.com",
-    "logo": "https://pontotocinsuranceagency.com/pia_logo.png",
-    "image": "https://pontotocinsuranceagency.com/pia_logo.png",
-    "telephone": "+1-662-200-2249",
-    "email": "info@pontotocinsuranceagency.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "158 MS-15, Suite D",
-      "addressLocality": "Pontotoc",
-      "addressRegion": "MS",
-      "postalCode": "38863",
-      "addressCountry": "US"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "34.2479",
-      "longitude": "-89.0067"
-    },
-    "openingHours": [
-      "Mo-Fr 08:00-18:00",
-      "Sa 09:00-14:00"
-    ],
-    "areaServed": [
-      {
-        "@type": "City",
-        "name": "Pontotoc",
-        "containedInPlace": {
-          "@type": "State",
-          "name": "Mississippi"
-        }
-      },
-      {
-        "@type": "City", 
-        "name": "Tupelo",
-        "containedInPlace": {
-          "@type": "State",
-          "name": "Mississippi"
-        }
-      },
-      {
-        "@type": "City",
-        "name": "Oxford",
-        "containedInPlace": {
-          "@type": "State",
-          "name": "Mississippi"
-        }
-      },
-      {
-        "@type": "City",
-        "name": "New Albany",
-        "containedInPlace": {
-          "@type": "State",
-          "name": "Mississippi"
-        }
-      },
-      {
-        "@type": "Place",
-        "name": "North Mississippi"
-      }
-    ],
-    "serviceType": [
-      "Life Insurance",
-      "Health Insurance",
-      "Medicare Insurance",
-      "Retirement Planning",
-      "Wealth Management",
-      "Estate Planning",
-      "Financial Planning"
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Financial Advisory Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service", 
-            "name": "Life Insurance",
-            "description": "Comprehensive life insurance solutions including term, whole, and universal life policies. Expert guidance for estate planning and wealth transfer strategies for high-net-worth individuals."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Health Insurance", 
-            "description": "Expert health insurance brokerage services for individuals, families, and businesses. Navigate the marketplace with personalized guidance and comprehensive coverage options."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Medicare Insurance",
-            "description": "Specialized Medicare advisory services including Medicare Advantage, Medigap, and Prescription Drug Plans. Expert guidance for seniors and their families."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Retirement Planning",
-            "description": "Comprehensive retirement planning and wealth management services including 401(k) rollovers, IRA management, annuities, Social Security optimization, and investment strategies for long-term financial security."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Wealth Management",
-            "description": "Personalized wealth management and investment advisory services for high-net-worth individuals and families seeking long-term financial growth and security."
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Estate Planning",
-            "description": "Expert estate planning services to protect and transfer wealth efficiently, including life insurance strategies for estate tax planning and legacy building."
-          }
-        }
-      ]
-    },
-    "sameAs": [
-      "https://www.facebook.com/profile.php?id=61555385591316",
-      "https://www.instagram.com/pontotocinsuranceagency",
-      "https://www.linkedin.com/company/pontotoc-insurance-agency/",
-      "https://www.tiktok.com/@pontotocinsurance"
-    ]
+    '@context': 'https://schema.org', '@type': 'InsuranceAgency',
+    '@id': 'https://pontotocinsuranceagency.com/#agency',
+    name: 'Pontotoc Insurance Agency', url: 'https://pontotocinsuranceagency.com',
+    description: 'Life insurance, health insurance and Medicare conversations for North Mississippi residents.',
+    telephone: siteSettings.site_phone, email: siteSettings.site_email,
+    logo: 'https://pontotocinsuranceagency.com/pia_logo.png',
+    address: { '@type': 'PostalAddress', streetAddress: '158 MS-15, Suite D', addressLocality: 'Pontotoc', addressRegion: 'MS', postalCode: '38863', addressCountry: 'US' }
   }
 
   return (
@@ -256,7 +95,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <GoogleAnalytics measurementId="G-E8MB7HL2TR" />
+        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-E8MB7HL2TR'} />
         <LayoutChrome footerSettings={siteSettings}>
           {children}
         </LayoutChrome>

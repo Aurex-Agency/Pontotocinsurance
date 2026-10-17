@@ -70,8 +70,7 @@ const Footer = ({ initialSettings }: FooterProps) => {
               </div>
             </div>
             <p className="text-gray-400 mb-6">
-              Expert financial advisors specializing in life insurance, health insurance, Medicare, and retirement planning. 
-              Your trusted partner for building wealth and protecting your financial future.
+              Life insurance, health insurance and Medicare conversations with our Pontotoc office. Ask the team about current services and available coverage options.
             </p>
             <div className="flex space-x-4">
               <a 

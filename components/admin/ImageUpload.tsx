@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { safeImageSource, validImageUpload } from '@/lib/image-source'
 import { Upload, X, Image as ImageIcon } from 'lucide-react'
 
 interface ImageUploadProps {
@@ -10,20 +11,30 @@ interface ImageUploadProps {
 }
 
 const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload file" }: ImageUploadProps) => {
+  const [error, setError] = useState('')
+  const [urlDraft, setUrlDraft] = useState(value)
   const [isDragOver, setIsDragOver] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileSelect = (file: File) => {
-    if (file && file.type.startsWith('image/')) {
+    setError('')
+    if (!validImageUpload(file)) {
+      setError('Choose a PNG, JPEG, GIF or WebP image no larger than 10MB.')
+      return
+    }
+    if (file) {
       const reader = new FileReader()
       reader.onload = (e) => {
-        const result = e.target?.result as string
+        const result = typeof e.target?.result === 'string' ? safeImageSource(e.target.result) : null
+        if (!result) { setError('This image could not be previewed.'); return }
         setPreview(result)
+        setUrlDraft(result)
         // In a real app, you would upload the file to a server and get a URL
         // For now, we'll use the data URL
         onChange(result)
       }
+      reader.onerror = () => setError('This image could not be read. Please try another file.')
       reader.readAsDataURL(file)
     }
   }
@@ -56,33 +67,41 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
   }
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value)
+    const raw = e.target.value
+    const safe = safeImageSource(raw)
+    setUrlDraft(raw)
+    setError(raw && !safe ? 'Use an HTTPS image URL or a local image path.' : '')
+    onChange(safe || '')
     setPreview(null)
   }
 
   const clearImage = () => {
+    setError('')
     onChange('')
+    setUrlDraft('')
     setPreview(null)
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
   }
 
-  const displayImage = preview || value
+  const displayImage = safeImageSource(preview || value)
 
   return (
     <div className="space-y-4">
+      {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
       {/* Image Preview */}
       {displayImage && (
         <div className="relative w-32 h-32 mx-auto">
           <img
-            src={displayImage}
+            src={encodeURI(displayImage).replace(/%25([0-9a-f]{2})/gi, '%$1')}
             alt="Preview"
             className="w-full h-full object-cover rounded-lg border border-gray-300"
           />
           <button
             type="button"
             onClick={clearImage}
+            aria-label="Remove image"
             className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
           >
             <X size={14} />
@@ -116,13 +135,13 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
                 browse
               </button>
             </p>
-            <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            <p className="text-xs text-gray-500">PNG, JPG, GIF or WebP up to 10MB</p>
           </div>
         </div>
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/*"
+          accept="image/png,image/jpeg,image/gif,image/webp"
           onChange={handleFileInputChange}
           className="hidden"
         />
@@ -136,7 +155,7 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
         <div className="relative">
           <input
             type="url"
-            value={value}
+            value={urlDraft}
             onChange={handleUrlChange}
             placeholder={placeholder}
             className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"

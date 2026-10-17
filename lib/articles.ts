@@ -1,3 +1,4 @@
+import { seoArticles } from './seo-articles'
 // Article content for /resources. Block-based so all articles share one
 // renderer and consistent styling. Dollar figures must stay consistent with
 // the Medicare page (see components/medicare/MedicareCosts.tsx).
@@ -9,6 +10,10 @@ export type ArticleBlock =
   | { type: 'callout'; title: string; text: string }
 
 export interface Article {
+  reviewStatus?: 'pending' | 'approved'
+  reviewer?: string
+  reviewedAt?: string
+  sources?: { label: string; href: string }[]
   slug: string
   title: string
   metaTitle: string
@@ -21,7 +26,7 @@ export interface Article {
   related: { label: string; href: string }[]
 }
 
-export const articles: Article[] = [
+const existingArticles: Article[] = [
   {
     slug: 'medicare-advantage-vs-medicare-supplement-mississippi',
     title: 'Medicare Advantage vs. Medicare Supplement in Mississippi: Which Is Right for You?',
@@ -228,6 +233,12 @@ export const articles: Article[] = [
     ],
   },
 ]
+
+// Pending articles are unavailable on every production build, including guessed URLs.
+export const articles = [...existingArticles, ...seoArticles].filter(a =>
+  !a.reviewStatus || (a.reviewStatus === 'approved' && a.reviewer && a.reviewedAt) ||
+  (process.env.NODE_ENV === 'development' && process.env.SEO_REVIEW_PREVIEW === 'true')
+)
 
 export function getArticle(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug)

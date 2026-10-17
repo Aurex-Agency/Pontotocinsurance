@@ -66,3 +66,10 @@ a {
     background-repeat: repeat;
   }
 }
+
+/* Keep core content readable for visitors requesting reduced motion. */
+:focus-visible { outline: 3px solid #2563eb; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

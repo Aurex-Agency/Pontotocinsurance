@@ -1,5 +1,7 @@
 'use client'
 
+import { adminFetch } from '@/lib/admin-fetch'
+
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import {
@@ -49,7 +51,7 @@ const UserManagement = () => {
   const fetchUsers = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('/api/admin/users')
+      const response = await adminFetch('/api/admin/users')
       const result = await response.json()
       
       if (result.success) {
@@ -70,7 +72,7 @@ const UserManagement = () => {
     setMessage(null)
 
     try {
-      const response = await fetch('/api/admin/users', {
+      const response = await adminFetch('/api/admin/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +106,7 @@ const UserManagement = () => {
     setMessage(null)
 
     try {
-      const response = await fetch(`/api/admin/users?userId=${userId}`, {
+      const response = await adminFetch(`/api/admin/users?userId=${userId}`, {
         method: 'DELETE',
       })
       
@@ -137,7 +139,7 @@ const UserManagement = () => {
     setMessage(null)
 
     try {
-      const response = await fetch('/api/admin/users/reset-password', {
+      const response = await adminFetch('/api/admin/users/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

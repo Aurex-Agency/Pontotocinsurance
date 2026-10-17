@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react';
 import type { Metadata } from 'next';
 import MedicareHero from '@/components/services/MedicareHero';
@@ -169,6 +170,7 @@ export default function MedicarePage() {
       
       <MedicareFAQ />
       
+      <section className="container-custom px-4 sm:px-6 py-12"><h2 className="text-3xl font-bold mb-4">Bring your questions to a Medicare review</h2><p className="mb-5">Prepare your provider and prescription lists, existing coverage notices and questions about total costs. Confirm the coverage year and enrollment period before making a change. Do not send Medicare numbers or health records through an ordinary website message.</p><Link className="text-primary-700 underline mr-6" href="/resources">Read our insurance resources</Link><Link className="text-primary-700 underline" href="/team">Meet the team</Link></section>
       <QuoteForm 
         service="medicare"
         title="Get Your Medicare Quote Today"

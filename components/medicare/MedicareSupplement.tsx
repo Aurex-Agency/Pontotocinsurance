@@ -143,42 +143,19 @@ export default function MedicareSupplement() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    <tr className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-semibold text-gray-900">Plan A</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">-</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-semibold text-gray-900">Plan F</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-semibold text-gray-900">Plan G</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-semibold text-gray-900">Plan N</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                      <td className="px-6 py-4 text-center text-sm text-gray-600">✓</td>
-                    </tr>
-                  </tbody>
-                </table>
+                    {[
+                      ['Plan A', 'Not covered', 'Not covered', 'Part B coinsurance covered', 'Not covered'],
+                      ['Plan F', 'Covered', 'Covered', 'Part B coinsurance covered', '80%, subject to limits'],
+                      ['Plan G', 'Covered', 'Not covered', 'Part B coinsurance covered', '80%, subject to limits'],
+                      ['Plan N', 'Covered', 'Not covered', 'Part B coinsurance with certain copayments', '80%, subject to limits']
+                    ].map(row => <tr key={row[0]}>{row.map((cell, i) => <td key={i} className="px-6 py-4 text-sm text-gray-700">{cell}</td>)}</tr>)}
+                  </tbody>                </table>
               </div>
               
               <div className="bg-gray-50 p-6">
                 <p className="text-sm text-gray-600 text-center">
                   <strong>Note:</strong> Plan F is only available to those who were eligible for Medicare before January 1, 2020. 
-                  Plan G is often considered the best alternative to Plan F.
+                  Plan suitability depends on your circumstances. This summary is not a complete benefit schedule. Review the <a className="underline" href="https://www.medicare.gov/health-drug-plans/medigap/basics/compare-plan-benefits">official Medicare benefit chart</a>, including Plan N copayments, foreign-travel limits and high-deductible variants.
                 </p>
               </div>
             </div>

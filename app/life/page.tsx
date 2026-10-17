@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import LifeInsuranceHero from '@/components/services/LifeInsuranceHero'
 import CoverageOptions from '@/components/services/CoverageOptions'
@@ -105,6 +106,7 @@ export default function LifeInsurance() {
         title="Why Choose Us for Life Insurance"
         description="Expert guidance, competitive rates, and personalized service for all your life insurance needs."
       />
+      <section className="container-custom px-4 sm:px-6 py-12"><h2 className="text-3xl font-bold mb-4">Before you compare life insurance</h2><p className="mb-5">Bring the purpose of your coverage, your current policy summary and questions about premiums, exclusions and beneficiary choices. Ask which figures are guaranteed and how underwriting affects an individual quote. Do not cancel existing coverage before reviewing the replacement terms.</p><Link className="text-primary-700 underline mr-6" href="/resources">Read our insurance resources</Link><Link className="text-primary-700 underline" href="/team">Meet the team</Link></section>
       <QuoteForm 
         service="life"
         title="Get Your Life Insurance Quote"

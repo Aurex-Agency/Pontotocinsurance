@@ -1,3 +1,4 @@
+import { requireAdmin } from '@/lib/require-admin'
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 
@@ -38,6 +39,8 @@ export async function GET() {
 
 // PUT - Update site settings
 export async function PUT(request: NextRequest) {
+  const denied = await requireAdmin(request)
+  if (denied) return denied
   try {
     const body = await request.json()
     const { settings } = body
@@ -75,6 +78,8 @@ export async function PUT(request: NextRequest) {
 
 // POST - Create new site setting
 export async function POST(request: NextRequest) {
+  const denied = await requireAdmin(request)
+  if (denied) return denied
   try {
     const body = await request.json()
     const { key, value, description } = body

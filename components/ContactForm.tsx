@@ -1,5 +1,7 @@
 'use client'
 
+import { trackLead } from '@/lib/analytics'
+
 import { useState } from 'react'
 import { Send } from 'lucide-react'
 import { submitContactForm } from '@/lib/database'
@@ -57,6 +59,7 @@ const ContactForm = () => {
 
       if (webhookSuccess || supabaseSuccess) {
         setSubmitStatus('success')
+        trackLead('ContactForm')
         // Reset form
         setFormData({
           firstName: '',
@@ -68,7 +71,7 @@ const ContactForm = () => {
         })
       } else {
         setSubmitStatus('error')
-        console.error('Form submission failed:', { webhookResponse, supabaseResult })
+        console.error('Form delivery failed')
       }
     } catch (error) {
       setSubmitStatus('error')
@@ -90,7 +93,7 @@ const ContactForm = () => {
       <h2 className="text-3xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
       <p className="text-gray-600 mb-8">
         Have questions about insurance? Need a quote? Want to schedule a consultation? 
-        Fill out the form below and we'll get back to you within 2 hours.
+        Fill out the form below and our team will follow up with you.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -180,7 +183,8 @@ const ContactForm = () => {
           <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
             Message *
           </label>
-          <textarea
+          <p id="message-privacy" className="text-sm text-gray-600 mb-2">Please do not include policy numbers, Social Security numbers, medical details or financial records.</p>
+          <textarea aria-describedby="message-privacy"
             id="message"
             name="message"
             value={formData.message}
@@ -211,13 +215,13 @@ const ContactForm = () => {
         </button>
 
         {submitStatus === 'success' && (
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
-            <p className="text-sm font-medium">Thank you! Your message has been sent successfully. We'll get back to you within 2 hours.</p>
+          <div role="status" className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
+            <p className="text-sm font-medium">Thank you! Your message has been sent successfully. Our team will follow up with you.</p>
           </div>
         )}
 
         {submitStatus === 'error' && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+          <div role="alert" className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
             <p className="text-sm font-medium">Sorry, there was an error sending your message. Please try again or call us directly at (662) 200-2249.</p>
           </div>
         )}
