@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
+import { safeImageSource, validImageUpload } from '@/lib/image-source'
 import { Upload, X, Image as ImageIcon } from 'lucide-react'
 
 interface ImageUploadProps {
@@ -10,20 +11,28 @@ interface ImageUploadProps {
 }
 
 const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload file" }: ImageUploadProps) => {
+  const [error, setError] = useState('')
   const [isDragOver, setIsDragOver] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileSelect = (file: File) => {
-    if (file && file.type.startsWith('image/')) {
+    setError('')
+    if (!validImageUpload(file)) {
+      setError('Choose a PNG, JPEG, GIF or WebP image no larger than 10MB.')
+      return
+    }
+    if (file) {
       const reader = new FileReader()
       reader.onload = (e) => {
-        const result = e.target?.result as string
+        const result = typeof e.target?.result === 'string' ? safeImageSource(e.target.result) : null
+        if (!result) { setError('This image could not be previewed.'); return }
         setPreview(result)
         // In a real app, you would upload the file to a server and get a URL
         // For now, we'll use the data URL
         onChange(result)
       }
+      reader.onerror = () => setError('This image could not be read. Please try another file.')
       reader.readAsDataURL(file)
     }
   }
@@ -56,11 +65,13 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
   }
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(e.target.value && !safeImageSource(e.target.value) ? 'Use an HTTPS image URL or a local image path.' : '')
     onChange(e.target.value)
     setPreview(null)
   }
 
   const clearImage = () => {
+    setError('')
     onChange('')
     setPreview(null)
     if (fileInputRef.current) {
@@ -68,10 +79,11 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
     }
   }
 
-  const displayImage = preview || value
+  const displayImage = safeImageSource(preview || value)
 
   return (
     <div className="space-y-4">
+      {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
       {/* Image Preview */}
       {displayImage && (
         <div className="relative w-32 h-32 mx-auto">
@@ -83,6 +95,7 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
           <button
             type="button"
             onClick={clearImage}
+            aria-label="Remove image"
             className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
           >
             <X size={14} />
@@ -116,13 +129,13 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
                 browse
               </button>
             </p>
-            <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            <p className="text-xs text-gray-500">PNG, JPG, GIF or WebP up to 10MB</p>
           </div>
         </div>
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/*"
+          accept="image/png,image/jpeg,image/gif,image/webp"
           onChange={handleFileInputChange}
           className="hidden"
         />
