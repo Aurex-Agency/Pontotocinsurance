@@ -41,6 +41,7 @@ export default function CityPage({ params }: CityPageProps) {
   const serviceData = {
     '@context': 'https://schema.org',
     '@type': 'InsuranceAgency',
+      '@id': 'https://pontotocinsuranceagency.com/#agency',
     name: 'Pontotoc Insurance Agency',
     url: `https://pontotocinsuranceagency.com/locations/${city.slug}`,
     telephone: '+1-662-200-2249',
@@ -85,7 +86,7 @@ export default function CityPage({ params }: CityPageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([serviceData, faqData, breadcrumbData]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([serviceData, faqData, breadcrumbData]).replace(/</g, "\\u003c") }}
       />
 
       {/* Hero */}

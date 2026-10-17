@@ -31,7 +31,7 @@ export default function ResourcesPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData).replace(/</g, "\\u003c") }}
       />
 
       <section className="bg-gradient-to-br from-secondary-900 to-secondary-700 text-white">
