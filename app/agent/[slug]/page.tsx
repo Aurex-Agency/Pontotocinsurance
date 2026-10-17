@@ -1,3 +1,4 @@
+import { safeImageSource } from '@/lib/image-source'
 import { notFound } from 'next/navigation'
 import { getTeamMembers } from '@/lib/database'
 import AgentProfile from '@/components/agent/AgentProfile'
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: AgentPageProps) {
     openGraph: {
       title: `${member.name} - Insurance Agent`,
       description: member.bio,
-      images: [member.image_url || '/team/default-avatar.jpg'],
+      images: [safeImageSource(member.image_url || '') || '/team/default-avatar.jpg'],
     },
   }
 }
@@ -54,7 +55,7 @@ export default async function AgentPage({ params }: AgentPageProps) {
     name: member.name,
     title: member.title,
     bio: member.bio,
-    image: member.image_url || '/team/default-avatar.jpg',
+    image: safeImageSource(member.image_url || '') || '/team/default-avatar.jpg',
     email: member.email || '',
     phone: member.phone || '',
     specialties: member.specialties || [],

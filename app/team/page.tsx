@@ -1,3 +1,4 @@
+import { safeImageSource } from '@/lib/image-source'
 import { Metadata } from 'next'
 import TeamHero from '@/components/team/TeamHero'
 import TeamGrid from '@/components/team/TeamGrid'
@@ -43,7 +44,7 @@ function convertTeamMemberToFrontend(dbMember: any) {
     name: dbMember.name,
     title: dbMember.title,
     bio: dbMember.bio,
-    image: dbMember.image_url || '/team/default-avatar.jpg',
+    image: safeImageSource(dbMember.image_url || '') || '/team/default-avatar.jpg',
     email: dbMember.email || '',
     phone: dbMember.phone || '',
     specialties: dbMember.specialties || [],

@@ -12,6 +12,7 @@ interface ImageUploadProps {
 
 const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload file" }: ImageUploadProps) => {
   const [error, setError] = useState('')
+  const [urlDraft, setUrlDraft] = useState(value)
   const [isDragOver, setIsDragOver] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -28,6 +29,7 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
         const result = typeof e.target?.result === 'string' ? safeImageSource(e.target.result) : null
         if (!result) { setError('This image could not be previewed.'); return }
         setPreview(result)
+        setUrlDraft(result)
         // In a real app, you would upload the file to a server and get a URL
         // For now, we'll use the data URL
         onChange(result)
@@ -65,14 +67,18 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
   }
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError(e.target.value && !safeImageSource(e.target.value) ? 'Use an HTTPS image URL or a local image path.' : '')
-    onChange(e.target.value)
+    const raw = e.target.value
+    const safe = safeImageSource(raw)
+    setUrlDraft(raw)
+    setError(raw && !safe ? 'Use an HTTPS image URL or a local image path.' : '')
+    onChange(safe || '')
     setPreview(null)
   }
 
   const clearImage = () => {
     setError('')
     onChange('')
+    setUrlDraft('')
     setPreview(null)
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
@@ -149,7 +155,7 @@ const ImageUpload = ({ value, onChange, placeholder = "Enter image URL or upload
         <div className="relative">
           <input
             type="url"
-            value={value}
+            value={urlDraft}
             onChange={handleUrlChange}
             placeholder={placeholder}
             className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
