@@ -25,7 +25,7 @@ if (!args.includes('--submit')) {
     if (!response.ok || /noindex/i.test(response.headers.get('x-robots-tag') || '')) throw new Error('Changed URL is not publicly indexable')
     const html = await response.text()
     const canonical = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)?.[1]
-    if (canonical !== url) throw new Error('Canonical does not match the changed URL')
+    if (!canonical || new URL(canonical).href !== new URL(url).href) throw new Error('Canonical does not match the changed URL')
     if (/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(html)) throw new Error('Noindex page rejected')
   }
   const response = await fetch('https://api.indexnow.org/indexnow', {method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({host,key,keyLocation,urlList:urls})})

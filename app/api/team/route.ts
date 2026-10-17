@@ -1,3 +1,4 @@
+import { requireAdmin } from '@/lib/require-admin'
 import { NextRequest, NextResponse } from 'next/server'
 import { getTeamMembers, createTeamMember, updateTeamMember, deleteTeamMember } from '../../../lib/database'
 
@@ -75,6 +76,8 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const denied = await requireAdmin(request)
+  if (denied) return denied
   try {
     const { action, member, memberId } = await request.json()
     

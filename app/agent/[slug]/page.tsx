@@ -7,24 +7,23 @@ import AgentProfile from '@/components/agent/AgentProfile'
 export const dynamic = 'force-dynamic'
 
 interface AgentPageProps {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: AgentPageProps) {
+  const resolvedParams = await params
   const result = await getTeamMembers()
   if (!result.success) return {}
   
   const member = result.data.find((m: any) => 
-    m.name.toLowerCase().replace(/\s+/g, '-') === params.slug
+    m.name.toLowerCase().replace(/\s+/g, '-') === resolvedParams.slug
   )
   
   if (!member) return {}
   
   return {
     title: `${member.name} - Insurance Agent | Pontotoc Insurance Agency`,
-    alternates: { canonical: `/agent/${params.slug}` },
+    alternates: { canonical: `/agent/${resolvedParams.slug}` },
     description: member.bio,
     openGraph: {
       title: `${member.name} - Insurance Agent`,
@@ -35,13 +34,14 @@ export async function generateMetadata({ params }: AgentPageProps) {
 }
 
 export default async function AgentPage({ params }: AgentPageProps) {
+  const resolvedParams = await params
   const result = await getTeamMembers()
   if (!result.success) {
     notFound()
   }
   
   const member = result.data.find((m: any) => 
-    m.name.toLowerCase().replace(/\s+/g, '-') === params.slug
+    m.name.toLowerCase().replace(/\s+/g, '-') === resolvedParams.slug
   )
   
   if (!member) {

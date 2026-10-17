@@ -6,15 +6,16 @@ import ContactCTA from '@/components/ContactCTA'
 import { locations, getLocation } from '@/lib/locations'
 
 interface CityPageProps {
-  params: { city: string }
+  params: Promise<{ city: string }>
 }
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }))
 }
 
-export function generateMetadata({ params }: CityPageProps): Metadata {
-  const city = getLocation(params.city)
+export async function generateMetadata({ params }: CityPageProps): Promise<Metadata> {
+  const resolvedParams = await params
+  const city = getLocation(resolvedParams.city)
   if (!city) return {}
   return {
     title: city.metaTitle,
@@ -34,8 +35,9 @@ export function generateMetadata({ params }: CityPageProps): Metadata {
   }
 }
 
-export default function CityPage({ params }: CityPageProps) {
-  const city = getLocation(params.city)
+export default async function CityPage({ params }: CityPageProps) {
+  const resolvedParams = await params
+  const city = getLocation(resolvedParams.city)
   if (!city) notFound()
 
   const serviceData = {

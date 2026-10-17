@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import HeroSection from '@/components/HeroSection'
 import ServicesOverview from '@/components/ServicesOverview'
@@ -32,7 +33,7 @@ export default function Home() {
       <HeroSection />
       <ServicesOverview />
       <WhyChooseUs />
-      <section className="container-custom px-4 sm:px-6 py-12"><h2 className="text-3xl font-bold mb-4">Prepare for an insurance conversation</h2><p className="mb-4">Explore life insurance, health coverage and Medicare questions before requesting a quote.</p><a className="text-primary-700 underline" href="/resources">Read our insurance guides</a></section>
+      <section className="container-custom px-4 sm:px-6 py-12"><h2 className="text-3xl font-bold mb-4">Prepare for an insurance conversation</h2><p className="mb-4">Explore life insurance, health coverage and Medicare questions before requesting a quote.</p><Link className="text-primary-700 underline" href="/resources">Read our insurance guides</Link></section>
       <ContactCTA />
     </>
   )

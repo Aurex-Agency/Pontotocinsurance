@@ -1,5 +1,7 @@
 'use client'
 
+import { adminFetch } from '@/lib/admin-fetch'
+
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Save, Phone, Mail, MapPin, Clock, Building, AlertCircle, CheckCircle, Users } from 'lucide-react'
@@ -42,7 +44,7 @@ const SiteSettings = () => {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
       
-      const response = await fetch('/api/settings', {
+      const response = await adminFetch('/api/settings', {
         signal: controller.signal
       })
       clearTimeout(timeoutId)
@@ -82,7 +84,7 @@ const SiteSettings = () => {
     setMessage(null)
 
     try {
-      const response = await fetch('/api/settings', {
+      const response = await adminFetch('/api/settings', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

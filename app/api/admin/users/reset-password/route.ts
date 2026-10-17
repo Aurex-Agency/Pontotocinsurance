@@ -1,7 +1,10 @@
+import { requireAdmin } from '@/lib/require-admin'
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin, supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
+  const denied = await requireAdmin(request)
+  if (denied) return denied
   try {
     const { email } = await request.json()
 
@@ -9,7 +12,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 })
     }
 
-    console.log('Attempting to send password reset email to:', email)
 
     // Send password reset email using regular client (this actually sends the email)
     // Use secure email link wrapper to prevent email scanners from triggering the link
@@ -31,7 +33,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: error.message }, { status: 400 })
     }
 
-    console.log('Password reset email sent successfully:', data)
 
     return NextResponse.json({ 
       success: true, 

@@ -17,12 +17,15 @@ const drafts=['what-to-bring-medicare-plan-review','term-permanent-life-insuranc
    return route.continue()
  })
  fs.mkdirSync('artifacts',{recursive:true})
+ for(const [path,method] of [['/api/admin/users','GET'],['/api/admin/users','POST'],['/api/admin/users/reset-password','POST'],['/api/contact-submissions','GET'],['/api/quote-requests','GET'],['/api/contact-submissions/not-a-real-id','DELETE'],['/api/quote-requests/not-a-real-id','PATCH'],['/api/settings','PUT'],['/api/team','POST']]){
+   const denied=await fetch(base+path,{method});assert.equal(denied.status,401,path+' '+method+' must reject before any data operation')
+ }
  const sitemap=await (await fetch(base+'/sitemap.xml')).text()
  for(const slug of drafts) assert(!sitemap.includes(slug),'draft in sitemap')
  for(const path of ['/','/life','/health','/medicare','/resources','/locations/oxford']){
   await page.goto(base+path)
   assert.equal(await page.locator('h1').count(),1,path+' h1')
-  assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),'https://pontotocinsuranceagency.com'+(path==='/'?'':path)+(path==='/'?'/':''))
+  assert.equal(new URL(await page.locator('link[rel="canonical"]').getAttribute('href')).href,new URL('https://pontotocinsuranceagency.com'+path).href)
   assert.equal(googleRequests,0,'preview analytics request')
  }
  const medicare=await (await fetch(base+'/medicare')).text()

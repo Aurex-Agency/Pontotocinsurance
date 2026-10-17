@@ -1,5 +1,7 @@
 'use client'
 
+import { adminFetch } from '@/lib/admin-fetch'
+
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Plus, Edit, Trash2, Eye, EyeOff, GripVertical, Save, X } from 'lucide-react'
@@ -187,7 +189,7 @@ const TeamAdmin = () => {
   const fetchTeamData = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('/api/team')
+      const response = await adminFetch('/api/team')
       const data = await response.json()
       setTeamData(data)
     } catch (error) {
@@ -212,7 +214,7 @@ const TeamAdmin = () => {
 
     if (confirm('Are you sure you want to delete this team member?')) {
       try {
-        const response = await fetch('/api/team', {
+        const response = await adminFetch('/api/team', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -240,7 +242,7 @@ const TeamAdmin = () => {
     if (!member) return
 
     try {
-      const response = await fetch('/api/team', {
+      const response = await adminFetch('/api/team', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -281,7 +283,7 @@ const TeamAdmin = () => {
   //   }
     
   //   try {
-  //     const response = await fetch('/api/team', {
+  //     const response = await adminFetch('/api/team', {
   //       method: 'POST',
   //       headers: { 'Content-Type': 'application/json' },
   //       body: JSON.stringify(updatedData)
@@ -321,7 +323,7 @@ const TeamAdmin = () => {
       // Update display order in database
       try {
         for (const member of updatedMembers) {
-          await fetch('/api/team', {
+          await adminFetch('/api/team', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -359,7 +361,7 @@ const TeamAdmin = () => {
         socialMedia: memberData.socialMedia || {}
       }
 
-      const response = await fetch('/api/team', {
+      const response = await adminFetch('/api/team', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

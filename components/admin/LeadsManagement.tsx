@@ -1,5 +1,7 @@
 'use client'
 
+import { adminFetch } from '@/lib/admin-fetch'
+
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
@@ -63,8 +65,8 @@ const LeadsManagement = () => {
   const fetchLeads = async () => {
     try {
       const [contactsResponse, quotesResponse] = await Promise.all([
-        fetch('/api/contact-submissions'),
-        fetch('/api/quote-requests')
+        adminFetch('/api/contact-submissions'),
+        adminFetch('/api/quote-requests')
       ])
 
       const contactsData = await contactsResponse.json()
@@ -172,7 +174,7 @@ const LeadsManagement = () => {
         ? '/api/contact-submissions' 
         : '/api/quote-requests'
       
-      const response = await fetch(`${endpoint}/${leadId}`, {
+      const response = await adminFetch(`${endpoint}/${leadId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

@@ -90,8 +90,7 @@ ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public to insert contact submissions" ON contact_submissions
   FOR INSERT WITH CHECK (true);
 
-CREATE POLICY "Allow public to read contact submissions" ON contact_submissions
-  FOR SELECT USING (true);
+-- Public form insertions do not require public SELECT access to private leads.
 
 CREATE POLICY "Allow admins to read all contact submissions" ON contact_submissions
   FOR SELECT USING (auth.role() = 'service_role');
@@ -100,8 +99,7 @@ CREATE POLICY "Allow admins to read all contact submissions" ON contact_submissi
 CREATE POLICY "Allow public to insert quote requests" ON quote_requests
   FOR INSERT WITH CHECK (true);
 
-CREATE POLICY "Allow public to read quote requests" ON quote_requests
-  FOR SELECT USING (true);
+-- Public form insertions do not require public SELECT access to private leads.
 
 CREATE POLICY "Allow admins to read all quote requests" ON quote_requests
   FOR SELECT USING (auth.role() = 'service_role');

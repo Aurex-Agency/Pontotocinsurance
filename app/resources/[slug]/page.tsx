@@ -5,15 +5,16 @@ import { Calendar, Clock, Phone, ArrowRight } from 'lucide-react'
 import { articles, getArticle, type ArticleBlock } from '@/lib/articles'
 
 interface ArticlePageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }))
 }
 
-export function generateMetadata({ params }: ArticlePageProps): Metadata {
-  const article = getArticle(params.slug)
+export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
+  const resolvedParams = await params
+  const article = getArticle(resolvedParams.slug)
   if (!article) return {}
   return {
     robots: article.reviewStatus === 'pending' ? { index: false, follow: false } : undefined,
@@ -63,8 +64,9 @@ function Block({ block }: { block: ArticleBlock }) {
   }
 }
 
-export default function ArticlePage({ params }: ArticlePageProps) {
-  const article = getArticle(params.slug)
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const resolvedParams = await params
+  const article = getArticle(resolvedParams.slug)
   if (!article) notFound()
 
   const articleData = {
